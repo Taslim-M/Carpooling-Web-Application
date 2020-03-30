@@ -13,7 +13,7 @@
     </head>
     <body>
         <h2>This is a test jsp file</h2>
-        1+1 = <%= (1+1) %> </br>
+        1+1 = <%= (2+2) %> </br>
         
         <jsp:useBean id="testUser" class="Beans.User" />
         <jsp:setProperty name="testUser" property="firstName" value="John" />
