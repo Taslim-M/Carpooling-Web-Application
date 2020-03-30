@@ -4,30 +4,65 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html lang="en" class="h-100">
     <head>
-        <title>TODO supply a title</title>
+        <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script type ="text/javascript">
+            function validate() {
+                var uname = document.forms.loginform.email.value;
+                var pwd = document.forms.loginform.pwd.value;
+                if (uname == null || uname == "" || pwd == null || pwd == "") {
+                    alert("Invalid Username Or password");
+                    return false;
+                }
+                if (!(/@aus.edu\s*$/.test(uname))) {
+                    alert("You can only register with your AUS account");
+                    return false;
+                }
+//                Open a connection to controller, send the info, get back validation
+                var http = new XMLHttpRequest();
+                http.open("POST", "http://localhost:8080/COE420-TeamE-FinalProject/test_jsp.jsp", true);
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                var params = "username=" + uname; // probably use document.getElementById(...).value
+                http.send(params);
+                http.onload = function () {
+                    alert(http.responseText);
+                }
+            }
+        </script>
     </head>
-    <body>
-        <div class ='container'>
-            <h2>University Student Carpooling Platform</h2>
-            <form action="">
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    <body class="h-100">
+        <div class ="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class ="col-10 col-md-8 col-lg-6">
+
+                    <div class="px-2">
+                        <form name = "loginform" action="" method="post" class="justify-content-center">
+                            <h1>USCP</h1>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                            </div>
+
+                            <button type="submit" onClick="return validate();" class="btn btn-primary btn-lg">Submit</button>
+                            <p class="copyright">&copy; University Student Carpooling Playform by Team-E.</p>
+                        </form>
+                        <!-- Form end -->
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div>
-    </body>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+</div> 
+</body>
 </html>
