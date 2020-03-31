@@ -3,13 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Beans;
+package UserManagementModule;
 
 /**
  *
  * @author azada
  */
-public class User {
+public abstract class User {
+
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private String mobileNumber;
 
     public String getFirstName() {
         return firstName;
@@ -21,6 +26,5 @@ public class User {
 
     public User() {
     }
-    private String firstName;
-    
+
 }
