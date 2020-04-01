@@ -8,6 +8,7 @@ package UserManagementModule;
 import CarpoolDatabase.DbRepo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -46,18 +47,19 @@ public class Account {
     }
 
     public boolean login() throws SQLException {
-        ResultSet rs = dbCon.executeSelectionQuery("Select * from ACCOUNTS WHERE USERNAME = '" + this.emailID + "'");
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        crs.setCommand("Select * from ACCOUNTS WHERE USERNAME = ? ");
+        crs.setString(1, emailID);
+        crs.execute();
         String usernameDB = "";
         String pwdDB = "";
-        if (rs != null) {
-            while (rs.next()) {
-                usernameDB = rs.getString("USERNAME");
-                pwdDB = rs.getString("PASSWORD");
-                if (this.emailID.equals(usernameDB) && this.password.equals(pwdDB)) {
-                    return true;
-                }
-            }
+        if (crs.next()) {
+            usernameDB = crs.getString("USERNAME");
+            pwdDB = crs.getString("PASSWORD");
+            return (this.emailID.equals(usernameDB) && this.password.equals(pwdDB));
         }
-        return false;
+        else {
+            return false;
+        }
     }
 }

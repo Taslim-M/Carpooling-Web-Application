@@ -17,36 +17,9 @@ import javax.sql.rowset.RowSetProvider;
  * @author azada
  */
 public class DbRepo {
-    
-    public DbRepo(){
-        
-    }
-    
-    public ResultSet executeSelectionQuery(String query){
-        CachedRowSet crs = getConnection();
-        try {
-            crs.setCommand(query);
-            crs.execute();
-            return crs;
-        } catch (SQLException ex) {
-            Logger.getLogger(DbRepo.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }   
-    }
-    
-    public boolean executeUpdationQuery(String query) {
-        CachedRowSet crs = getConnection();
-        try {
-            crs.setCommand(query);
-            crs.execute();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DbRepo.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
+   
 
-    private CachedRowSet getConnection() {
+    public static CachedRowSet getConfiguredConnection() {
         CachedRowSet crs = null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
