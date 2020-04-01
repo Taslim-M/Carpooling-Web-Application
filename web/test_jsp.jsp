@@ -4,6 +4,7 @@
     Author     : azada
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,11 +15,17 @@
     <body>
         <h2>This is a test jsp file</h2>
         1+1 = <%= (2+2) %> </br>
-        
-        <jsp:useBean id="testUser" class="Beans.User" />
-        <jsp:setProperty name="testUser" property="firstName" value="John" />
-        
-        Hi, my name is ${testUser.firstName}
+        <ol>
+        <%
+        CarpoolDatabase.DbRepo repo = new CarpoolDatabase.DbRepo();
+        ResultSet rs = repo.executeSelectionQuery("select * from employee");
+        while (rs.next()){
+        %>
+        <li><%=rs.getString("fname")%></li>  
+        <%
+        }
+        %>
+        </ol>
     </body>
 </html>
 
