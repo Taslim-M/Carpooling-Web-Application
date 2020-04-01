@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,7 +42,8 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("pwd");
             boolean isValid = (new Account(userName,password)).login();
             if(isValid){//Successful login
-                request.setAttribute("username", userName);
+                HttpSession session = request.getSession();
+                session.setAttribute("username", userName);
                 RequestDispatcher rd = request.getRequestDispatcher("findRide.jsp");
                 rd.forward(request, response);
             }else{ // GO back to login page

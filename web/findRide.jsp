@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World! Find A Ride</h1>
+        <c:if test="${empty sessionScope.username}" >
+            <jsp:forward page="index.html" />
+        </c:if>
+        <h1>Hello ${sessionScope.username}! Find A Ride</h1>
     </body>
 </html>
