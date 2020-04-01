@@ -63,7 +63,7 @@
                             </div>
                             <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>
                             <div class ="container">
-                                <p class="copyright">&copy; University Student Carpooling Playform by Team-E.</p>  
+                                <p class="copyright">&copy; University Student Carpooling Platform by Team-E.</p>  
                             </div>
                         </form>
                         <!-- Form end -->
