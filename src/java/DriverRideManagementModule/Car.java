@@ -12,4 +12,5 @@ package DriverRideManagementModule;
 public class Car {
     private String carModel;
     private Integer carCapacity;
+    private String carPlate;
 }
