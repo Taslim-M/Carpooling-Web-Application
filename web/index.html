@@ -22,15 +22,7 @@ and open the template in the editor.
                     alert("You can only register with your AUS account");
                     return false;
                 }
-//                Open a connection to controller, send the info, get back validation
-                var http = new XMLHttpRequest();
-                http.open("POST", "http://localhost:8080/COE420-TeamE-FinalProject/test_jsp.jsp", true);
-                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                var params = "username=" + uname; // probably use document.getElementById(...).value
-                http.send(params);
-                http.onload = function () {
-                    alert(http.responseText);
-                }
+                return true;
             }
         </script>
     </head>
@@ -40,7 +32,7 @@ and open the template in the editor.
                 <div class ="col-10 col-md-8 col-lg-6">
 
                     <div class="px-2">
-                        <form name = "loginform" action="" method="post" class="justify-content-center">
+                        <form name = "loginform" action="LoginController" method="post" class="justify-content-center">
                             <h1>USCP</h1>
                             <div class="form-group">
                                 <label for="email">Email:</label>

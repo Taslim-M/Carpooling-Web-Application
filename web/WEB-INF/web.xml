@@ -14,10 +14,10 @@
     </context-param>
     <context-param>
         <param-name>dbUsername</param-name>
-        <param-value>b00074086</param-value>
+        <param-value>b00075270</param-value>
     </context-param>
     <context-param>
         <param-name>dbPassword</param-name>
-        <param-value>b00074086</param-value>
+        <param-value>b00075270</param-value>
     </context-param>
 </web-app>
