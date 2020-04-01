@@ -15,7 +15,7 @@
             function validate() {
                 var fname = document.forms.registerform.fname.value;
                 var lname = document.forms.registerform.lname.value;
-                var email = document.forms.registerform.email.value;             
+                var email = document.forms.registerform.email.value;     
                 var pwd = document.forms.registerform.pwd.value;
                 var mobilenumber = document.forms.registerform.mobilenumber.value;
                 if (email == null || email == "" || pwd == null || pwd == "" ||fname == null || fname == "" || lname == null || lname == "") {
