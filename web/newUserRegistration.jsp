@@ -15,18 +15,19 @@
             function validate() {
                 var fname = document.forms.registerform.fname.value;
                 var lname = document.forms.registerform.lname.value;
-                var email = document.forms.registerform.email.value;     
+                var email = document.forms.registerform.email.value;
                 var pwd = document.forms.registerform.pwd.value;
                 var mobilenumber = document.forms.registerform.mobilenumber.value;
-                if (email == null || email == "" || pwd == null || pwd == "" ||fname == null || fname == "" || lname == null || lname == "") {
+
+                if (email == null || email == "" || pwd == null || pwd == "" || fname == null || fname == "" || lname == null || lname == "") {
                     alert("Please input Username, Password, First and Last name");
                     return false;
                 }
-                if(mobilenumber.length != 10){
+                if (mobilenumber.length != 10) {
                     alert("Please enter Mobile number correctly");
                     return false;
                 }
-                 if (!(/@aus.edu\s*$/.test(email))) {
+                if (!(/@aus.edu\s*$/.test(email))) {
                     alert("You can only register with your AUS account");
                     return false;
                 }
@@ -58,9 +59,17 @@
                                 <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
                             </div>
                             <div class="form-group">
-                                <label for="mobilenumber">Last Name:</label>
+                                <label for="mobilenumber">Mobile Number:</label>
                                 <input type="text" class="form-control" id="mobilenumber" placeholder="05XXXXXXXX" name="mobilenumber">
                             </div>
+                            <div>
+                                <label for="sel1">Select Gender:</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option>M</option>
+                                    <option>F</option>
+                                </select>
+                            </div>
+                             <h1>  </h1>
                             <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>
                             <div class ="container">
                                 <p class="copyright">&copy; University Student Carpooling Platform by Team-E.</p>  

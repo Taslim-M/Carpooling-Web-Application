@@ -5,8 +5,10 @@
  */
 package Controller;
 
+import UserManagementModule.Platform;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +38,19 @@ public class RegisterController extends HttpServlet {
         String password = request.getParameter("pwd");
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
+        String gender = request.getParameter("gender");
         String mobilenumber = request.getParameter("mobilenumber");
-        
+
+        boolean isAdded = (new Platform()).submitRegistrationFormDetails(email, password, fname, lname, gender, mobilenumber);
+        if (isAdded) {
+            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+            rd.forward(request, response);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/newUserRegistration.jsp");
+            //request.setAttribute("errmsg", "User Already Exist");
+            rd.forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

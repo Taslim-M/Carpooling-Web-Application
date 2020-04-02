@@ -24,7 +24,7 @@
        --%>
         <jsp:include page="navbar.html"/>
         <div class="container">
-            <h1>Hello ${sessionScope.username}! Find A Ride</h1>
+            <h1>Hello ${sessionScope.passenger.firstName}! Find A Ride</h1>
         </div>
         
         <form>

@@ -6,11 +6,54 @@
 package PassengerRideManagementModule;
 
 import UserManagementModule.User;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
  * @author Tasli
  */
-public class Passenger extends User{
+public class Passenger extends User {
     
+    public Passenger() {
+        
+    }
+
+    public boolean isDriver() {
+         try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from DRIVERS WHERE DRIVER_ID = ? ");
+            crs.setString(1, this.getEmailID());
+            crs.execute();
+            if (crs.next()) {
+                return true;
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+
+    public static Passenger getPassenger(String emailID) {
+        Passenger p = new Passenger();
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from USERS WHERE EMAIL_ID = ? ");
+            crs.setString(1, emailID);
+            crs.execute();
+            if (crs.next()) {
+                p.setEmailID(emailID);
+                p.setFirstName(crs.getString("FIRST_NAME"));                
+                p.setLastName(crs.getString("LAST_NAME"));
+                p.setGender(crs.getString("GENDER"));
+                p.setMobileNumber(crs.getString("MOBILE_NO"));
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
+    }
 }

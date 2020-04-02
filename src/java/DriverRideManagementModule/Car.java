@@ -12,4 +12,20 @@ package DriverRideManagementModule;
 public class Car {
     private String carModel;
     private Integer carCapacity;
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public Integer getCarCapacity() {
+        return carCapacity;
+    }
+
+    public void setCarCapacity(Integer carCapacity) {
+        this.carCapacity = carCapacity;
+    }
 }

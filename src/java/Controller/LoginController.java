@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import DriverRideManagementModule.Driver;
+import PassengerRideManagementModule.Passenger;
 import UserManagementModule.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,20 +42,26 @@ public class LoginController extends HttpServlet {
         try {
             String userName = request.getParameter("email");
             String password = request.getParameter("pwd");
-            boolean isValid = (new Account(userName,password)).login();
-            if(isValid){//Successful login
+            boolean isValid = (new Account(userName, password)).login();
+            if (isValid) {//Successful login
+                Passenger p = Passenger.getPassenger(userName);
+
                 HttpSession session = request.getSession();
                 session.setAttribute("username", userName);
+                session.setAttribute("passenger", p);
+                if (p.isDriver()) {
+                    Driver d = new Driver();
+                    session.setAttribute("driver", d);
+                }
                 RequestDispatcher rd = request.getRequestDispatcher("findRide.jsp");
                 rd.forward(request, response);
-            }else{ // GO back to login page
+            } else { // GO back to login page
                 RequestDispatcher rd = request.getRequestDispatcher("/index.html");
                 rd.forward(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
     }
 
@@ -95,7 +103,5 @@ public class LoginController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
 
 }
