@@ -28,4 +28,9 @@ public class Car {
     public void setCarCapacity(Integer carCapacity) {
         this.carCapacity = carCapacity;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" + "carModel=" + carModel + ", carCapacity=" + carCapacity + '}';
+    }
 }

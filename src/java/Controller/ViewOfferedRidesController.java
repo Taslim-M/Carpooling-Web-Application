@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Controller;
 
 import DriverRideManagementModule.Driver;
-import PassengerRideManagementModule.Passenger;
-import UserManagementModule.Account;
+import DriverRideManagementModule.SingleRide;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Tasli
  */
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet(name = "ViewOfferedRidesController", urlPatterns = {"/ViewOfferedRidesController"})
+public class ViewOfferedRidesController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,32 +36,14 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try {
-            String userName = request.getParameter("email");
-            String password = request.getParameter("pwd");
-            boolean isValid = (new Account(userName, password)).login();
-            if (isValid) {//Successful login
-                Passenger p = Passenger.getPassenger(userName);
-
-                HttpSession session = request.getSession();
-                session.setAttribute("username", userName);
-                session.setAttribute("passenger", p);
-                if (p.isDriver()) {
-                    Driver d = new Driver();
-                    d.setEmailID(userName);
-                    session.setAttribute("driver", d);
-                }
-                RequestDispatcher rd = request.getRequestDispatcher("findRide.jsp");
-                rd.forward(request, response);
-            } else { // GO back to login page
-                RequestDispatcher rd = request.getRequestDispatcher("/index.html");
-                rd.forward(request, response);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        HttpSession session = request.getSession();
+        Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
+        if (d != null) {
+            ArrayList<SingleRide> singleRides = d.viewSingleConfirmedRides();
+            RequestDispatcher rd = request.getRequestDispatcher("ViewOfferedRides.jsp");
+            request.setAttribute("singleRides", singleRides);
+            rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

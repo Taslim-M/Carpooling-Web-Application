@@ -4,12 +4,10 @@
     Author     : reem
 --%>
 
-<%@page import="javax.sql.rowset.CachedRowSet"%>
-<%@page import="CarpoolDatabase.DbRepo"%>
-<%@page import="java.sql.SQLException"%>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,36 +29,17 @@
                 <td><b>Current Seat Availability</b></td>
 
             </tr>
+            <c:forEach var="ride" items="${request.singleRides}">
+                <tr bgcolor="#E2FFFB">
+                    <td><${ride.rideId}></td>
+                    <td><${ride.isToUni}></td>
+                    <td><${ride.arrivalDepartureTime}></td>
+                    <td><${ride.startingLocation}></td>
+                    <td><${ride.endingLocation}></td>
+                    <td><${ride.seatAvailability}></td>
+                </tr>
+            </c:forEach>
 
-            <%
-                String username = (String) session.getAttribute("username");
-                CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs.setCommand("Select * from offered_rides where driver_id = '" + username + "' AND ride_id in (select ride_id from confirmed_rides)");
-
-                crs.execute();
-                while (crs.next()) {
-            %>
-
-
-
-            <tr bgcolor="#E2FFFB">
-                <td><%=crs.getString("ride_id")%></td>
-                <td><%=crs.getString("is_to_uni")%></td>
-                <td><%=crs.getString("arrival_dep_time")%></td>
-                <td><%=crs.getString("start_location")%></td>
-                <td><%=crs.getString("end_location")%></td>
-                <td><%=crs.getString("current_seat_avail")%></td>
-
-
-            </tr>
-
-
-            <%
-
-                }
-
-
-            %>
         </table>
 
 

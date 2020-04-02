@@ -9,6 +9,6 @@ package DriverRideManagementModule;
  *
  * @author Tasli
  */
-public class WeeklyRide {
+public class WeeklyRide extends Ride{
     private String day;
 }
