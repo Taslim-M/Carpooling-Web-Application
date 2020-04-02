@@ -29,7 +29,7 @@
                 <td><b>Current Seat Availability</b></td>
 
             </tr>
-            <c:forEach var="ride" items="${request.singleRides}">
+            <c:forEach var="ride" items="${param.singleRides}">
                 <tr bgcolor="#E2FFFB">
                     <td><${ride.rideId}></td>
                     <td><${ride.isToUni}></td>
