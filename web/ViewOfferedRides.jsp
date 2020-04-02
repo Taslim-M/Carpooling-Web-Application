@@ -15,7 +15,7 @@
         <title>Confirmed Rides</title>
     </head>
     <body>
-        <h1>Confirmed Rides of User ${sessionScope.username} </h1>
+        <h1>Confirmed Rides of User ${sessionScope.driver.emailID} </h1>
         <table align="center" cellpadding="5" cellspacing="5" border="1">
             <tr>
 
