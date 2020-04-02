@@ -41,7 +41,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="LogoutController"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
         </nav>
