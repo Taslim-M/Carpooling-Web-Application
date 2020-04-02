@@ -39,6 +39,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">Offer A Ride</a></li>
                             <li><a href="#">View Offered Rides</a></li>
+                            <li><a href="ViewConfirmedRides.jsp">View Confirmed Rides</a></li>
                         </ul>
                     </li>
                 </ul>
