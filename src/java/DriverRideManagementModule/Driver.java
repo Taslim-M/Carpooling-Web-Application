@@ -68,7 +68,7 @@ public class Driver extends Passenger {
                 SingleRide r = new SingleRide();
                 r.setRideId(crs.getInt("ride_id"));
                 r.setIsToUni((crs.getInt("is_to_uni")==1) ? true : false );
-                r.setArrivalDepartureTime((crs.getTimestamp("arrival_dep_time")).toLocalDateTime().toLocalTime());
+                r.setArrivalDepartureTime(crs.getString("arrival_dep_time"));
                 r.setStartingLocation(new Location(crs.getString("start_location")));
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));

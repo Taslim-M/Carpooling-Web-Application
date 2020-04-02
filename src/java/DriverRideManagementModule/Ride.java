@@ -12,11 +12,12 @@ package DriverRideManagementModule;
 import PassengerRideManagementModule.Location;
 import java.time.LocalTime;
 
+
 public abstract class Ride {
 
     private Integer rideId;
     private boolean isToUni;
-    private LocalTime arrivalDepartureTime;
+    private String arrivalDepartureTime;
     private Location startingLocation;
     private Location endingLocation;
     private Integer seatAvailability;
@@ -38,11 +39,11 @@ public abstract class Ride {
         this.isToUni = isToUni;
     }
 
-    public LocalTime getArrivalDepartureTime() {
+    public String getArrivalDepartureTime() {
         return arrivalDepartureTime;
     }
 
-    public void setArrivalDepartureTime(LocalTime arrivalDepartureTime) {
+    public void setArrivalDepartureTime(String arrivalDepartureTime) {
         this.arrivalDepartureTime = arrivalDepartureTime;
     }
 
