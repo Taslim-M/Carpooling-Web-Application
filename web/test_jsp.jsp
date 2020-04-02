@@ -13,19 +13,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="navbar.html"/>
         <h2>This is a test jsp file</h2>
-        1+1 = <%= (2+2) %> </br>
-        <ol>
-        <%
-        CarpoolDatabase.DbRepo repo = new CarpoolDatabase.DbRepo();
-        ResultSet rs = repo.executeSelectionQuery("select * from employee");
-        while (rs.next()){
-        %>
-        <li><%=rs.getString("fname")%></li>  
-        <%
-        }
-        %>
-        </ol>
+
     </body>
 </html>
 
