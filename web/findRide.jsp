@@ -26,9 +26,9 @@
                    <p class="navbar-text">USCP - Logged in as ${sessionScope.username}</p>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Passenger<span class="caret"></span></a>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Passenger<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Find A Ride</a></li>
+                            <li><a href="findRide.jsp">Find A Ride</a></li>
                             <li><a href="#">View Confirmed Rides</a></li>
                             <li><a href="#">Register As Driver</a></li>
                         </ul>
