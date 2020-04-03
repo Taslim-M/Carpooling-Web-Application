@@ -24,9 +24,10 @@ public class DbRepo {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             crs = RowSetProvider.newFactory().createCachedRowSet();
-            crs.setUrl(DbCredentialsSingleton.getDbUrl());
-            crs.setUsername(DbCredentialsSingleton.getDbUsername());
-            crs.setPassword(DbCredentialsSingleton.getDbPassword());
+            crs.setUrl("jdbc:oracle:thin:@coeoracle.aus.edu:1521:orcl");
+            crs.setUsername("b00075270");
+            crs.setPassword("b00075270");
+
         } catch (SQLException ex) {
             Logger.getLogger(DbRepo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
