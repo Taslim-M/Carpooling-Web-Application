@@ -39,11 +39,6 @@ public class Platform {
         p.setMobileNumber(mobileNo);
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("INSERT INTO ACCOUNTS (USERNAME, PASSWORD) VALUES (?,?) ");
-            crs.setString(1, email);
-            crs.setString(2, password);
-            crs.execute();
-            
             crs.setCommand("INSERT INTO USERS (EMAIL_ID, FIRST_NAME, LAST_NAME, GENDER, MOBILE_NO) VALUES (?,?,?,?,?) ");
             crs.setString(1, email);
             crs.setString(2, fname);
@@ -51,7 +46,12 @@ public class Platform {
             crs.setString(4, gender);
             crs.setString(5, mobileNo);
             crs.execute();
-            
+
+            crs.setCommand("INSERT INTO ACCOUNTS (USERNAME, PASSWORD) VALUES (?,?) ");
+            crs.setString(1, email);
+            crs.setString(2, password);
+            crs.execute();
+
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
             return false;

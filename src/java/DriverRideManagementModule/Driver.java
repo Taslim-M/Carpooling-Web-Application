@@ -8,10 +8,13 @@ package DriverRideManagementModule;
 import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Part;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -67,13 +70,13 @@ public class Driver extends Passenger {
             while (crs.next()) {
                 SingleRide r = new SingleRide();
                 r.setRideId(crs.getInt("ride_id"));
-                r.setIsToUni((crs.getInt("is_to_uni")==1) ? true : false );
+                r.setIsToUni((crs.getInt("is_to_uni") == 1) ? true : false);
                 r.setArrivalDepartureTime(crs.getString("arrival_dep_time"));
                 r.setStartingLocation(new Location(crs.getString("start_location")));
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
                 rides.add(r);
-                       
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,9 +97,9 @@ public class Driver extends Passenger {
                 p.setLastName(crs.getString("last_name"));
                 p.setGender(crs.getString("Gender"));
                 p.setMobileNumber(crs.getString("mobile_no"));
-                
+
                 Passengers.add(p);
-                       
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,5 +109,48 @@ public class Driver extends Passenger {
 
     private String getRideId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean updateDriverProfile(String email, String carModel, Integer capacity, Part eid, Part license, Part carReg) {
+        try {
+
+            InputStream eidIS = eid.getInputStream();
+            InputStream licenseIS = license.getInputStream();
+            InputStream carIS = carReg.getInputStream();
+
+            if (eidIS != null && licenseIS != null && carIS != null) {
+
+                CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                //THE AUS DB DOES NOT ALLOW US TO INSERT BLOB for IMAGES
+//                crs.setCommand("INSERT INTO DRIVER_APPLICATIONS (EMAIL_ID, LICENSE_IMAGE, CAR_REGIS_IMAGE, CAR_MODEL, EMIRATES_ID_IMAGE, CAR_CAPACITY) VALUES (?,?,?,?,?,?)");
+//                crs.setString(1, email);
+//                System.out.println("Set EMAIL");
+//                crs.setBlob(2, licenseIS);
+//                System.out.println("Set Liecense blob");
+//                crs.setBlob(3, carIS);
+//                crs.setString(4, carModel);
+//                crs.setBlob(5, eidIS);
+//                crs.setInt(6, capacity);
+//                System.out.println("Set All PPTs");
+
+                crs.setCommand("INSERT INTO DRIVER_APPLICATIONS (EMAIL_ID,CAR_MODEL,CAR_CAPACITY) VALUES (?,?,?)");
+                crs.setString(1, email);
+                crs.setString(2, carModel);
+                crs.setInt(3, capacity);
+                crs.execute();
+
+            } else {
+                return false;
+            }
+        } catch (IOException ex) {
+            System.out.println(" SOMETHING IN DRIVER ER:" + ex);
+            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (SQLException ex) {
+            System.out.println(" SOMETHING IN DRIVER SQL ER:" + ex);
+            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 }

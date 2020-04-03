@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Part;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -59,7 +60,12 @@ public class Passenger extends User {
         }
         return p;
     }
-    
+    public boolean checkDriverRegistrationDetails(String carModel,Integer capacity, Part eid, Part license, Part carReg){
+        if(eid != null && license != null && carReg != null && carModel !=null && capacity != null){
+            return true;
+        }
+        return false;
+    }
     //INCOMPLETE
     public ArrayList<Ride> searchRides(boolean isSingle, String isToUni, LocalDate rideDate, ArrayList<String> rideDays, Location rideLocation, String rideTime){
         ArrayList<Ride> foundRides = new ArrayList<>();
@@ -71,4 +77,5 @@ public class Passenger extends User {
         }
         return  foundRides;
     }
+    
 }
