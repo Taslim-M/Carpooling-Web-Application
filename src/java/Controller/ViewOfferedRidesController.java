@@ -7,6 +7,7 @@ package Controller;
 
 import DriverRideManagementModule.Driver;
 import DriverRideManagementModule.SingleRide;
+import DriverRideManagementModule.WeeklyRide;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -39,10 +40,13 @@ public class ViewOfferedRidesController extends HttpServlet {
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
-            ArrayList<SingleRide> singleRides = d.viewSingleConfirmedRides();
+            ArrayList<SingleRide> singleRides = d.viewSingleOfferedRides();
+            ArrayList<WeeklyRide> weeklyRides = d.viewWeeklyOfferedRides();
             RequestDispatcher rd = request.getRequestDispatcher("ViewOfferedRides.jsp");
-            request.setAttribute("singleRides", singleRides);
+            request.setAttribute("singleRides", singleRides); 
+            request.setAttribute("weeklyRides", weeklyRides);
             rd.forward(request, response);
+            
         }
     }
 

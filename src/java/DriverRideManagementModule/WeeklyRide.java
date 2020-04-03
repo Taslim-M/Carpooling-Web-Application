@@ -5,10 +5,32 @@
  */
 package DriverRideManagementModule;
 
+import PassengerRideManagementModule.Location;
+
 /**
  *
  * @author Tasli
  */
 public class WeeklyRide extends Ride{
+
     private String day;
+    
+    
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+    
+    public WeeklyRide(String day, Integer rideId, boolean isToUni, String arrivalDepartureTime, Location startingLocation, Location endingLocation, Integer seatAvailability, Driver driver) {
+        super(rideId, isToUni, arrivalDepartureTime, startingLocation, endingLocation, seatAvailability, driver);
+        this.day = day;
+    }
+    public WeeklyRide(){
+        
+    }
+
+
 }

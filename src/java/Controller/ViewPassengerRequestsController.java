@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author reem
  */
-@WebServlet(name = "ViewConfirmedPassengersController", urlPatterns = {"/ViewConfirmedPassengersController"})
-public class ViewConfirmedPassengersController extends HttpServlet {
+@WebServlet(name = "ViewPassengerRequestsController", urlPatterns = {"/ViewPassengerRequestsController"})
+public class ViewPassengerRequestsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,11 +36,12 @@ public class ViewConfirmedPassengersController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String Ride_ID = request.getParameter("rideid");
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
-            ArrayList<Passenger> Passengers = d.viewConfirmedPassengers();
-            RequestDispatcher rd = request.getRequestDispatcher("viewConfirmedPassengers.jsp");
+            ArrayList<Passenger> Passengers = d.viewPassengerRequests(Ride_ID);
+            RequestDispatcher rd = request.getRequestDispatcher("viewPassengerRequests.jsp");
             request.setAttribute("Passengers", Passengers);
             rd.forward(request, response);
         }
