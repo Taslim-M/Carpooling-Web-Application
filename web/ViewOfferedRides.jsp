@@ -15,21 +15,21 @@
         <title>Confirmed Rides</title>
     </head>
     <body>
-        <h1> Confirmed Rides of User ${sessionScope.driver.emailID} </h1>
+        <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > Confirmed Rides of User ${sessionScope.driver.firstName} </h1>
         
-        <table align="center" cellpadding="5" cellspacing="5" border="1">
+        <table align="center" cellpadding="5" cellspacing="0" border="1">
             <tr>
 
             
             </tr>
-            <tr bgcolor="#0EB39C">
-                <td><b>Ride ID</b></td>
-                <td><b>Is to Uni</b></td>
-                <td><b>Arrival/Departure Time</b></td>
-                <td><b>Start Location</b></td>
-                <td><b>End Location</b></td>
-                <td><b>Current Seat Availability</b></td>
-                <td><b>View Confirmed Passengers</b></td>
+            <tr bgcolor="#E9E9E9">
+                <td><b><font style = "font-family: avenir" >Ride ID </font></b></td>
+                <td><b><font style = "font-family: avenir" >Is to Uni</font></b></td>
+                <td><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
+                <td><b><font style = "font-family: avenir" >Start Location</font></b></td>
+                <td><b><font style = "font-family: avenir" >End Location</font></b></td>
+                <td><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
+                <td><b><font style = "font-family: avenir" >View Confirmed Passengers</font></b></td>
 
             </tr>
             
@@ -37,13 +37,13 @@
 
                 
             <c:forEach items="${singleRides}" var = "ride" >
-                <tr bgcolor="#E2FFFB">
-                    <td>${ride.rideId}</td>
-                    <td>${ride.isToUni}</td>
-                    <td>${ride.arrivalDepartureTime}</td>
-                    <td>${ride.startingLocation}</td>
-                    <td>${ride.endingLocation}</td>
-                    <td>${ride.seatAvailability}</td>
+                <tr bgcolor="#FFFFFF">
+                    <td><font style = "font-family: avenir" >${ride.rideId}</font></td>
+                    <td><font style = "font-family: avenir" >${ride.isToUni}</font></td>
+                    <td><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></td>
+                    <td><font style = "font-family: avenir" >${ride.startingLocation}</font></td>
+                    <td><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
+                    <td><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
                     <td><button style = "height : 50px; width : 180px" ><a href="ViewConfirmedPassengersController"> <font size = 3  >Select</font></a></button></td>
                         
                 </tr>

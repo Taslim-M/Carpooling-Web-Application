@@ -15,32 +15,28 @@
         <title>Confirmed Rides</title>
     </head>
     <body>
-        <h1> Confirmed Passengers list </h1>
+        <h1 style = "font-family: avenir; color : #9B1B1B " align = "center" > Confirmed Passengers list </h1>
         
-        <table align="center" cellpadding="5" cellspacing="5" border="1">
+        <table align="center" cellpadding="5" cellspacing="0" border="1">
             <tr>
 
             
             </tr>
-            <tr bgcolor="#0EB39C">
-                <td><b>Passenger ID</b></td>
-                <td><b>First Name</b></td>
-                <td><b>Last Name</b></td>
-                <td><b>Gender</b></td>
-                <td><b>Mobile Number</b></td>
+            <tr bgcolor="#E9E9E9">
+                <td><b><font style = "font-family: avenir" >Passenger ID</font></b></td>
+                <td><b><font style = "font-family: avenir" >First Name</font></b></td>
+                <td><b><font style = "font-family: avenir" >Last Name</font></b></td>
+                <td><b><font style = "font-family: avenir" >Gender</font></b></td>
+                <td><b><font style = "font-family: avenir" >Mobile Number</font></b></td>
 
-            </tr>
-            
-
-
-                
+            </tr>  
             <c:forEach items="${Passengers}" var = "passenger" >
-                <tr bgcolor="#E2FFFB">
-                    <td>${passenger.emailID}</td>
-                    <td>${passenger.firstName}</td>
-                    <td>${passenger.lastName}</td>
-                    <td>${passenger.gender}</td>
-                    <td>${passenger.mobileNumber}</td>
+                <tr bgcolor="#FFFFFF">
+                    <td><font style = "font-family: avenir" >${passenger.emailID}</font></td>
+                    <td><font style = "font-family: avenir" >${passenger.firstName}</font></td>
+                    <td><font style = "font-family: avenir" >${passenger.lastName}</font></td>
+                    <td><font style = "font-family: avenir" >${passenger.gender}</font></td>
+                    <td><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
                
                 </tr>
             </c:forEach>
