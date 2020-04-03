@@ -44,7 +44,7 @@ public class Platform {
             crs.setString(2, password);
             crs.execute();
             
-            crs.setCommand("INSERT INTO USERS (EMAIL_ID, FIRST_NAME, LAST_NAME, GENDER, MOBILE_NO) VALUES (?,?) ");
+            crs.setCommand("INSERT INTO USERS (EMAIL_ID, FIRST_NAME, LAST_NAME, GENDER, MOBILE_NO) VALUES (?,?,?,?,?) ");
             crs.setString(1, email);
             crs.setString(2, fname);
             crs.setString(3, lname);
