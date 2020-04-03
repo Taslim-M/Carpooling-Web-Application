@@ -16,9 +16,11 @@
     </head>
     <body>
         <h1>Confirmed Rides of User ${sessionScope.driver.emailID} </h1>
+        
         <table align="center" cellpadding="5" cellspacing="5" border="1">
             <tr>
 
+            
             </tr>
             <tr bgcolor="#0EB39C">
                 <td><b>Ride ID</b></td>
@@ -29,14 +31,18 @@
                 <td><b>Current Seat Availability</b></td>
 
             </tr>
-            <c:forEach var="ride" items="${param.singleRides}">
+            
+
+
+                
+            <c:forEach items="${singleRides}" var = "ride" >
                 <tr bgcolor="#E2FFFB">
-                    <td><${ride.rideId}></td>
-                    <td><${ride.isToUni}></td>
-                    <td><${ride.arrivalDepartureTime}></td>
-                    <td><${ride.startingLocation}></td>
-                    <td><${ride.endingLocation}></td>
-                    <td><${ride.seatAvailability}></td>
+                    <td>${ride.rideId}</td>
+                    <td>${ride.isToUni}</td>
+                    <td>${ride.arrivalDepartureTime}</td>
+                    <td>${ride.startingLocation}</td>
+                    <td>${ride.endingLocation}</td>
+                    <td>${ride.seatAvailability}</td>
                 </tr>
             </c:forEach>
 
