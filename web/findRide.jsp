@@ -26,7 +26,7 @@
             <h1>Hello ${sessionScope.passenger.firstName}! Find A Ride</h1>
         </div>
         
-        <form>
+        <form action="SearchRidesController">
             Select Ride Frequency: <br/>
             <input type="radio" name="single_or_weekly" value="single" onclick="manageSingleWeekly(this)" /> Single
             <input type="radio" name="single_or_weekly" value="weekly" onclick="manageSingleWeekly(this)" /> Weekly
@@ -52,12 +52,17 @@
                  <br/>
             </div>
             
-            Pickup Area: 
-            <input type="text" name="ride_location" value="" />
+            Pickup Area: <br/>
+            <label for="ride_location_longitude">Longitude:</label>
+            <input type="number" step="any" name="ride_location_longitude" value="" /><br/>
+            <label for="ride_location_latitude">Latitude:</label>
+            <input type="number" step="any" name="ride_location_latitude" value="" />
+
             <br/>
             <label for="ride_time">Departure Time:</label>
             <input type="time" id="ride_time" name="ride_time">
-            
+            <br/>
+            <input type="submit" value="Search Rides" />
         </form>
         <script>
             function manageSingleWeekly(button){

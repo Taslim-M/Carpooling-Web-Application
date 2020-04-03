@@ -11,6 +11,7 @@ package PassengerRideManagementModule;
  */
 public class Location {
 
+
     private float longitude;
     private float latitude;
 
@@ -37,6 +38,11 @@ public class Location {
         this.longitude = Float.parseFloat(longlat[0]);
         this.latitude = Float.parseFloat(longlat[1]);
     }
+    public Location(float longitude, float latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
 
     @Override
     public String toString() {
