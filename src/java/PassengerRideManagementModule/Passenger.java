@@ -5,8 +5,11 @@
  */
 package PassengerRideManagementModule;
 
+import DriverRideManagementModule.Ride;
 import UserManagementModule.User;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
@@ -55,5 +58,17 @@ public class Passenger extends User {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return p;
+    }
+    
+    //INCOMPLETE
+    public ArrayList<Ride> searchRides(boolean isSingle, String isToUni, LocalDate rideDate, ArrayList<String> rideDays, Location rideLocation, String rideTime){
+        ArrayList<Ride> foundRides = new ArrayList<>();
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        Location lowerBoundLoc = new Location(rideLocation.getLongitude() - 1, rideLocation.getLatitude() - 1);
+        Location upperBoundLoc = new Location(rideLocation.getLongitude() + 1, rideLocation.getLatitude() + 1);
+        
+        if (isSingle){
+        }
+        return  foundRides;
     }
 }
