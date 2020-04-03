@@ -31,14 +31,16 @@
 
             </tr>
             <tr bgcolor="#E9E9E9">
-                <td><b><font style = "font-family: avenir" >Ride ID </font></b></td>
-                <td><b><font style = "font-family: avenir" >Is to Uni</font></b></td>
-                <td><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
-                <td><b><font style = "font-family: avenir" >Start Location</font></b></td>
-                <td><b><font style = "font-family: avenir" >End Location</font></b></td>
-                <td><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
-                <td><b><font style = "font-family: avenir" >Date</font></b></td>
-                <td><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                
+                <td align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Is to Uni</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Date</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >CANCEL RIDE</font></b></td>
 
             </tr>
 
@@ -47,15 +49,15 @@
 
             <c:forEach items="${singleRides}" var = "ride" >
                 <tr bgcolor="#FFFFFF">
-                    <td><font style = "font-family: avenir" >${ride.rideId}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.isToUni}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.startingLocation}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.date}</font></td>
-                    <td><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
-
+                    <td align = "center"><font style = "font-family: avenir" >${ride.rideId}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.isToUni}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.startingLocation}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.date}</font></td>
+                    <td align = "center"><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
+                    <td align = "center"><form action="CancelRideController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Cancel"></form></td>
                 </tr>
             </c:forEach>
 
@@ -70,14 +72,16 @@
 
             </tr>
             <tr bgcolor="#E9E9E9">
-                <td><b><font style = "font-family: avenir" >Ride ID </font></b></td>
-                <td><b><font style = "font-family: avenir" >Is to Uni</font></b></td>
-                <td><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
-                <td><b><font style = "font-family: avenir" >Start Location</font></b></td>
-                <td><b><font style = "font-family: avenir" >End Location</font></b></td>
-                <td><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
-                <td><b><font style = "font-family: avenir" >Day</font></b></td>
-                <td><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                
+                <td align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Is to Uni</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Day</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >CANCEL RIDE</font></b></td>
 
             </tr>
 
@@ -86,15 +90,16 @@
 
             <c:forEach items="${weeklyRides}" var = "ride" >
                 <tr bgcolor="#FFFFFF">
-                    <td><font style = "font-family: avenir" >${ride.rideId}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.isToUni}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.startingLocation}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
-                    <td><font style = "font-family: avenir" >${ride.day}</font></td>
-                    <td><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
-
+                    
+                    <td align = "center"><font style = "font-family: avenir" >${ride.rideId}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.isToUni}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.startingLocation}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${ride.day}</font></td>
+                    <td align = "center"><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
+                    <td align = "center"><form action="CancelRideController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Cancel"></form></td>
                 </tr>
             </c:forEach>
 

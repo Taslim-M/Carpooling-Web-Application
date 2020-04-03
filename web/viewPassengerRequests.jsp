@@ -23,23 +23,23 @@
             
             </tr>
             <tr bgcolor="#E9E9E9">
-                <td><b><font style = "font-family: avenir" >Passenger ID</font></b></td>
-                <td><b><font style = "font-family: avenir" >First Name</font></b></td>
-                <td><b><font style = "font-family: avenir" >Last Name</font></b></td>
-                <td><b><font style = "font-family: avenir" >Gender</font></b></td>
-                <td><b><font style = "font-family: avenir" >Mobile Number</font></b></td>
-                <td><b><font style = "font-family: avenir" >Action</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Passenger ID</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >First Name</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Last Name</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Gender</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Mobile Number</font></b></td>
+                <td align = "center"><b><font style = "font-family: avenir" >Action</font></b></td>
                 
 
             </tr>  
             <c:forEach items="${Passengers}" var = "passenger" >
                 <tr bgcolor="#FFFFFF">
-                    <td><font style = "font-family: avenir" >${passenger.emailID}</font></td>
-                    <td><font style = "font-family: avenir" >${passenger.firstName}</font></td>
-                    <td><font style = "font-family: avenir" >${passenger.lastName}</font></td>
-                    <td><font style = "font-family: avenir" >${passenger.gender}</font></td>
-                    <td><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
-                    <td><form action="ConfirmRemovePassenger.jsp"><input type = "hidden" name = "passengerid" value = ${passenger.emailID} ><input type="submit" value= ${passenger.confirmationbutton} ></form></td>
+                    <td align = "center"><font style = "font-family: avenir" >${passenger.emailID}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${passenger.firstName}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${passenger.lastName}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${passenger.gender}</font></td>
+                    <td align = "center"><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
+                    <td align = "center"><form action="ConfirmRemovePassenger.jsp"><input type = "hidden" name = "passengerid" value = ${passenger.emailID} ><input type="submit" value= ${passenger.confirmationbutton} ></form></td>
                
                 </tr>
             </c:forEach>

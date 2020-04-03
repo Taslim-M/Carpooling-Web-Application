@@ -180,6 +180,45 @@ public class Driver extends Passenger {
         return Passengers;
     }
     
+  public void CancelRide(String Ride_ID) {
+   
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from offered_single_rides where ride_id =" + Ride_ID);
+            crs.execute();
+            if (crs.next() == false) {       
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Delete offered_weekly_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete confirmed_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete ride_requests where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete offered_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+
+            }else
+                {
+                    
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Delete offered_single_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete confirmed_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete ride_requests where ride_id =" + Ride_ID);
+                crs2.execute();
+                crs2.setCommand("Delete offered_rides where ride_id =" + Ride_ID);
+                crs2.execute();
+                
+                }
+                
+             
+            }
+         catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 
     private String getRideId() {
