@@ -9,6 +9,7 @@ import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,10 +62,11 @@ public class Driver extends Passenger {
         ArrayList<SingleRide> rides = new ArrayList<SingleRide>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("Select * from offered_rides where driver_id = ? AND ride_id in (select ride_id from confirmed_rides)");
+            crs.setCommand("Select * from offered_rides where driver_id = ? AND ride_id IN (select ride_id from confirmed_rides) AND ride_id NOT IN (select ride_id from offered_weekly_rides)");
             crs.setString(1, this.getEmailID());
             crs.execute();
             while (crs.next()) {
+
                 SingleRide r = new SingleRide();
                 r.setRideId(crs.getInt("ride_id"));
                 r.setIsToUni((crs.getInt("is_to_uni")==1) ? true : false );
@@ -72,6 +74,17 @@ public class Driver extends Passenger {
                 r.setStartingLocation(new Location(crs.getString("start_location")));
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
+                try
+                {
+                    CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                        crs2.setCommand("Select * from offered_single_rides where ride_id = " + crs.getInt("ride_id"));
+                        crs2.execute();
+                        while (crs2.next()) {
+                        r.setDate(LocalDate.parse(crs2.getDate("ride_date").toString()));
+                        }
+                        } catch (SQLException ex) {
+                        Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                 rides.add(r);
                        
             }
