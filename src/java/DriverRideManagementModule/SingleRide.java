@@ -5,6 +5,7 @@
  */
 package DriverRideManagementModule;
 
+import PassengerRideManagementModule.Location;
 import java.time.LocalDate;
 
 /**
@@ -12,6 +13,16 @@ import java.time.LocalDate;
  * @author Tasli
  */
 public class SingleRide extends Ride{
+
+    public SingleRide(LocalDate date, Integer rideId, boolean isToUni, String arrivalDepartureTime, Location startingLocation, Location endingLocation, Integer seatAvailability, Driver driver) {
+        super(rideId, isToUni, arrivalDepartureTime, startingLocation, endingLocation, seatAvailability, driver);
+        this.date = date;
+    }
+    
+    public SingleRide(){
+        
+    }
+
     private LocalDate date;
 
     public LocalDate getDate() {

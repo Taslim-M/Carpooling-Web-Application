@@ -6,6 +6,7 @@
 package Controller;
 
 import PassengerRideManagementModule.Location;
+import PassengerRideManagementModule.Passenger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -53,7 +54,7 @@ public class SearchRidesController extends HttpServlet {
         Location rideLocation = new Location(longi, lati);
         String rideTime = request.getParameter("ride_time");
         
-        
+        Passenger.searchRides(isSingle, isToUni, date, days, rideLocation, rideTime);
         
     }
 
