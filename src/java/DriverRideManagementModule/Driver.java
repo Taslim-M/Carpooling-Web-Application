@@ -80,4 +80,31 @@ public class Driver extends Passenger {
         }
         return rides;
     }
+
+    public ArrayList<Passenger> viewConfirmedPassengers() {
+        ArrayList<Passenger> Passengers = new ArrayList<Passenger>();
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from users where email_id in (select passenger_id from confirmed_rides)");
+            crs.execute();
+            while (crs.next()) {
+                Passenger p = new Passenger();
+                p.setEmailID(crs.getString("email_id"));
+                p.setFirstName(crs.getString("first_name"));
+                p.setLastName(crs.getString("last_name"));
+                p.setGender(crs.getString("Gender"));
+                p.setMobileNumber(crs.getString("mobile_no"));
+                
+                Passengers.add(p);
+                       
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Passengers;
+    }
+
+    private String getRideId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
