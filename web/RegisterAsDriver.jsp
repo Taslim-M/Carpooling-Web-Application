@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +21,7 @@
                 var carReg = document.getElementById('carReg');
                 var license = document.getElementById('license');
 
-                if (carModel == null || carModel == "" || EID.files.length ==0 || carReg.files.length ==0 || license.files.length ==0) {
+                if (carModel == null || carModel == "" || EID.files.length == 0 || carReg.files.length == 0 || license.files.length == 0) {
                     alert("Please input all fields");
                     return false;
                 }
@@ -44,8 +45,12 @@
         </script>
     </head>
     <body class="h-100">
-
-        <jsp:include page="navbar.html"/>
+        <c:if test="${empty sessionScope.driver}" >
+            <jsp:include page="navbarPassenger.html"/>
+        </c:if> 
+        <c:if test="$! empty sessionScope.driver}" >
+            <jsp:include page="navbar.html"/>
+        </c:if> 
         <div class ="container h-100">
             <form name = "registerDriverForm" action="RegisterDriverController" method="post" class="justify-content-center" enctype="multipart/form-data">
                 <h1>Register As Driver</h1>
