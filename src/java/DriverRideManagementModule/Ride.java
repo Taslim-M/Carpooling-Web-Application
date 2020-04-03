@@ -15,6 +15,20 @@ import java.time.LocalTime;
 
 public abstract class Ride {
 
+    public Ride(Integer rideId, boolean isToUni, String arrivalDepartureTime, Location startingLocation, Location endingLocation, Integer seatAvailability, Driver driver) {
+        this.rideId = rideId;
+        this.isToUni = isToUni;
+        this.arrivalDepartureTime = arrivalDepartureTime;
+        this.startingLocation = startingLocation;
+        this.endingLocation = endingLocation;
+        this.seatAvailability = seatAvailability;
+        this.driver = driver;
+    }
+    
+    public Ride(){
+        
+    }
+
     private Integer rideId;
     private boolean isToUni;
     private String arrivalDepartureTime;

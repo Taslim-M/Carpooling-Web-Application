@@ -20,7 +20,9 @@
         CarpoolDatabase.DbCredentialsSingleton.setDbUrl(getServletContext().getInitParameter("dbUrl"));
         CarpoolDatabase.DbCredentialsSingleton.setDbUsername(getServletContext().getInitParameter("dbUsername"));
         CarpoolDatabase.DbCredentialsSingleton.setDbPassword(getServletContext().getInitParameter("dbPassword"));
+        System.out.println("Singleton URL: " + getServletContext().getInitParameter("dbUrl"));
+        
         %>
-        <jsp:forward page="index.html"/>
+        
     </body>
 </html>

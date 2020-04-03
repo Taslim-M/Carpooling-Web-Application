@@ -5,9 +5,6 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>db_credential_loader.jsp</welcome-file>
-    </welcome-file-list>
     <context-param>
         <param-name>dbUrl</param-name>
         <param-value>jdbc:oracle:thin:@coeoracle.aus.edu:1521:orcl</param-value>
@@ -20,4 +17,7 @@
         <param-name>dbPassword</param-name>
         <param-value>b00075270</param-value>
     </context-param>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>
