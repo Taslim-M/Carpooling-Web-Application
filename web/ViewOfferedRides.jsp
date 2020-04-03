@@ -18,7 +18,7 @@
         <c:if test="${empty sessionScope.driver}" >
             <jsp:include page="navbarPassenger.html"/>
         </c:if> 
-        <c:if test="$! empty sessionScope.driver}" >
+        <c:if test="${! empty sessionScope.driver}" >
             <jsp:include page="navbar.html"/>
         </c:if> 
         <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > Upcoming Rides of ${sessionScope.passenger.firstName} </h1>

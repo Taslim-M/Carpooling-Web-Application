@@ -53,6 +53,7 @@ public class LoginController extends HttpServlet {
                     Driver d = new Driver();
                     d.setEmailID(userName);
                     session.setAttribute("driver", d);
+                    System.out.println("setting as driver" +userName);
                 }
                 RequestDispatcher rd = request.getRequestDispatcher("findRide.jsp");
                 rd.forward(request, response);

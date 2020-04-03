@@ -48,7 +48,7 @@
         <c:if test="${empty sessionScope.driver}" >
             <jsp:include page="navbarPassenger.html"/>
         </c:if> 
-        <c:if test="$! empty sessionScope.driver}" >
+        <c:if test="${! empty sessionScope.driver}" >
             <jsp:include page="navbar.html"/>
         </c:if> 
         <div class ="container h-100">
