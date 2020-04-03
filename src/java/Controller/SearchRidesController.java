@@ -34,7 +34,7 @@ public class SearchRidesController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Collect and parse all form inputs
+        //Collect and parse all form inputs 
         boolean isSingle = request.getParameter("single_or_weekly").equals("single");
         String isToUni = (request.getParameter("to_from_uni").equals("to") ? "1" : "0");
         LocalDate date = null;
