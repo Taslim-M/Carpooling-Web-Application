@@ -28,6 +28,8 @@
                 <td><b><font style = "font-family: avenir" >Last Name</font></b></td>
                 <td><b><font style = "font-family: avenir" >Gender</font></b></td>
                 <td><b><font style = "font-family: avenir" >Mobile Number</font></b></td>
+                <td><b><font style = "font-family: avenir" >Action</font></b></td>
+                
 
             </tr>  
             <c:forEach items="${Passengers}" var = "passenger" >
@@ -37,6 +39,7 @@
                     <td><font style = "font-family: avenir" >${passenger.lastName}</font></td>
                     <td><font style = "font-family: avenir" >${passenger.gender}</font></td>
                     <td><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
+                    <td><form action="ConfirmRemovePassenger.jsp"><input type = "hidden" name = "passengerid" value = ${passenger.emailID} ><input type="submit" value= ${passenger.confirmationbutton} ></form></td>
                
                 </tr>
             </c:forEach>

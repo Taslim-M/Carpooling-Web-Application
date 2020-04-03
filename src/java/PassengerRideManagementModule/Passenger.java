@@ -26,8 +26,20 @@ import javax.sql.rowset.CachedRowSet;
 public class Passenger extends User {
     
     public Passenger() {
-        
+      
     }
+
+    private String confirmationbutton;
+
+    public void setConfirmationbutton(String confirmationbutton) {
+        this.confirmationbutton = confirmationbutton;
+    }
+
+    public String getConfirmationbutton() {
+        return confirmationbutton;
+    }
+    
+ 
 
     public boolean isDriver() {
          try {

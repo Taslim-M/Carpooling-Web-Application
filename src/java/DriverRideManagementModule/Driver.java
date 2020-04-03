@@ -156,8 +156,23 @@ public class Driver extends Passenger {
                 p.setGender(crs.getString("Gender"));
                 p.setMobileNumber(crs.getString("mobile_no"));
 
+                
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("email_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides)");
+                crs2.execute();
+  
+                if (crs2.next() == false)
+                {
+                    p.setConfirmationbutton("Confirm/Remove");
+             
+                }  else
+                {
+                    p.setConfirmationbutton("Remove");
+                }
+                
+                
                 Passengers.add(p);
-
+                       
             }
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
