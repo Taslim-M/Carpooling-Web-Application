@@ -32,7 +32,7 @@
                 <td><b><font style = "font-family: avenir" >End Location</font></b></td>
                 <td><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
                 <td><b><font style = "font-family: avenir" >Date</font></b></td>
-                <td><b><font style = "font-family: avenir" >View Confirmed Passengers</font></b></td>
+                <td><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
 
             </tr>
             
@@ -48,7 +48,7 @@
                     <td><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
                     <td><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
                     <td><font style = "font-family: avenir" >${ride.date}</font></td>
-                    <td><button style = "height : 50px; width : 180px" ><a href="ViewConfirmedPassengersController"> <font size = 3  >Select</font></a></button></td>
+                    <td><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
                         
                 </tr>
             </c:forEach>
@@ -71,7 +71,7 @@
                 <td><b><font style = "font-family: avenir" >End Location</font></b></td>
                 <td><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
                 <td><b><font style = "font-family: avenir" >Day</font></b></td>
-                <td><b><font style = "font-family: avenir" >View Confirmed Passengers</font></b></td>
+                <td><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
 
             </tr>
             
@@ -87,7 +87,7 @@
                     <td><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
                     <td><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
                     <td><font style = "font-family: avenir" >${ride.day}</font></td>
-                    <td><button style = "height : 50px; width : 180px" ><a href="ViewConfirmedPassengersController"> <font size = 3  >Select</font></a></button></td>
+                    <td><form action="ViewPassengerRequestsController"><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="Submit"></form></td>
                         
                 </tr>
             </c:forEach>

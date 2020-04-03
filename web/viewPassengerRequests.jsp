@@ -15,7 +15,7 @@
         <title>Confirmed Rides</title>
     </head>
     <body>
-        <h1 style = "font-family: avenir; color : #9B1B1B " align = "center" > Confirmed Passengers list </h1>
+        <h1 style = "font-family: avenir; color : #9B1B1B " align = "center" > Passengers for Selected Ride </h1>
         
         <table align="center" cellpadding="5" cellspacing="0" border="1">
             <tr>

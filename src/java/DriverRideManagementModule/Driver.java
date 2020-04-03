@@ -139,11 +139,11 @@ public class Driver extends Passenger {
 
         
         
-    public ArrayList<Passenger> viewConfirmedPassengers() {
+    public ArrayList<Passenger> viewPassengerRequests(String Ride_ID) {
         ArrayList<Passenger> Passengers = new ArrayList<Passenger>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("Select * from users where email_id in (select passenger_id from confirmed_rides)");
+            crs.setCommand("Select * from users where email_id in (select passenger_id from ride_requests where ride_id = " + Ride_ID + ")");
             crs.execute();
             while (crs.next()) {
                 Passenger p = new Passenger();
