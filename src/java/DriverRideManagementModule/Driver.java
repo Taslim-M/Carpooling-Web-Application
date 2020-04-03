@@ -58,11 +58,11 @@ public class Driver extends Passenger {
         this.myCar = myCar;
     }
 
-    public ArrayList<SingleRide> viewSingleConfirmedRides() {
+    public ArrayList<SingleRide> viewSingleOfferedRides() {
         ArrayList<SingleRide> rides = new ArrayList<SingleRide>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("Select * from offered_rides where driver_id = ? AND ride_id IN (select ride_id from confirmed_rides) AND ride_id NOT IN (select ride_id from offered_weekly_rides)");
+            crs.setCommand("Select * from offered_rides where driver_id = ? AND ride_id NOT IN (select ride_id from offered_weekly_rides)");
             crs.setString(1, this.getEmailID());
             crs.execute();
             while (crs.next()) {
@@ -94,6 +94,51 @@ public class Driver extends Passenger {
         return rides;
     }
 
+    public ArrayList<WeeklyRide> viewWeeklyOfferedRides() {
+        ArrayList<WeeklyRide> rides = new ArrayList<WeeklyRide>();
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from offered_weekly_rides");
+            crs.execute();
+
+            while (crs.next()) {
+              WeeklyRide r = new WeeklyRide();
+              r.setDay(crs.getString("day"));
+              try{
+                  
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Select * from offered_rides where driver_id = ? AND ride_id NOT IN (select ride_id from offered_single_rides) AND ride_id = " + crs.getInt("ride_id"));
+                crs2.setString(1, this.getEmailID());
+                crs2.execute();
+            
+               while (crs2.next()) {
+
+                
+                r.setRideId(crs2.getInt("ride_id"));
+                r.setIsToUni((crs2.getInt("is_to_uni")==1) ? true : false );
+                r.setArrivalDepartureTime(crs2.getString("arrival_dep_time"));
+                r.setStartingLocation(new Location(crs2.getString("start_location")));
+                r.setEndingLocation(new Location(crs2.getString("end_location")));
+                r.setSeatAvailability(crs2.getInt("current_seat_avail"));         
+            
+            
+            }
+              } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+              rides.add(r);
+              
+            }
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rides;
+    }
+
+        
+        
     public ArrayList<Passenger> viewConfirmedPassengers() {
         ArrayList<Passenger> Passengers = new ArrayList<Passenger>();
         try {
@@ -116,6 +161,8 @@ public class Driver extends Passenger {
         }
         return Passengers;
     }
+    
+
 
     private String getRideId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
