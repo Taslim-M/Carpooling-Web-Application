@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DriverRideManagementModule.Ride;
 import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
 import java.io.IOException;
@@ -49,12 +50,17 @@ public class SearchRidesController extends HttpServlet {
                 days.add(day);
             }    
         }
-        float longi = Float.parseFloat(request.getParameter("ride_location_longitude"));
-        float lati = Float.parseFloat(request.getParameter("ride_location_latitude"));
-        Location rideLocation = new Location(longi, lati);
+        
+        float pickupLongitude = Float.parseFloat(request.getParameter("pickup_location_longitude"));
+        float pickupLatitude = Float.parseFloat(request.getParameter("pickup_location_latitude"));
+        Location pickupLocation = new Location(pickupLongitude, pickupLatitude);
+        float dropoffLongitude = Float.parseFloat(request.getParameter("dropoff_location_longitude"));
+        float dropoffLatitude = Float.parseFloat(request.getParameter("dropoff_location_latitude"));
+        Location dropoffLocation = new Location(dropoffLongitude, dropoffLatitude);
+        
         String rideTime = request.getParameter("ride_time");
         
-        Passenger.searchRides(isSingle, isToUni, date, days, rideLocation, rideTime);
+        ArrayList<Ride> foundRides = Passenger.searchRides(isSingle, isToUni, date, days, pickupLocation, dropoffLocation, rideTime);
         
     }
 

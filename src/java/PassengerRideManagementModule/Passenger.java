@@ -8,6 +8,7 @@ package PassengerRideManagementModule;
 import DriverRideManagementModule.Driver;
 import DriverRideManagementModule.Ride;
 import DriverRideManagementModule.SingleRide;
+import DriverRideManagementModule.WeeklyRide;
 import UserManagementModule.User;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -83,11 +84,9 @@ public class Passenger extends User {
         return false;
     }
     //INCOMPLETE
-    public static ArrayList<Ride> searchRides(boolean isSingle, String isToUni, LocalDate rideDate, ArrayList<String> rideDays, Location rideLocation, String rideTime){
+    public static ArrayList<Ride> searchRides(boolean isSingle, String isToUni, LocalDate rideDate, ArrayList<String> rideDays, Location pickupLocation, Location dropoffLocation, String rideTime){
         ArrayList<Ride> foundRides = new ArrayList<>();
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-        Location lowerBoundLoc = new Location(rideLocation.getLongitude() - 1, rideLocation.getLatitude() - 1);
-        Location upperBoundLoc = new Location(rideLocation.getLongitude() + 1, rideLocation.getLatitude() + 1);
         ArrayList<Ride> ridesWithoutLocationFilter = new ArrayList<>();
         if (isSingle){
             try {
@@ -102,21 +101,75 @@ public class Passenger extends User {
                 while (crs.next()){
                     Driver currDriver = new Driver();
                     currDriver.setEmailID(crs.getString("driver_id"));
+                    
                     oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP)crs.getObject("arrival_dep_time");
                     String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+                    
                     ridesWithoutLocationFilter.add(new SingleRide(crs.getDate("ride_date").toLocalDate(),
                             crs.getInt("ride_id"),isToUni.equals("1"),
                             tsString,
                             new Location(crs.getString("start_location")), 
                             new Location(crs.getString("end_location")),
-                            crs.getInt("current_seat_avail"),currDriver));
-                    
+                            crs.getInt("current_seat_avail"),currDriver));        
                 }
-
-
             } catch (SQLException ex) {
                 Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        //If weekly ride
+        else {
+            try {
+                String sqlCommand = "select offr.driver_id as driver_id, offr.ride_id as ride_id, offr.is_to_uni as is_to_uni, offr.arrival_dep_time as arrival_dep_time, offr.start_location as start_location, offr.end_location as end_location, offr.current_seat_avail as current_seat_avail, offwr.day as day from offered_rides offr, offered_weekly_rides offwr where offr.ride_id = offwr.ride_id AND offr.is_to_uni = ? AND to_char(offr.arrival_dep_time,'hh24:mi') = ? AND CURRENT_SEAT_AVAIL > 0";
+                if (rideDays.size() > 0){
+                    sqlCommand += " AND (";
+                    for (int i = 0; i < rideDays.size(); ++i) {
+                        //Add the current day to query
+                        sqlCommand += ("lower(offwr.day) = lower('" + rideDays.get(i) + "')");
+                        //If not the last day
+                        if (i != rideDays.size() - 1){
+                            sqlCommand += " OR ";
+                        }
+                    }      
+                    sqlCommand += ")";
+                }
+                crs.setCommand(sqlCommand);
+                crs.setString(1, isToUni);
+                crs.setString(2, rideTime);
+                
+                crs.execute();
+                
+                while (crs.next()) {
+                    Driver currDriver = new Driver();
+                    currDriver.setEmailID(crs.getString("driver_id"));
+
+                    oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP) crs.getObject("arrival_dep_time");
+                    String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+
+                    ridesWithoutLocationFilter.add(new WeeklyRide(crs.getString("day"),
+                            crs.getInt("ride_id"), isToUni.equals("1"),
+                            tsString,
+                            new Location(crs.getString("start_location")),
+                            new Location(crs.getString("end_location")),
+                            crs.getInt("current_seat_avail"), currDriver));
+                }
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        //Filter based on location, within 1 degree
+        for (Ride r : ridesWithoutLocationFilter){
+            if ((Math.abs(r.getStartingLocation().getLongitude() - pickupLocation.getLongitude()) < 1)
+                    && (Math.abs(r.getStartingLocation().getLatitude()- pickupLocation.getLatitude()) < 1)
+                    && (Math.abs(r.getEndingLocation().getLongitude() - dropoffLocation.getLongitude()) < 1)
+                    && (Math.abs(r.getEndingLocation().getLatitude()- dropoffLocation.getLatitude()) < 1)) {
+                foundRides.add(r);
+            }
+        }
+        System.out.println("Found Rides: ");
+        for (Ride r : foundRides){
+            System.out.println(r.getRideId());
         }
         return  foundRides;
     }

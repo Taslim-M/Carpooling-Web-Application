@@ -49,20 +49,27 @@
             </div>
             <div id="ride_days_box" style="display:none">
                 Select Days <br/>
-                U <input type="checkbox" name="ride_days" value="U" />
-                M <input type="checkbox" name="ride_days" value="M" />
-                T <input type="checkbox" name="ride_days" value="T" />
-                W <input type="checkbox" name="ride_days" value="W" />
-                R <input type="checkbox" name="ride_days" value="R" />
+                U <input type="checkbox" name="ride_days" value="Sunday" />
+                M <input type="checkbox" name="ride_days" value="Monday" />
+                T <input type="checkbox" name="ride_days" value="Tuesday" />
+                W <input type="checkbox" name="ride_days" value="Wednesday" />
+                R <input type="checkbox" name="ride_days" value="Thursday" />
 
                 <br/>
             </div>
 
             Pickup Area: <br/>
-            <label for="ride_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="ride_location_longitude" value="" /><br/>
-            <label for="ride_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="ride_location_latitude" value="" />
+            <label for="pickup_location_longitude">Longitude:</label>
+            <input type="number" step="any" name="pickup_location_longitude" value="" /><br/>
+            <label for="pickup_location_latitude">Latitude:</label>
+            <input type="number" step="any" name="pickup_location_latitude" value="" />
+
+            <br/>
+            Dropoff Area: <br/>
+            <label for="dropoff_location_longitude">Longitude:</label>
+            <input type="number" step="any" name="dropoff_location_longitude" value="" /><br/>
+            <label for="dropoff_location_latitude">Latitude:</label>
+            <input type="number" step="any" name="dropoff_location_latitude" value="" />
 
             <br/>
             <label for="ride_time">Departure Time:</label>
