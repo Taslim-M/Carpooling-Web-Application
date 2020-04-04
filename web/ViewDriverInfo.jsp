@@ -24,20 +24,20 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">First Name</th>
-                        <td>${selected_driver.firstName}</td>
+                        <th scope="row"><font style = "font-family: avenir" >First Name</font></th>
+                        <td><font style = "font-family: avenir" >${selected_driver.firstName}</font></td>
                     </tr>
                     <tr>
-                        <th scope="row">Last Name</th>
-                        <td>${selected_driver.lastName}</td>
+                        <th scope="row"><font style = "font-family: avenir" >Last Name</font></th>
+                        <td><font style = "font-family: avenir" >${selected_driver.lastName}</font></td>
                     </tr>
                     <tr>
-                        <th scope="row">Gender</th>
-                        <td>${selected_driver.gender}</td>
+                        <th scope="row"><font style = "font-family: avenir" >Gender</font></th>
+                        <td><font style = "font-family: avenir" >${selected_driver.gender}</font></td>
                     </tr>
                     <tr>
-                        <th scope="row">Car Model</th>
-                        <td>${selected_driver.myCar.carModel}</td>
+                        <th scope="row"><font style = "font-family: avenir" >Car Model</font></th>
+                        <td><font style = "font-family: avenir" >${selected_driver.myCar.carModel}</font></td>
                     </tr>
                 </tbody>
             </table>
