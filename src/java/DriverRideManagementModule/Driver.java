@@ -25,6 +25,17 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class Driver extends Passenger {
 
+    public Driver() {
+    }
+
+    public Driver(Image registrationImg, Image licenseImg, Image EIDImg, Car myCar, String firstName, String lastName, String gender, String mobileNumber, String emailID) {
+        super(firstName, lastName, gender, mobileNumber, emailID);
+        this.registrationImg = registrationImg;
+        this.licenseImg = licenseImg;
+        this.EIDImg = EIDImg;
+        this.myCar = myCar;
+    }
+
     private Image registrationImg;
     private Image licenseImg;
     private Image EIDImg;

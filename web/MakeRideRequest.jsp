@@ -18,7 +18,8 @@
         <div class ="container h-100">
             <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > Found Rides </h1>
             <div class="table-responsive">
-                <form action="RequestSelectedRidesController">
+                
+                
                     <table class="table table-hover" align="center" cellpadding="5" cellspacing="0" border="1">
                         <thead class="thead-dark">
                             <tr bgcolor="#E9E9E9">
@@ -37,8 +38,8 @@
                                         <th align = "center"><b><font style = "font-family: avenir" >Day</font></b></td>
                                             </c:when>
                                         </c:choose> 
-                                <th align = "center"><b><font style = "font-family: avenir" >View Driver Info</font></b></td>
                                 <th align = "center"><b><font style = "font-family: avenir" >Request Ride</font></b></td>
+                                <th align = "center"><b><font style = "font-family: avenir" >View Driver Info</font></b></td>
 
                             </tr>
                         </thead>
@@ -47,6 +48,7 @@
 
                             <c:forEach items="${found_rides}" var = "ride" >
                                 <tr bgcolor="#FFFFFF">
+                                    <form action="RequestSelectedRidesController">
                                     <td align = "center"><font style = "font-family: avenir" >${ride.rideId}</font></b></td>
                                     <td align = "center"><font style = "font-family: avenir" >${ride.isToUni}</font></b></td>
                                     <td align = "center"><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></b></td>
@@ -61,18 +63,20 @@
                                             <td align = "center"><font style = "font-family: avenir" >${ride.day}</font></b></td>
                                             </c:when>
                                         </c:choose>
-                                    <td align = "center"><form action="ViewDriverInfoController" target="_blank"> <input type="hidden" name="driver_id" value="${ride.driver.emailID}" /><input type="submit" value="View Driver Info" /></form> </td>        
-                                    <td align = "center"><input type="checkbox" name="selected_rides" value="${ride.rideId}" /></td>
+                                    <input type="hidden" name="pickup_location" value="${param.pickup_location_longitude}, ${param.pickup_location_latitude}" />
+                                    <input type="hidden" name="dropoff_location" value="${param.dropoff_location_longitude}, ${param.dropoff_location_latitude}" />
+                                    <input type="hidden" name="selected_ride" value="${ride.rideId}" />
+                                    
+                                    <td align = "center"><input type="submit" value="Request Ride" /></td>
+                                    </form>
+                                    <td align = "center"><form action="ViewDriverInfoController" target="_blank"/> <input type="hidden" name="driver_id" value="${ride.driver.emailID}" /><input type="submit" value="View Driver Info"/> </td>        
                                 </tr>
                             </c:forEach>
                         </tbody>
 
                     </table>
                     <br/>
-                    <input type="hidden" name="pickup_location" value="${param.pickup_location_longitude}, ${param.pickup_location_latitude}" />
-                    <input type="hidden" name="dropoff_location" value="${param.dropoff_location_longitude}, ${param.dropoff_location_latitude}" />
-                    <input type="submit" value="Request Selected Rides" />
-                </form>
+
             </div>
     </body>
 </html>

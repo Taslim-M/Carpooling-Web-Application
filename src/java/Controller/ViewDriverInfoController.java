@@ -5,8 +5,8 @@
  */
 package Controller;
 
+import DriverRideManagementModule.Driver;
 import DriverRideManagementModule.Ride;
-import PassengerRideManagementModule.Passenger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -15,15 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.rowset.CachedRowSet;
 
 /**
  *
  * @author azada
  */
-@WebServlet(name = "RequestSelectedRidesController", urlPatterns = {"/RequestSelectedRidesController"})
-public class RequestSelectedRidesController extends HttpServlet {
+@WebServlet(name = "ViewDriverInfoController", urlPatterns = {"/ViewDriverInfoController"})
+public class ViewDriverInfoController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +34,10 @@ public class RequestSelectedRidesController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Passenger p = (Passenger) session.getAttribute("passenger");
-
-        Ride.createRequest(Integer.parseInt(request.getParameter("selected_ride")), p.getEmailID(), request.getParameter("pickup_location"), request.getParameter("dropoff_location"));
-
-        
-        RequestDispatcher rd = request.getRequestDispatcher("RideRequestConfirmation.jsp");
+        System.out.println("Reached driver info");
+        Driver selectedDriver = Ride.retrieveDriverInfo(request.getParameter("driver_id"));
+        RequestDispatcher rd = request.getRequestDispatcher("ViewDriverInfo.jsp");
+        request.setAttribute("selected_driver", selectedDriver);
         rd.forward(request, response);
     }
 

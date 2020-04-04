@@ -25,6 +25,10 @@ import javax.sql.rowset.CachedRowSet;
  * @author Tasli
  */
 public class Passenger extends User {
+
+    public Passenger(String firstName, String lastName, String gender, String mobileNumber, String emailID) {
+        super(firstName, lastName, gender, mobileNumber, emailID);
+    }
     
     public Passenger() {
       
@@ -83,7 +87,7 @@ public class Passenger extends User {
         }
         return false;
     }
-    //INCOMPLETE
+
     public static ArrayList<Ride> searchRides(boolean isSingle, String isToUni, LocalDate rideDate, ArrayList<String> rideDays, Location pickupLocation, Location dropoffLocation, String rideTime){
         ArrayList<Ride> foundRides = new ArrayList<>();
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();

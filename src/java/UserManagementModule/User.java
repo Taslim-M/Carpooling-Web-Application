@@ -11,6 +11,14 @@ package UserManagementModule;
  */
 public abstract class User {
 
+    public User(String firstName, String lastName, String gender, String mobileNumber, String emailID) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.mobileNumber = mobileNumber;
+        this.emailID = emailID;
+    }
+
     private String firstName;
     private String lastName;
     private String gender;
