@@ -38,7 +38,7 @@
                             <th align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Day</font></b></td>
+                            <th align = "center"><b><font style = "font-family: avenir" >Date</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >Cancel Ride</font></b></td>
 
