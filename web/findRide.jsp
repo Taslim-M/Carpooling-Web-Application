@@ -29,10 +29,10 @@
         </c:if> 
 
         <div class="container">
-            <h1>Hello ${sessionScope.passenger.firstName}! Find A Ride</h1>
+            <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Hello ${sessionScope.passenger.firstName}! Find A Ride!</h1>
         </div>
 
-        <form action="SearchRidesController">
+        <form action="SearchRidesController" align = "center"><font  style = "font-family: avenir">
             Select Ride Frequency: <br/>
             <input type="radio" name="single_or_weekly" value="single" onclick="manageSingleWeekly(this)" /> Single
             <input type="radio" name="single_or_weekly" value="weekly" onclick="manageSingleWeekly(this)" /> Weekly
@@ -76,7 +76,7 @@
             <input type="time" id="ride_time" name="ride_time">
             <br/>
             <input type="submit" value="Search Rides" />
-        </form>
+            </font></form>
         <script>
             function manageSingleWeekly(button) {
                 if (button.value == "single") {
