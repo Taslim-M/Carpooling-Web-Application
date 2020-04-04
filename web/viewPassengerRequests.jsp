@@ -39,7 +39,7 @@
                     <td align = "center"><font style = "font-family: avenir" >${request.passengerid}</font></td>
                     <td align = "center"><font style = "font-family: avenir" >${request.pickupLocation}</font></td>
                     <td align = "center"><font style = "font-family: avenir" >${request.dropoffLocation}</font></td>
-                    <td align = "center"><form action="ViewPassengerInfoController" target="_blank"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type = "hidden" name = "rideid" value = ${request.requested_ride_id} ><input type="submit" value= "View" ></form></td>
+                    <td align = "center"><form action="ViewPassengerInfoController" target="_blank"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type="submit" value= "View" ></form></td>
                     <td align = "center"><form action="PassengerActionController"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type = "hidden" name = "passengerstatus" value = ${request.confirmationbutton} ><input type = "hidden" name = "rideid" value = ${request.requested_ride_id} ><input type="submit" value= ${request.confirmationbutton} ></form></td>
                
 

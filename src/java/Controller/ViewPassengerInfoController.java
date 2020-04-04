@@ -38,14 +38,12 @@ public class ViewPassengerInfoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Passenger_ID = request.getParameter("passengerid");
-        String Ride_ID = request.getParameter("rideid");
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
             ArrayList<Passenger> Passengers = d.viewPassengerInfo(Passenger_ID);
             RequestDispatcher rd = request.getRequestDispatcher("viewPassengerInfo.jsp");
             request.setAttribute("Passengers", Passengers);
-            request.setAttribute("Ride_ID", Ride_ID);
             rd.forward(request, response);
         }
     }
