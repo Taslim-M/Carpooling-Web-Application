@@ -10,11 +10,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Choose Rides</title>
+        <title>Ride Request</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     </head>
     <body>
+        <c:if test="${empty sessionScope.driver}" >
+            <jsp:include page="navbarPassenger.html"/>
+        </c:if> 
+        <c:if test="${! empty sessionScope.driver}" >
+            <jsp:include page="navbar.html"/>
+        </c:if> 
         <div class ="container h-100">
             <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > Found Rides </h1>
             <div class="table-responsive">
@@ -48,7 +54,7 @@
 
                             <c:forEach items="${found_rides}" var = "ride" >
                                 <tr bgcolor="#FFFFFF">
-                                    <form action="RequestSelectedRidesController">
+                                    <form action="RequestSelectedRideController">
                                     <td align = "center"><font style = "font-family: avenir" >${ride.rideId}</font></b></td>
                                     <td align = "center"><font style = "font-family: avenir" >${ride.isToUni}</font></b></td>
                                     <td align = "center"><font style = "font-family: avenir" >${ride.arrivalDepartureTime}</font></b></td>
@@ -66,7 +72,7 @@
                                     <input type="hidden" name="pickup_location" value="${param.pickup_location_longitude}, ${param.pickup_location_latitude}" />
                                     <input type="hidden" name="dropoff_location" value="${param.dropoff_location_longitude}, ${param.dropoff_location_latitude}" />
                                     <input type="hidden" name="selected_ride" value="${ride.rideId}" />
-                                    
+                                    <input type="hidden" name="driver_id" value="${ride.driver.emailID}" />
                                     <td align = "center"><input type="submit" value="Request Ride" /></td>
                                     </form>
                                     <td align = "center"><form action="ViewDriverInfoController" target="_blank"/> <input type="hidden" name="driver_id" value="${ride.driver.emailID}" /><input type="submit" value="View Driver Info"/> </td>        

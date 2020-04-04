@@ -12,6 +12,7 @@
          <title>Driver Information</title>
     </head>
     <body>
+        <div class ="container h-100">
         <h1 style = "font-family: avenir; color : #9B1B1B" >Driver Information</h1>
         <font style = "font-family: avenir" >First Name: ${selected_driver.firstName}</font>
         <br/>
@@ -21,6 +22,6 @@
         <br/>
         <font style = "font-family: avenir" >Car Model: ${selected_driver.myCar.carModel}</font>
         <br/>
-
+        </div>
     </body>
 </html>

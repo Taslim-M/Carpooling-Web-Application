@@ -9,12 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Ride Request</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     </head>
     <body>
-        <h1>Rides successfully requested!</h1>
+        <div class ="container h-100">
+            <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" >${outcome_message}</h1>
+     
         <form action="findRide.jsp">
             <input type="submit" value="Go Back Home" />
         </form>
+        </div>
     </body>
 </html>
