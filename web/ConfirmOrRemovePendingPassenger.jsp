@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,10 +13,20 @@
         <title>Pending Passenger Form</title>
     </head>
     <body>
+    <c:if test="${empty sessionScope.driver}" >
+            <jsp:include page="navbarPassenger.html"/>
+    </c:if> 
+    <c:if test="${! empty sessionScope.driver}" >
+            <jsp:include page="navbar.html"/>
+    </c:if> 
+        
     <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > ${Message} </h1>
-    <form action="ConfirmRemovePassengerController"  align = "center"><input type = "hidden" name = "passenger_id" value = ${Passenger_ID}><input type = "hidden" name = "rideid" value = ${Ride_ID}><input type = "hidden" name = "choice" value = "Confirm"><input type="submit" value = "Confirm Passenger Request" ></form>
-    <form action="ConfirmRemovePassengerController"  align = "center"><input type = "hidden" name = "passenger_id" value = ${Passenger_ID}><input type = "hidden" name = "rideid" value = ${Ride_ID}><input type = "hidden" name = "choice" value = "RemoveNew"><input type="submit" value = "Remove Passenger Request" ></form>
-    <form action="ViewPassengerRequestsController"  align = "center"><input type = "hidden" name = "rideid" value = ${Ride_ID} ><input type="submit" value = "Go Back to Passenger List" ></form>
+    <form action="ConfirmRemovePassengerController"  align = "center"><input type = "hidden" name = "passenger_id" value = ${Passenger_ID}><input type = "hidden" name = "rideid" value = ${Ride_ID}><input type = "hidden" name = "choice" value = "Confirm"><input type="submit" value = "Confirm Passenger Request" class="btn btn-primary" ></form>
+    <br/>
+    <form action="ConfirmRemovePassengerController"  align = "center"><input type = "hidden" name = "passenger_id" value = ${Passenger_ID}><input type = "hidden" name = "rideid" value = ${Ride_ID}><input type = "hidden" name = "choice" value = "RemoveNew"><input type="submit" value = "Remove Passenger Request" class="btn btn-primary" ></form>
+    <br/>
+    <form action="ViewPassengerRequestsController"  align = "center"><input type = "hidden" name = "rideid" value = ${Ride_ID} ><input type="submit" value = "Go Back to Passenger List" class="btn btn-secondary"></form>
+
 
     </body>
 </html>
