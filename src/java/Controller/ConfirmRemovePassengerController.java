@@ -59,7 +59,7 @@ public class ConfirmRemovePassengerController extends HttpServlet {
                 else if ("No Seats".equals(Confirmation))
                 {
                     String Message = "No Seats Available in Requested Ride!";
-                    RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("PassengerRemovedOrNotConfirmed.jsp");
                     request.setAttribute("Message", Message);
                     request.setAttribute("Ride_ID", Ride_ID);
                     rd.forward(request, response);
@@ -69,7 +69,7 @@ public class ConfirmRemovePassengerController extends HttpServlet {
             {
                 d.RemovePassenger(Ride_ID, Passenger_ID);
                 String Message = "Passenger Request Rejected Successfully!";
-                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemovedOrNotConfirmed.jsp");
                 request.setAttribute("Message", Message);
                 request.setAttribute("Ride_ID", Ride_ID);
                 rd.forward(request, response);
@@ -78,7 +78,7 @@ public class ConfirmRemovePassengerController extends HttpServlet {
             {
                 d.RemovePassenger(Ride_ID, Passenger_ID);
                 String Message = "Passenger Removed Successfully!";
-                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemovedOrNotConfirmed.jsp");
                 request.setAttribute("Message", Message);
                 request.setAttribute("Ride_ID", Ride_ID);
                 rd.forward(request, response);
