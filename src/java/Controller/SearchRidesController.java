@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +62,9 @@ public class SearchRidesController extends HttpServlet {
         String rideTime = request.getParameter("ride_time");
         
         ArrayList<Ride> foundRides = Passenger.searchRides(isSingle, isToUni, date, days, pickupLocation, dropoffLocation, rideTime);
-        
+        RequestDispatcher rd = request.getRequestDispatcher("MakeRideRequest.jsp");
+        request.setAttribute("found_rides", foundRides);
+        rd.forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
