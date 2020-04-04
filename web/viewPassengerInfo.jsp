@@ -18,7 +18,7 @@
     </head>
 
     <body>
-      
+
         <div class ="container h-100">
             <c:forEach items="${Passengers}" var = "passenger" >
                 <h1 style = "font-family: avenir; color : #9B1B1B" align="center" >Passenger Information</h1>

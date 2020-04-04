@@ -22,7 +22,7 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author azada
  */
-@WebServlet(name = "RequestSelectedRidesController", urlPatterns = {"/RequestSelectedRidesController"})
+@WebServlet(name = "RequestSelectedRideController", urlPatterns = {"/RequestSelectedRideController"})
 public class RequestSelectedRideController extends HttpServlet {
 
     /**

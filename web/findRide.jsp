@@ -75,7 +75,7 @@
             <label for="ride_time">Departure Time:</label>
             <input type="time" id="ride_time" name="ride_time">
             <br/>
-            <input type="submit" value="Search Rides" />
+            <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
             </font></form>
         <script>
             function manageSingleWeekly(button) {
