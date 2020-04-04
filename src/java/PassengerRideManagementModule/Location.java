@@ -49,4 +49,8 @@ public class Location {
         return "longitude=" + longitude + ", latitude=" + latitude;
     }
     
+    public String toDbString() {
+        return longitude + "," + latitude;
+    }
+    
 }
