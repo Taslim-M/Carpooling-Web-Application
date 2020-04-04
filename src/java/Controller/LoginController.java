@@ -47,18 +47,19 @@ public class LoginController extends HttpServlet {
                 Passenger p = Passenger.getPassenger(userName);
 
                 HttpSession session = request.getSession();
+                session.invalidate(); //removes all session attributes bound to the session
                 session.setAttribute("username", userName);
                 session.setAttribute("passenger", p);
                 if (p.isDriver()) {
                     Driver d = new Driver();
                     d.setEmailID(userName);
                     session.setAttribute("driver", d);
-                    System.out.println("setting as driver" +userName);
+                    System.out.println("setting as driver" + userName);
                 }
                 RequestDispatcher rd = request.getRequestDispatcher("findRide.jsp");
                 rd.forward(request, response);
             } else { // GO back to login page
-                request.setAttribute("errmsg","Username or Password is Invalid");
+                request.setAttribute("errmsg", "Username or Password is Invalid");
                 RequestDispatcher rd = request.getRequestDispatcher("/index.html");
                 rd.forward(request, response);
             }
