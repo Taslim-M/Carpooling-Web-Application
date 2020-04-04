@@ -9,17 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+         <title>Driver Information</title>
     </head>
     <body>
-        <h1>Driver Info:</h1>
-        First Name: ${selected_driver.firstName}
+        <h1 style = "font-family: avenir; color : #9B1B1B" >Driver Information</h1>
+        <font style = "font-family: avenir" >First Name: ${selected_driver.firstName}</font>
         <br/>
-        Last Name: ${selected_driver.lastName}
+        <font style = "font-family: avenir" >Last Name: ${selected_driver.lastName}</font>
         <br/>
-        Gender: ${selected_driver.gender}
+        <font style = "font-family: avenir" >Gender: ${selected_driver.gender}</font>
         <br/>
-        Car Model: ${selected_driver.myCar.carModel}
+        <font style = "font-family: avenir" >Car Model: ${selected_driver.myCar.carModel}</font>
         <br/>
 
     </body>
