@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,9 +119,7 @@ public class Driver extends Passenger {
                 
                 r.setRideId(crs2.getInt("ride_id"));
                 r.setIsToUni((crs2.getInt("is_to_uni")==1) ? true : false );
-                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP)crs2.getObject("arrival_dep_time");
-                String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                r.setArrivalDepartureTime(tsString);
+                r.setArrivalDepartureTime(crs2.getString("arrival_dep_time"));
                 r.setStartingLocation(new Location(crs2.getString("start_location")));
                 r.setEndingLocation(new Location(crs2.getString("end_location")));
                 r.setSeatAvailability(crs2.getInt("current_seat_avail"));         
