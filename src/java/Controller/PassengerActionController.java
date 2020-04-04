@@ -54,7 +54,7 @@ public class PassengerActionController extends HttpServlet {
             else
             {
                 
-                String Message = "Remove registered Passenger:";
+                String Message = "Remove Registered Passenger:";
                 RequestDispatcher rd = request.getRequestDispatcher("RemoveRegisteredPassenger.jsp");
                 request.setAttribute("Message", Message);
                 request.setAttribute("Passenger_ID", Passenger_ID);
