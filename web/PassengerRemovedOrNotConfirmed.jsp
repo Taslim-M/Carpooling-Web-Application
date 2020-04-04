@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pending Passenger Form</title>
+        <title>Redirected: Display Message</title>
     </head>
     <body>
     <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > ${Message} </h1>
