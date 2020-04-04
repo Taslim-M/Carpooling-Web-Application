@@ -35,10 +35,10 @@ public class Location {
     }
     public Location(String location){
         String[] longlat = location.split(",");
-        this.longitude = Float.parseFloat(longlat[0]);
-        this.latitude = Float.parseFloat(longlat[1]);
+        this.latitude = Float.parseFloat(longlat[0]);
+        this.longitude = Float.parseFloat(longlat[1]);
     }
-    public Location(float longitude, float latitude) {
+    public Location(float latitude, float longitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -46,11 +46,11 @@ public class Location {
 
     @Override
     public String toString() {
-        return "longitude=" + longitude + ", latitude=" + latitude;
+        return "latitude=" + latitude + ", longitude=" + longitude;
     }
     
     public String toDbString() {
-        return longitude + "," + latitude;
+        return latitude + "," + longitude;
     }
     
 }

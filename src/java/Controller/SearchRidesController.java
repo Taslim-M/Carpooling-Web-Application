@@ -52,16 +52,22 @@ public class SearchRidesController extends HttpServlet {
             }    
         }
         
-        float pickupLongitude = Float.parseFloat(request.getParameter("pickup_location_longitude"));
-        float pickupLatitude = Float.parseFloat(request.getParameter("pickup_location_latitude"));
-        Location pickupLocation = new Location(pickupLongitude, pickupLatitude);
-        float dropoffLongitude = Float.parseFloat(request.getParameter("dropoff_location_longitude"));
-        float dropoffLatitude = Float.parseFloat(request.getParameter("dropoff_location_latitude"));
-        Location dropoffLocation = new Location(dropoffLongitude, dropoffLatitude);
+        float homeLongitude = Float.parseFloat(request.getParameter("home_location_longitude"));
+        float homeLatitude = Float.parseFloat(request.getParameter("home_location_latitude"));
+        Location homeLocation = new Location(homeLatitude, homeLongitude);
+        float uniLongitude = Float.parseFloat(request.getParameter("uni_location_longitude"));
+        float uniLatitude = Float.parseFloat(request.getParameter("uni_location_latitude"));
+        Location uniLocation = new Location(uniLatitude, uniLongitude);
         
         String rideTime = request.getParameter("ride_time");
+        ArrayList<Ride> foundRides;
+        if (isToUni.equals("1")){
+            foundRides = Passenger.searchRides(isSingle, isToUni, date, days, homeLocation, uniLocation, rideTime);
+        }
+        else{
+            foundRides = Passenger.searchRides(isSingle, isToUni, date, days, uniLocation, homeLocation, rideTime);
+        }
         
-        ArrayList<Ride> foundRides = Passenger.searchRides(isSingle, isToUni, date, days, pickupLocation, dropoffLocation, rideTime);
         RequestDispatcher rd = request.getRequestDispatcher("MakeRideRequest.jsp");
         request.setAttribute("found_rides", foundRides);
         rd.forward(request,response);

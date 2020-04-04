@@ -58,18 +58,18 @@
                 <br/>
             </div>
 
-            Pickup Area: <br/>
-            <label for="pickup_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="pickup_location_longitude" value="" /><br/>
-            <label for="pickup_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="pickup_location_latitude" value="" />
+            Home Area: <br/>
+            <label for="home_location_latitude">Latitude:</label>
+            <input type="number" step="any" name="home_location_latitude" value="" />
+            <label for="home_location_longitude">Longitude:</label>
+            <input type="number" step="any" name="home_location_longitude" value="" /><br/>
 
             <br/>
-            Dropoff Area: <br/>
-            <label for="dropoff_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="dropoff_location_longitude" value="" /><br/>
-            <label for="dropoff_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="dropoff_location_latitude" value="" />
+            University Area: <br/>
+            <label for="uni_location_latitude">Latitude:</label>
+            <input type="number" step="any" name="uni_location_latitude" value="25.311530" />
+            <label for="uni_location_longitude">Longitude:</label>
+            <input type="number" step="any" name="uni_location_longitude" value="55.492179" /><br/>
 
             <br/>
             <label for="ride_time">Departure Time:</label>
