@@ -156,7 +156,7 @@ public class Driver extends Passenger {
 
                 
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("email_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides)");
+                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("email_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides where Ride_ID = " +Ride_ID+ ")");
                 crs2.execute();
   
                 if (crs2.next() == false)
