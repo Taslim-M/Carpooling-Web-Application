@@ -7,6 +7,7 @@ package DriverRideManagementModule;
 
 import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
+import PassengerRideManagementModule.Request;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
@@ -138,13 +139,47 @@ public class Driver extends Passenger {
         return rides;
     }
 
+     public ArrayList<Request> viewPassengerRequests(String Ride_ID) {
+        ArrayList<Request> Requests = new ArrayList<Request>();
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from ride_requests where ride_id = " + Ride_ID);
+            crs.execute();
+            while (crs.next()) {
+                Request r = new Request();
+                r.setRequested_ride_id(crs.getString("ride_id"));
+                r.setPassengerid(crs.getString("passenger_id"));
+                r.setPickupLocation(new Location(crs.getString("pickup_location")));
+                r.setDropoffLocation(new Location(crs.getString("dropoff_location")));
+
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("passenger_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides where Ride_ID = " +Ride_ID+ ")");
+                crs2.execute();
+  
+                if (crs2.next() == false)
+                {
+                    r.setConfirmationbutton("Confirm/Remove");
+             
+                }  else
+                {
+                    r.setConfirmationbutton("Remove");
+                }
+                
+                
+                Requests.add(r);
+                       
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Requests;
+    }       
         
-        
-    public ArrayList<Passenger> viewPassengerRequests(String Ride_ID) {
+    public ArrayList<Passenger> viewPassengerInfo(String Passenger_ID) {
         ArrayList<Passenger> Passengers = new ArrayList<Passenger>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("Select * from users where email_id in (select passenger_id from ride_requests where ride_id = " + Ride_ID + ")");
+            crs.setCommand("Select * from users where email_id = '" + Passenger_ID +"'");
             crs.execute();
             while (crs.next()) {
                 Passenger p = new Passenger();
@@ -154,19 +189,6 @@ public class Driver extends Passenger {
                 p.setGender(crs.getString("Gender"));
                 p.setMobileNumber(crs.getString("mobile_no"));
 
-                
-                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("email_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides where Ride_ID = " +Ride_ID+ ")");
-                crs2.execute();
-  
-                if (crs2.next() == false)
-                {
-                    p.setConfirmationbutton("Confirm/Remove");
-             
-                }  else
-                {
-                    p.setConfirmationbutton("Remove");
-                }
                 
                 
                 Passengers.add(p);

@@ -30,16 +30,7 @@ public class Passenger extends User {
       
     }
 
-    private String confirmationbutton;
 
-    public void setConfirmationbutton(String confirmationbutton) {
-        this.confirmationbutton = confirmationbutton;
-    }
-
-    public String getConfirmationbutton() {
-        return confirmationbutton;
-    }
-    
  
 
     public boolean isDriver() {
