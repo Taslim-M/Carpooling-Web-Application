@@ -47,7 +47,10 @@ public class LoginController extends HttpServlet {
                 Passenger p = Passenger.getPassenger(userName);
 
                 HttpSession session = request.getSession();
-                session.invalidate(); //removes all session attributes bound to the session
+                if (session != null) //If session is not null
+                {
+                    session.invalidate(); //removes all session attributes bound to the session
+                }
                 session.setAttribute("username", userName);
                 session.setAttribute("passenger", p);
                 if (p.isDriver()) {
