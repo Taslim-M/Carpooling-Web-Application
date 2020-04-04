@@ -49,7 +49,6 @@
         </table>
 
 
-        <form action="ViewPassengerRequestsController" align = "center"><input type = "hidden" name = "rideid" value = ${Ride_ID} ><input type="submit" value="Go Back to Passenger List" class="btn btn-info"></form>
 
     </body>
 </html>
