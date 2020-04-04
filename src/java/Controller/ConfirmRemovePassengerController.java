@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author reem
  */
-@WebServlet(name = "ViewPassengerRequestsController", urlPatterns = {"/ViewPassengerRequestsController"})
-public class ViewPassengerRequestsController extends HttpServlet {
+@WebServlet(name = "ConfirmRemovePassengerController", urlPatterns = {"/ConfirmRemovePassengerController"})
+public class ConfirmRemovePassengerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,15 +36,45 @@ public class ViewPassengerRequestsController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String Passenger_ID = request.getParameter("passenger_id");
         String Ride_ID = request.getParameter("rideid");
+        String Choice = request.getParameter("choice");
+        
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
-            ArrayList<Passenger> Passengers = d.viewPassengerRequests(Ride_ID);
-            RequestDispatcher rd = request.getRequestDispatcher("viewPassengerRequests.jsp");
-            request.setAttribute("Passengers", Passengers);
-            request.setAttribute("Ride_ID", Ride_ID);
-            rd.forward(request, response);
+            
+            if ("Confirm".equals(Choice))
+            {
+                d.ConfirmPassengerRequest(Ride_ID, Passenger_ID);
+                String Message = "Passenger Confirmed Successfully!";
+                RequestDispatcher rd = request.getRequestDispatcher("RemoveRegisteredPassenger.jsp");
+                request.setAttribute("Message", Message);
+                request.setAttribute("Ride_ID", Ride_ID);
+                request.setAttribute("Passenger_ID", Passenger_ID);
+                rd.forward(request, response);
+            }
+            else if("RemoveNew".equals(Choice))
+            {
+                d.RemovePassenger(Ride_ID, Passenger_ID);
+                String Message = "Passenger Request Rejected Successfully!";
+                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                request.setAttribute("Message", Message);
+                request.setAttribute("Ride_ID", Ride_ID);
+                rd.forward(request, response);
+            }
+            else if("RemoveRegistered".equals(Choice))
+            {
+                d.RemovePassenger(Ride_ID, Passenger_ID);
+                String Message = "Passenger Removed Successfully!";
+                RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                request.setAttribute("Message", Message);
+                request.setAttribute("Ride_ID", Ride_ID);
+                rd.forward(request, response);
+            }
+
+            
+            
         }
     }
 

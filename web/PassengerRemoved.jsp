@@ -9,10 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Confirm or Remove Registered Passenger:</title>
+        <title>Pending Passenger Form</title>
     </head>
     <body>
     <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > ${Message} </h1>
-    <form action="ViewOfferedRidesController"  align = "center"><input type="submit" value = "View Updated Offered Rides" ></form>
+    <form action="ViewPassengerRequestsController"  align = "center"><input type = "hidden" name = "rideid" value = ${Ride_ID} ><input type="submit" value = "Go Back to Passenger List" ></form>
+
     </body>
 </html>

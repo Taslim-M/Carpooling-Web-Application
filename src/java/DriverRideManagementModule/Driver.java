@@ -219,6 +219,60 @@ public class Driver extends Passenger {
         }
 
     }
+  
+ 
+  
+    public void ConfirmPassengerRequest(String Ride_ID, String Passenger_ID) {
+   
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("insert into confirmed_rides values( " + Ride_ID + ",'" + Passenger_ID + "')");
+            crs.execute();
+            crs.setCommand("Update offered_rides set current_seat_avail = current_seat_avail - 1 where ride_id = " + Ride_ID);
+            crs.execute();
+
+            }
+         catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    public void RemovePassenger(String Ride_ID, String Passenger_ID) {
+   
+        
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("Select * from confirmed_rides where ride_id =" + Ride_ID + "AND passenger_id = '" + Passenger_ID + "'");
+            crs.execute();
+            if (crs.next() == false) { 
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Delete ride_requests where ride_id =" + Ride_ID + " AND passenger_id = '" + Passenger_ID + "'");
+                crs2.execute();
+            }
+            else
+            {
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("Delete confirmed_rides where ride_id = "+ Ride_ID+" AND passenger_id = '"+Passenger_ID +"'");
+                crs2.execute();
+                crs2.setCommand("Delete ride_requests where ride_id = "+ Ride_ID+" AND passenger_id = '"+Passenger_ID +"'");
+                crs2.execute();
+                crs2.setCommand("Update offered_rides set current_seat_avail = current_seat_avail + 1 where ride_id =" + Ride_ID);
+                crs2.execute();
+
+                
+            }
+        }
+         catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+  
+  
+  
 
 
     private String getRideId() {

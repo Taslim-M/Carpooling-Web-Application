@@ -39,13 +39,14 @@
                     <td align = "center"><font style = "font-family: avenir" >${passenger.lastName}</font></td>
                     <td align = "center"><font style = "font-family: avenir" >${passenger.gender}</font></td>
                     <td align = "center"><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
-                    <td align = "center"><form action="ConfirmRemovePassenger.jsp"><input type = "hidden" name = "passengerid" value = ${passenger.emailID} ><input type="submit" value= ${passenger.confirmationbutton} ></form></td>
+                    <td align = "center"><form action="PassengerActionController"><input type = "hidden" name = "passengerid" value = ${passenger.emailID} ><input type = "hidden" name = "passengerstatus" value = ${passenger.confirmationbutton} ><input type = "hidden" name = "rideid" value = ${Ride_ID} ><input type="submit" value= ${passenger.confirmationbutton} ></form></td>
                
+
                 </tr>
             </c:forEach>
 
+           
         </table>
-
 
 
 

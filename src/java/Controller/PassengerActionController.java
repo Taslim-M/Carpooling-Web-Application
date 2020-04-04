@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author reem
  */
-@WebServlet(name = "ViewPassengerRequestsController", urlPatterns = {"/ViewPassengerRequestsController"})
-public class ViewPassengerRequestsController extends HttpServlet {
+@WebServlet(name = "PassengerActionController", urlPatterns = {"/PassengerActionController"})
+public class PassengerActionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,15 +36,33 @@ public class ViewPassengerRequestsController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String Passenger_ID = request.getParameter("passengerid");
         String Ride_ID = request.getParameter("rideid");
+        String Passenger_Status = request.getParameter("passengerstatus");
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
-            ArrayList<Passenger> Passengers = d.viewPassengerRequests(Ride_ID);
-            RequestDispatcher rd = request.getRequestDispatcher("viewPassengerRequests.jsp");
-            request.setAttribute("Passengers", Passengers);
-            request.setAttribute("Ride_ID", Ride_ID);
-            rd.forward(request, response);
+            if ("Confirm/Remove".equals(Passenger_Status))
+            {
+                String Message = "Confirm or Remove Pending Passenger:";
+                RequestDispatcher rd = request.getRequestDispatcher("ConfirmOrRemovePendingPassenger.jsp");
+                request.setAttribute("Message", Message);
+                request.setAttribute("Passenger_ID", Passenger_ID);
+                request.setAttribute("Ride_ID", Ride_ID);
+                rd.forward(request, response);
+            }
+            else
+            {
+                
+                String Message = "Remove registered Passenger:";
+                RequestDispatcher rd = request.getRequestDispatcher("RemoveRegisteredPassenger.jsp");
+                request.setAttribute("Message", Message);
+                request.setAttribute("Passenger_ID", Passenger_ID);
+                request.setAttribute("Ride_ID", Ride_ID);
+                rd.forward(request, response);
+            }
+            
+            
         }
     }
 
