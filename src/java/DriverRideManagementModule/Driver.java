@@ -222,20 +222,37 @@ public class Driver extends Passenger {
   
  
   
-    public void ConfirmPassengerRequest(String Ride_ID, String Passenger_ID) {
+    public String ConfirmPassengerRequest(String Ride_ID, String Passenger_ID) {
    
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("insert into confirmed_rides values( " + Ride_ID + ",'" + Passenger_ID + "')");
+            crs.setCommand("select * from offered_rides where ride_id = " + Ride_ID);
             crs.execute();
-            crs.setCommand("Update offered_rides set current_seat_avail = current_seat_avail - 1 where ride_id = " + Ride_ID);
-            crs.execute();
+            while (crs.next()) {
+
+            if(crs.getInt("current_seat_avail") == 0)
+            {
+                return "No Seats";
 
             }
+            else
+            {
+                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                crs2.setCommand("insert into confirmed_rides values( " + Ride_ID + ",'" + Passenger_ID + "')");
+                crs2.execute();
+                crs2.setCommand("Update offered_rides set current_seat_avail = current_seat_avail - 1 where ride_id = " + Ride_ID);
+                crs2.execute();
+                return "Confirmed";
+            }
+
+        }
+            
+        }
          catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return null;
     }
     
     

@@ -46,13 +46,24 @@ public class ConfirmRemovePassengerController extends HttpServlet {
             
             if ("Confirm".equals(Choice))
             {
-                d.ConfirmPassengerRequest(Ride_ID, Passenger_ID);
+                String Confirmation = d.ConfirmPassengerRequest(Ride_ID, Passenger_ID);
+                if("Confirmed".equals(Confirmation))
+                {
                 String Message = "Passenger Confirmed Successfully!";
                 RequestDispatcher rd = request.getRequestDispatcher("RemoveRegisteredPassenger.jsp");
                 request.setAttribute("Message", Message);
                 request.setAttribute("Ride_ID", Ride_ID);
                 request.setAttribute("Passenger_ID", Passenger_ID);
                 rd.forward(request, response);
+                }
+                else if ("No Seats".equals(Confirmation))
+                {
+                    String Message = "No Seats Available in Requested Ride!";
+                    RequestDispatcher rd = request.getRequestDispatcher("PassengerRemoved.jsp");
+                    request.setAttribute("Message", Message);
+                    request.setAttribute("Ride_ID", Ride_ID);
+                    rd.forward(request, response);
+                }
             }
             else if("RemoveNew".equals(Choice))
             {
