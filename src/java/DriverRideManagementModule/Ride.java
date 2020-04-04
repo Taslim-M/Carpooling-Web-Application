@@ -10,7 +10,11 @@ package DriverRideManagementModule;
  * @author Tasli
  */
 import PassengerRideManagementModule.Location;
+import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
 
 
 public abstract class Ride {
@@ -91,6 +95,23 @@ public abstract class Ride {
 
     public void setDriver(Driver driver) {
         this.driver = driver;
+    }
+    
+    public static boolean createRequest(int rideId, String passengerId, String pickupLocation, String dropoffLocation){
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        try {
+            crs.setCommand("INSERT INTO RIDE_REQUESTS (RIDE_ID, PASSENGER_ID, PICKUP_LOCATION, DROPOFF_LOCATION) VALUES (?,?,?,?)");
+            crs.setInt(1,rideId);
+            crs.setString(2,passengerId);
+            crs.setString(3,pickupLocation);
+            crs.setString(4,dropoffLocation);
+            crs.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
     }
 
 }
