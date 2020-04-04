@@ -23,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author reem
  */
-@WebServlet(name = "ViewPassengerRequestsController", urlPatterns = {"/ViewPassengerRequestsController"})
-public class ViewPassengerRequestsController extends HttpServlet {
+@WebServlet(name = "ViewPassengerInfoController", urlPatterns = {"/ViewPassengerInfoController"})
+public class ViewPassengerInfoController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,13 +37,15 @@ public class ViewPassengerRequestsController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String Passenger_ID = request.getParameter("passengerid");
         String Ride_ID = request.getParameter("rideid");
         HttpSession session = request.getSession();
         Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
         if (d != null) {
-            ArrayList<Request> Requests = d.viewPassengerRequests(Ride_ID);
-            RequestDispatcher rd = request.getRequestDispatcher("viewPassengerRequests.jsp");
-            request.setAttribute("Requests", Requests);
+            ArrayList<Passenger> Passengers = d.viewPassengerInfo(Passenger_ID);
+            RequestDispatcher rd = request.getRequestDispatcher("viewPassengerInfo.jsp");
+            request.setAttribute("Passengers", Passengers);
+            request.setAttribute("Ride_ID", Ride_ID);
             rd.forward(request, response);
         }
     }
