@@ -49,7 +49,10 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession();
                 if (session != null) //If session is not null
                 {
-                    session.invalidate(); //removes all session attributes bound to the session
+                    //removes all session attributes bound to the session
+                    while(session.getAttributeNames().hasMoreElements()){
+                        session.removeAttribute(session.getAttributeNames().nextElement());
+                    }
                 }
                 session.setAttribute("username", userName);
                 session.setAttribute("passenger", p);
