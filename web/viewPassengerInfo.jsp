@@ -29,24 +29,24 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">Passenger ID</th>
-                                <td>${passenger.emailID}</td>
+                                <th scope="row" ><font style = "font-family: avenir" >Passenger ID</font></th>
+                                <td><font style = "font-family: avenir" >${passenger.emailID}</font></td>
                             </tr>
                             <tr>
-                                <th scope="row">First Name</th>
-                                <td> ${passenger.firstName}</td>
+                                <th scope="row"><font style = "font-family: avenir" >First Name</font></th>
+                                <td><font style = "font-family: avenir" > ${passenger.firstName}</font></td>
                             </tr>
                             <tr>
-                                <th scope="row">Last Name</th>
-                                <td>${passenger.lastName}</td>
+                                <th scope="row"><font style = "font-family: avenir" >Last Name</font></th>
+                                <td><font style = "font-family: avenir" >${passenger.lastName}</font></td>
                             </tr>
                             <tr>
-                                <th scope="row">Gender</th>
-                                <td>${passenger.gender}</td>
+                                <th scope="row"><font style = "font-family: avenir" >Gender</font></th>
+                                <td><font style = "font-family: avenir" >${passenger.gender}</font></td>
                             </tr>
                             <tr>
-                                <th scope="row">Mobile Number</th>
-                                <td>${passenger.mobileNumber}</td>
+                                <th scope="row"><font style = "font-family: avenir" >Mobile Number</font></th>
+                                <td><font style = "font-family: avenir" >${passenger.mobileNumber}</font></td>
                             </tr>
                         </tbody>
                     </table>
