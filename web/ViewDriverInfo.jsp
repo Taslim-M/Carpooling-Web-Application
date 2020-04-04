@@ -9,18 +9,41 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <title>Driver Information</title>
+        <title>Driver Information</title>
     </head>
     <body>
-        <h1 style = "font-family: avenir; color : #9B1B1B" >Driver Information</h1>
-        <font style = "font-family: avenir" >First Name: ${selected_driver.firstName}</font>
-        <br/>
-        <font style = "font-family: avenir" >Last Name: ${selected_driver.lastName}</font>
-        <br/>
-        <font style = "font-family: avenir" >Gender: ${selected_driver.gender}</font>
-        <br/>
-        <font style = "font-family: avenir" >Car Model: ${selected_driver.myCar.carModel}</font>
-        <br/>
-
+    <c:if test="${empty sessionScope.driver}" >
+        <jsp:include page="navbarPassenger.html"/>
+    </c:if> 
+    <c:if test="${! empty sessionScope.driver}" >
+        <jsp:include page="navbar.html"/>
+    </c:if> 
+    <div class ="container h-100">
+        <div class="table-responsive">
+            <h1 style = "font-family: avenir; color : #9B1B1B" align="center" >Driver Information</h1>
+            <br>
+            <table class="table table-striped table-dark"  align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">First Name</th>
+                        <td>${selected_driver.firstName}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Last Name</th>
+                        <td>${selected_driver.lastName}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Gender</th>
+                        <td>${selected_driver.gender}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Car Model</th>
+                        <td>${selected_driver.myCar.carModel}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

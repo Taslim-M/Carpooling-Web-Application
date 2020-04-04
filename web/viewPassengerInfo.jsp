@@ -14,21 +14,52 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Passenger Information</title>
     </head>
-    
+
     <body>
-        <c:forEach items="${Passengers}" var = "passenger" >
-        <h1 style = "font-family: avenir; color : #9B1B1B" >Passenger Information</h1>
-        <font style = "font-family: avenir" >Passenger ID: ${passenger.emailID}</font>
-        <br/>
-        <font style = "font-family: avenir" >First Name: ${passenger.firstName}</font>
-        <br/>
-        <font style = "font-family: avenir" >Last Name: ${passenger.lastName}</font>
-        <br/>
-        <font style = "font-family: avenir" >Gender: ${passenger.gender}</font>
-        <br/>
-        <font style = "font-family: avenir" >Mobile Number: ${passenger.mobileNumber}</font>
-        <br/>
-        </c:forEach>
-    </body>
-    
+        <c:if test="${empty sessionScope.driver}" >
+            <jsp:include page="navbarPassenger.html"/>
+        </c:if> 
+        <c:if test="${! empty sessionScope.driver}" >
+            <jsp:include page="navbar.html"/>
+        </c:if> 
+        <div class ="container h-100">
+
+            <c:forEach items="${Passengers}" var = "passenger" >
+                <h1 style = "font-family: avenir; color : #9B1B1B" align="center" >Passenger Information</h1>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-striped table-dark"  align="center">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Passenger ID</th>
+                                <td>${passenger.emailID}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">First Name</th>
+                                <td> ${passenger.firstName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Last Name</th>
+                                <td>${passenger.lastName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gender</th>
+                                <td>${passenger.gender}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mobile Number</th>
+                                <td>${passenger.mobileNumber}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</body>
+
 </html>
