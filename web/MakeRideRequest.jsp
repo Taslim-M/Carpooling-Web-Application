@@ -73,9 +73,9 @@
                                     <input type="hidden" name="dropoff_location" value="${param.dropoff_location_longitude}, ${param.dropoff_location_latitude}" />
                                     <input type="hidden" name="selected_ride" value="${ride.rideId}" />
                                     <input type="hidden" name="driver_id" value="${ride.driver.emailID}" />
-                                    <td align = "center"><input type="submit" value="Request Ride" /></td>
+                                    <td align = "center"><input type="submit" value="Request Ride" class= "btn btn-primary"/></td>
                                     </form>
-                                    <td align = "center"><form action="ViewDriverInfoController" target="_blank"/> <input type="hidden" name="driver_id" value="${ride.driver.emailID}" /><input type="submit" value="View Driver Info"/> </td>        
+                                    <td align = "center"><form action="ViewDriverInfoController" target="_blank"/> <input type="hidden" name="driver_id" value="${ride.driver.emailID}" /><input type="submit" value="View Driver Info" class="btn btn-info"/> </td>        
                                 </tr>
                             </c:forEach>
                         </tbody>

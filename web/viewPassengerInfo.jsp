@@ -13,15 +13,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Passenger Information</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     </head>
 
     <body>
-        <c:if test="${empty sessionScope.driver}" >
-            <jsp:include page="navbarPassenger.html"/>
-        </c:if> 
-        <c:if test="${! empty sessionScope.driver}" >
-            <jsp:include page="navbar.html"/>
-        </c:if> 
+
         <div class ="container h-100">
 
             <c:forEach items="${Passengers}" var = "passenger" >
