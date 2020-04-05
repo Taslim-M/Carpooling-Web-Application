@@ -58,18 +58,23 @@ public class RegisterDriverController extends HttpServlet {
 
         boolean checkDetails = p.checkDriverRegistrationDetails(carModel, carCapacity, filePartEID, filePartLicense, filePartCarReg);
         if(checkDetails){
-            System.out.println("Inside");
-            Driver d = new Driver();
-            boolean success = d.updateDriverProfile(p.getEmailID(), carModel, carCapacity, filePartEID, filePartLicense, filePartCarReg);
-            if(success){
-                 request.setAttribute("errmsg", "Submitted your application. Please wait for admin to review.");
-            }else{
-                System.out.println("Driver did not add");
-                request.setAttribute("errmsg", "Something went wrong. Try again Later");
+            try {
+                System.out.println("Inside");
+                Driver d = new Driver();
+                boolean success = d.updateDriverProfile(p.getEmailID(), carModel, carCapacity, filePartEID, filePartLicense, filePartCarReg);
+                if(success){
+                    request.setAttribute("errmsg", "Submitted your application. Please wait for admin to review.");
+                }else{
+                    System.out.println("Driver did not add");
+                    request.setAttribute("errmsg", "Something went wrong. Try again Later");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RegisterDriverController.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("errmsg", "Connection Issues. Try again Later");
             }
         }else{
             System.out.println("Passenger said false");
-             request.setAttribute("errmsg", "Something went wrong. Try again Later");
+             request.setAttribute("errmsg", "Something went wrong. Please enter details correctly.");
         }
         RequestDispatcher rd = request.getRequestDispatcher("RegisterAsDriver.jsp");
         rd.forward(request, response);

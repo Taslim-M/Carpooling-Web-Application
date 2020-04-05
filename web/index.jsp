@@ -1,14 +1,16 @@
+<%-- 
+    Document   : index
+    Created on : Apr 5, 2020, 1:57:47 PM
+    Author     : Tasli
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html lang="en" class="h-100">
+<html class="h-100">
     <head>
-        <title>Login</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Login Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script type ="text/javascript">
             function validate() {
@@ -34,6 +36,11 @@ and open the template in the editor.
                     <div class="px-2">
                         <form name = "loginform" action="LoginController" method="post" class="justify-content-center">
                             <h1>USCP</h1>
+                            <c:if test="${!empty errmsg}" >
+                                <div class="alert alert-danger">
+                                    ${errmsg}
+                                </div>
+                            </c:if>
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
@@ -46,7 +53,7 @@ and open the template in the editor.
                             <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>
                             <div class ="container">
                                 <p class="copyright">&copy; University Student Carpooling Platform by Team-E.</p>
-                                <a href="newUserRegistration.jsp" class="btn btn-primary btn-block" role="button">Register Here</a>
+                                <a href="NewUserRegistration.jsp" class="btn btn-primary btn-block" role="button">Register Here</a>
                             </div>
                         </form>
                         <!-- Form end -->

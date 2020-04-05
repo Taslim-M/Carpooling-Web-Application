@@ -8,6 +8,9 @@ package Controller;
 import UserManagementModule.Platform;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,14 +44,20 @@ public class RegisterController extends HttpServlet {
         String gender = request.getParameter("gender");
         String mobilenumber = request.getParameter("mobilenumber");
 
-        boolean isAdded = (new Platform()).submitRegistrationFormDetails(email, password, fname, lname, gender, mobilenumber);
-        if (isAdded) {
-            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
-            rd.forward(request, response);
-        } else {
-            RequestDispatcher rd = request.getRequestDispatcher("/newUserRegistration.jsp");
-            //request.setAttribute("errmsg", "User Already Exist");
-            rd.forward(request, response);
+        boolean isAdded;
+        try {
+            isAdded = (new Platform()).submitRegistrationFormDetails(email, password, fname, lname, gender, mobilenumber);
+            if (isAdded) {
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("NewUserRegistration.jsp");
+                request.setAttribute("errmsg", "User Already Exist");
+                rd.forward(request, response);
+            }
+        } catch (SQLException ex) {
+            request.setAttribute("errmsg", "Connection Issues. Try again later. Please note you can only submit the form once.");
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

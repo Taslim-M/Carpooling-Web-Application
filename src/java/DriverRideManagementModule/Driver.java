@@ -327,7 +327,7 @@ public class Driver extends Passenger {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean updateDriverProfile(String email, String carModel, Integer capacity, Part eid, Part license, Part carReg) {
+    public boolean updateDriverProfile(String email, String carModel, Integer capacity, Part eid, Part license, Part carReg) throws SQLException {
         try {
 
             InputStream eidIS = eid.getInputStream();
@@ -362,11 +362,7 @@ public class Driver extends Passenger {
             System.out.println(" SOMETHING IN DRIVER ER:" + ex);
             Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } catch (SQLException ex) {
-            System.out.println(" SOMETHING IN DRIVER SQL ER:" + ex);
-            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        } 
         return true;
     }
 }

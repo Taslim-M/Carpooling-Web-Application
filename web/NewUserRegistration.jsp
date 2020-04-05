@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,6 +43,11 @@
                     <div class="px-2">
                         <form name = "registerform" action="RegisterController" method="post" class="justify-content-center">
                             <h1>New User Registration</h1>
+                            <c:if test="${!empty errmsg}" >
+                                <div class="alert alert-info">
+                                    ${errmsg}
+                                </div>
+                            </c:if>
                             <div class="form-group">
                                 <label for="fname">First Name:</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
@@ -69,7 +75,7 @@
                                     <option>F</option>
                                 </select>
                             </div>
-                             <h1>  </h1>
+                            <h1>  </h1>
                             <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>
                             <div class ="container">
                                 <p class="copyright">&copy; University Student Carpooling Platform by Team-E.</p>  

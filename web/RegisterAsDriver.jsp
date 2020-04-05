@@ -54,7 +54,11 @@
         <div class ="container h-100">
             <form name = "registerDriverForm" action="RegisterDriverController" method="post" class="justify-content-center" enctype="multipart/form-data">
                 <h1>Register As Driver</h1>
-                <h2> ${errmsg} </h2>
+                <c:if test="${!empty errmsg}" >
+                    <div class="alert alert-info">
+                        ${errmsg}
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <label for="carModel">Car Model:</label>
                     <input type="text" class="form-control" id="carModel" placeholder="Nissan Pathfinder.." name="carModel">
@@ -99,11 +103,6 @@
             </form>
             <!-- Form end -->
         </div>
-    </div>
-</div>
 
-</form>
-</div>
-
-</body>
+    </body>
 </html>

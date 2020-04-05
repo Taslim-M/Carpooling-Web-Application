@@ -37,7 +37,8 @@ public class LogoutController extends HttpServlet {
         if (session != null) //If session is not null
         {
             session.invalidate(); //removes all session attributes bound to the session
-            RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            request.setAttribute("errmsg", "Logout Successful");
             rd.forward(request, response);
         }
 

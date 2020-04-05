@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
                 if (session != null) //If session is not null
                 {
                     //removes all session attributes bound to the session
-                    while(session.getAttributeNames().hasMoreElements()){
+                    while (session.getAttributeNames().hasMoreElements()) {
                         session.removeAttribute(session.getAttributeNames().nextElement());
                     }
                 }
@@ -66,11 +66,14 @@ public class LoginController extends HttpServlet {
                 rd.forward(request, response);
             } else { // GO back to login page
                 request.setAttribute("errmsg", "Username or Password is Invalid");
-                RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errmsg", "Connection Error");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
         }
 
     }

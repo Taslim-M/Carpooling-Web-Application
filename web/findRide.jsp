@@ -18,7 +18,7 @@
     <body>
         <%-- 
  <c:if test="${empty sessionScope.username}" >
-     <jsp:forward page="index.html" />
+     <jsp:forward page="index.jsp" />
  </c:if> 
         --%>
         <c:if test="${empty sessionScope.driver}" >
