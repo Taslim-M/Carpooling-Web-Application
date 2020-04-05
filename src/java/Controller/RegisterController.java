@@ -48,7 +48,8 @@ public class RegisterController extends HttpServlet {
         try {
             isAdded = (new Platform()).submitRegistrationFormDetails(email, password, fname, lname, gender, mobilenumber);
             if (isAdded) {
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                request.setAttribute("errmsg", "You can now log-in with your registered ID");
                 rd.forward(request, response);
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("NewUserRegistration.jsp");
@@ -56,7 +57,9 @@ public class RegisterController extends HttpServlet {
                 rd.forward(request, response);
             }
         } catch (SQLException ex) {
+            RequestDispatcher rd = request.getRequestDispatcher("NewUserRegistration.jsp");
             request.setAttribute("errmsg", "Connection Issues. Try again later. Please note you can only submit the form once.");
+            rd.forward(request, response);
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
