@@ -1,6 +1,6 @@
 <%-- 
-    Document   : admin
-    Created on : Apr 5, 2020, 8:12:35 PM
+    Document   : ViewDriverApplications
+    Created on : Apr 5, 2020, 9:29:46 PM
     Author     : Tasli
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Login</title>
+        <title>View Driver Applications</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>View Driver Applications</h1>
     </body>
 </html>

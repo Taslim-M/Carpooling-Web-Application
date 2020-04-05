@@ -7,6 +7,7 @@
 import DriverRideManagementModule.Driver;
 import PassengerRideManagementModule.Passenger;
 import UserManagementModule.Account;
+import UserManagementModule.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -44,8 +45,6 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("pwd");
             boolean isValid = (new Account(userName, password)).login();
             if (isValid) {//Successful login
-                Passenger p = Passenger.getPassenger(userName);
-
                 HttpSession session = request.getSession();
                 if (session != null) //If session is not null
                 {
@@ -55,6 +54,13 @@ public class LoginController extends HttpServlet {
                     }
                 }
                 session.setAttribute("username", userName);
+                //If admin, go to the view driver applications page
+                if (Admin.isAdmin(userName)) {
+                    RequestDispatcher rd = request.getRequestDispatcher("ViewDriverApplications.jsp");
+                    rd.forward(request, response);
+                }
+                //else passenger and/or driver login
+                Passenger p = Passenger.getPassenger(userName);
                 session.setAttribute("passenger", p);
                 if (p.isDriver()) {
                     Driver d = new Driver();
