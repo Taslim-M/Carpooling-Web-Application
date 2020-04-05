@@ -32,15 +32,15 @@
                     <thead class="thead-dark">
                         <tr bgcolor="#E9E9E9">
 
-                            <th align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >To Uni?</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Date</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Cancel Ride</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >To Uni?</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Date</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Cancel Ride</font></b></td>
 
                         </tr>
                     </thead>
@@ -75,15 +75,15 @@
                     <thead class="thead-dark">
                         <tr bgcolor="#E9E9E9">
 
-                            <th align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >To Uni?</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Day</font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
-                            <th align = "center"><b><font style = "font-family: avenir" >Cancel Ride</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Ride ID </font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >To Uni?</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Arrival/Departure Time</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Start Location</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >End Location</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Current Seat Availability</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Day</font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >View Passenger Requests </font></b></td>
+                            <td align = "center"><b><font style = "font-family: avenir" >Cancel Ride</font></b></td>
 
                         </tr>
                     </thead>
