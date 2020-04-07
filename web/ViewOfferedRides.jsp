@@ -17,12 +17,11 @@
 
     </head>
     <body>
-        <c:if test="${empty sessionScope.driver}" >
-            <jsp:include page="navbarPassenger.html"/>
+        <c:if test="${empty sessionScope.username}" >
+            <jsp:forward page="findRide.jsp" />
         </c:if> 
-        <c:if test="${! empty sessionScope.driver}" >
-            <jsp:include page="navbar.html"/>
-        </c:if> 
+
+        <jsp:include page="navbar.html"/>
         <div class ="container h-100">
             <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > Upcoming Rides of ${sessionScope.passenger.firstName} </h1>
             <div class="table-responsive">

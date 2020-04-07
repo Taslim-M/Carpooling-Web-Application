@@ -21,12 +21,14 @@
      <jsp:forward page="index.jsp" />
  </c:if> 
         --%>
-        <c:if test="${empty sessionScope.driver}" >
-            <jsp:include page="navbarPassenger.html"/>
-        </c:if> 
-        <c:if test="${! empty sessionScope.driver}" >
-            <jsp:include page="navbar.html"/>
-        </c:if> 
+        <c:choose>
+            <c:when test = "${empty sessionScope.driver}" > 
+                <jsp:include page="navbarPassenger.html"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="navbar.html"/>
+            </c:otherwise>
+        </c:choose>
 
         <div class="container">
             <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Hello ${sessionScope.passenger.firstName}! Find A Ride!</h1>
