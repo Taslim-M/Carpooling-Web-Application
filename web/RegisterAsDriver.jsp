@@ -14,17 +14,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script type ="text/javascript">
             function validateReg() {
-                var carModel = document.forms.registerDriverForm.carModel.value;
-                var capacity = document.forms.registerDriverForm.capacity.value;
 
                 var EID = document.getElementById('EID');
                 var carReg = document.getElementById('carReg');
                 var license = document.getElementById('license');
 
-                if (carModel == null || carModel == "" || EID.files.length == 0 || carReg.files.length == 0 || license.files.length == 0) {
-                    alert("Please input all fields");
-                    return false;
-                }
                 if (!EID.files[0].name.match(/.(jpg|jpeg|png)$/i)) {
                     alert('Please upload EID as jpg, jpeg or png Image');
                     return false;
@@ -61,7 +55,7 @@
                 </c:if>
                 <div class="form-group">
                     <label for="carModel">Car Model:</label>
-                    <input type="text" class="form-control" id="carModel" placeholder="Nissan Pathfinder.." name="carModel">
+                    <input type="text" class="form-control" id="carModel" placeholder="Nissan Pathfinder.." name="carModel" required>
                 </div>
 
                 <div class="form-group">
@@ -79,20 +73,20 @@
                 <div class="file-field">
                     <div class="btn btn-unique btn-sm float-left">
                         <span>Choose Emirates ID Image file</span>
-                        <input type="file" id="EID" name="EID">
+                        <input type="file" id="EID" name="EID" required>
                     </div>
                 </div>
 
                 <div class="file-field">
                     <div class="btn btn-unique btn-sm float-left">
                         <span>Choose License Image file</span>
-                        <input type="file" id="license" name="license">
+                        <input type="file" id="license" name="license" required>
                     </div>
                 </div>
                 <div class="file-field">
                     <div class="btn btn-unique btn-sm float-left">
                         <span>Choose License Image file</span>
-                        <input type="file" id="carReg" name="carReg">
+                        <input type="file" id="carReg" name="carReg" required>
                     </div>
                 </div>
                 <h1>  </h1>

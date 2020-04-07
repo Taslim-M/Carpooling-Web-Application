@@ -15,13 +15,9 @@
         <script type ="text/javascript">
             function validate() {
                 var uname = document.forms.loginform.email.value;
-                var pwd = document.forms.loginform.pwd.value;
-                if (uname == null || uname == "" || pwd == null || pwd == "") {
-                    alert("Invalid Username Or password");
-                    return false;
-                }
+
                 if (!(/@aus.edu\s*$/.test(uname))) {
-                    alert("You can only login with your AUS account");
+                    alert("Please enter a valid AUS email ID");
                     return false;
                 }
                 return true;
@@ -43,11 +39,11 @@
                             </c:if>
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required/>
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Password:</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required/>
                             </div>
 
                             <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>

@@ -14,16 +14,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script type ="text/javascript">
             function validate() {
-                var fname = document.forms.registerform.fname.value;
-                var lname = document.forms.registerform.lname.value;
-                var email = document.forms.registerform.email.value;
-                var pwd = document.forms.registerform.pwd.value;
+                var email = document.forms.registerform.email.value;    
                 var mobilenumber = document.forms.registerform.mobilenumber.value;
 
-                if (email == null || email == "" || pwd == null || pwd == "" || fname == null || fname == "" || lname == null || lname == "") {
-                    alert("Please input Username, Password, First and Last name");
-                    return false;
-                }
                 if (mobilenumber.length != 10) {
                     alert("Please enter Mobile number correctly");
                     return false;
@@ -50,23 +43,23 @@
                             </c:if>
                             <div class="form-group">
                                 <label for="fname">First Name:</label>
-                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname" required>
                             </div>
                             <div class="form-group">
                                 <label for="lname">Last Name:</label>
-                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Password:</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
                             </div>
                             <div class="form-group">
                                 <label for="mobilenumber">Mobile Number:</label>
-                                <input type="text" class="form-control" id="mobilenumber" placeholder="05XXXXXXXX" name="mobilenumber">
+                                <input type="text" class="form-control" id="mobilenumber" placeholder="05XXXXXXXX" name="mobilenumber" required>
                             </div>
                             <div>
                                 <label for="sel1">Select Gender:</label>
