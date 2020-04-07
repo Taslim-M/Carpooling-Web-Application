@@ -34,22 +34,22 @@
 
         <form action="SearchRidesController" align = "center"><font  style = "font-family: avenir">
             Select Ride Frequency: <br/>
-            <input type="radio" name="single_or_weekly" value="single" onclick="manageSingleWeekly(this)" /> Single
-            <input type="radio" name="single_or_weekly" value="weekly" onclick="manageSingleWeekly(this)" /> Weekly
+            <input type="radio" name="single_or_weekly" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
+            <input type="radio" name="single_or_weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
 
             <br/>
-            <input type="radio" name="to_from_uni" value="to" /> To University
-            <input type="radio" name="to_from_uni" value="from"/> From University
+            <input type="radio" name="to_from_uni" value="to" required/> To University
+            <input type="radio" name="to_from_uni" value="from" required/> From University
             <br/>
 
-            <div id="ride_date_box" style="display:none">
+            <div id="ride_date_box" style="display:box">
                 <label for="ride_date">Ride date:</label>
-                <input type="date" id="ride_date" name="ride_date" >
+                <input type="date" id="ride_date" name="ride_date" required >
                 <br/>
             </div>
             <div id="ride_days_box" style="display:none">
                 Select Days <br/>
-                U <input type="checkbox" name="ride_days" value="Sunday" />
+                U <input type="checkbox" name="ride_days" value="Sunday" checked required/>
                 M <input type="checkbox" name="ride_days" value="Monday" />
                 T <input type="checkbox" name="ride_days" value="Tuesday" />
                 W <input type="checkbox" name="ride_days" value="Wednesday" />
@@ -60,20 +60,20 @@
 
             Home Area: <br/>
             <label for="home_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="home_location_latitude" value="" />
+            <input type="number" step="any" name="home_location_latitude" value="" required />
             <label for="home_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="home_location_longitude" value="" /><br/>
+            <input type="number" step="any" name="home_location_longitude" value="" required /><br/>
 
             <br/>
             University Area: <br/>
             <label for="uni_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="uni_location_latitude" value="25.311530" />
+            <input type="number" step="any" name="uni_location_latitude" value="25.311530" required />
             <label for="uni_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="uni_location_longitude" value="55.492179" /><br/>
+            <input type="number" step="any" name="uni_location_longitude" value="55.492179" required /><br/>
 
             <br/>
             <label for="ride_time">Departure Time:</label>
-            <input type="time" id="ride_time" name="ride_time">
+            <input type="time" id="ride_time" name="ride_time" required>
             <br/>
             <br/>
             <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
@@ -89,6 +89,8 @@
                     document.getElementById("ride_days_box").style.display = "block";
                 }
             }
+            
+            
         </script>
 
 
