@@ -5,6 +5,7 @@
  */
 package PassengerRideManagementModule;
 
+import Controller.ViewPassengerConfirmedRidesController;
 import DriverRideManagementModule.Driver;
 import DriverRideManagementModule.Ride;
 import DriverRideManagementModule.SingleRide;
@@ -167,6 +168,65 @@ public class Passenger extends User {
             System.out.println(r.getRideId());
         }
         return  foundRides;
+    }
+    
+    public ArrayList<SingleRide> viewSingleConfirmedRides(){
+        ArrayList<SingleRide> singleRides = new ArrayList<>();
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        try {
+            crs.setCommand("select offr.driver_id as driver_id, offr.ride_id as ride_id, offr.is_to_uni as is_to_uni, offr.arrival_dep_time as arrival_dep_time, offr.start_location as start_location, offr.end_location as end_location, offr.current_seat_avail as current_seat_avail, offsr.ride_date as ride_date from offered_rides offr, offered_single_rides offsr, confirmed_rides cr where cr.ride_id = offr.ride_id AND offr.ride_id = offsr.ride_id AND cr.passenger_id = ?");
+            crs.setString(1, this.getEmailID());
+            crs.execute();
+            while (crs.next()) {
+                Driver currDriver = new Driver();
+                currDriver.setEmailID(crs.getString("driver_id"));
+
+                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP) crs.getObject("arrival_dep_time");
+                String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+
+                singleRides.add(new SingleRide(crs.getDate("ride_date").toLocalDate(),
+                        crs.getInt("ride_id"), crs.getString("is_to_uni").equals("1"),
+                        tsString,
+                        new Location(crs.getString("start_location")),
+                        new Location(crs.getString("end_location")),
+                        crs.getInt("current_seat_avail"), currDriver));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        return singleRides;
+    }
+    
+    public ArrayList<WeeklyRide> viewWeeklyConfirmedRides(){
+        ArrayList<WeeklyRide> weeklyRides = new ArrayList<>();
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        try {
+            crs.setCommand("select offr.driver_id as driver_id, offr.ride_id as ride_id, offr.is_to_uni as is_to_uni, offr.arrival_dep_time as arrival_dep_time, offr.start_location as start_location, offr.end_location as end_location, offr.current_seat_avail as current_seat_avail, offwr.day as day from offered_rides offr, offered_weekly_rides offwr, confirmed_rides cr where offr.ride_id = offwr.ride_id and cr.ride_id = offr.ride_id and cr.passenger_id = ?");
+            crs.setString(1, this.getEmailID());
+            crs.execute();
+            
+            while (crs.next()) {
+                Driver currDriver = new Driver();
+                currDriver.setEmailID(crs.getString("driver_id"));
+
+                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP) crs.getObject("arrival_dep_time");
+                String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+
+                weeklyRides.add(new WeeklyRide(crs.getString("day"),
+                        crs.getInt("ride_id"), crs.getString("is_to_uni").equals("1"),
+                        tsString,
+                        new Location(crs.getString("start_location")),
+                        new Location(crs.getString("end_location")),
+                        crs.getInt("current_seat_avail"), currDriver));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        return weeklyRides;
     }
     
 }
