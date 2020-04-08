@@ -17,7 +17,7 @@
         <div class ="container h-100">
             <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" >${outcome_message}</h1>
      
-        <form action="findRide.jsp">
+        <form align="center" action="findRide.jsp">
             <input type="submit" value="Go Back Home" class="btn btn-secondary"/>
         </form>
         </div>
