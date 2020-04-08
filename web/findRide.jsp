@@ -83,7 +83,7 @@
             
             <div class="form-group">
                 <h3 id="deparrtime">Time </h3>
-                <input type="time" id="ride_time" name="ride_time" required>
+                <input type="time" id="ride_time" name="ride_time" step="900" required>
             </div>
             
             <br>

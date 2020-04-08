@@ -10,6 +10,8 @@ import UserManagementModule.Account;
 import UserManagementModule.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,9 +45,16 @@ public class LoginController extends HttpServlet {
         try {
             String userName = request.getParameter("email");
             String password = request.getParameter("pwd");
-            boolean isValid = (new Account(userName, password)).login();
+            boolean isValid= false;
+            try {
+                isValid = (new Account(userName, password)).login();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (isValid) {//Successful login
-                HttpSession session = request.getSession();
+                HttpSession session = request.getSession(); 
                 if (session != null) //If session is not null
                 {
                     //removes all session attributes bound to the session

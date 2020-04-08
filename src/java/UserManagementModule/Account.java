@@ -6,6 +6,9 @@
 package UserManagementModule;
 
 import CarpoolDatabase.DbRepo;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.rowset.CachedRowSet;
@@ -46,19 +49,23 @@ public class Account {
         this.dbCon = new DbRepo();
     }
 
-    public boolean login() throws SQLException {
+    public boolean login() throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException {
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         crs.setCommand("Select * from ACCOUNTS WHERE USERNAME = ? ");
         crs.setString(1, emailID);
         crs.execute();
         String usernameDB = "";
         String pwdDB = "";
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] sign = md.digest(this.password.getBytes());
+
+        String pwdHash = new String(sign, "UTF-8");
+
         if (crs.next()) {
             usernameDB = crs.getString("USERNAME");
             pwdDB = crs.getString("PASSWORD");
-            return (this.emailID.equals(usernameDB) && this.password.equals(pwdDB));
-        }
-        else {
+            return (this.emailID.equals(usernameDB) && pwdHash.equals(pwdDB));
+        } else {
             return false;
         }
     }

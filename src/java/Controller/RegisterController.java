@@ -8,6 +8,8 @@ package Controller;
 import UserManagementModule.Platform;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +62,10 @@ public class RegisterController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("NewUserRegistration.jsp");
             request.setAttribute("errmsg", "Connection Issues. Try again later. Please note you can only submit the form once.");
             rd.forward(request, response);
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -6,6 +6,9 @@
 package UserManagementModule;
 
 import PassengerRideManagementModule.Passenger;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,16 +30,15 @@ public class Platform {
         this.universityName = universityName;
     }
 
-    public boolean submitRegistrationFormDetails(String email, String password, String fname, String lname, String gender, String mobileNo) throws SQLException {
+    public boolean submitRegistrationFormDetails(String email, String password, String fname, String lname, String gender, String mobileNo) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException {
         if (doesIDExist(email)) {
             return false;
         }
 
-        Passenger p = new Passenger();
-        p.setEmailID(email);
-        p.setFirstName(fname);
-        p.setLastName(lname);
-        p.setMobileNumber(mobileNo);
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] sign = md.digest(password.getBytes());
+
+        String pwdHash = new String(sign, "UTF-8");
 
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         crs.setCommand("INSERT INTO USERS (EMAIL_ID, FIRST_NAME, LAST_NAME, GENDER, MOBILE_NO) VALUES (?,?,?,?,?) ");
@@ -49,7 +51,7 @@ public class Platform {
 
         crs.setCommand("INSERT INTO ACCOUNTS (USERNAME, PASSWORD) VALUES (?,?) ");
         crs.setString(1, email);
-        crs.setString(2, password);
+        crs.setString(2, pwdHash);
         crs.execute();
 
         return true;
