@@ -34,10 +34,10 @@
             <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Hello ${sessionScope.passenger.firstName}! Find A Ride!</h1>
         </div>
 
-        <form action="SearchRidesController" align = "center"><font  style = "font-family: avenir">
+        <form action="SearchRidesController" onsubmit ="return checkCheckboxes()" align = "center"><font  style = "font-family: avenir">
             Select Ride Frequency: <br/>
-            <input type="radio" name="single_or_weekly" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
-            <input type="radio" name="single_or_weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
+            <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
+            <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
 
             <br/>
             <input type="radio" name="to_from_uni" value="to" required/> To University
@@ -51,12 +51,13 @@
             </div>
             <div id="ride_days_box" style="display:none">
                 Select Days <br/>
-                U <input type="checkbox" name="ride_days" value="Sunday" checked required/>
-                M <input type="checkbox" name="ride_days" value="Monday" />
-                T <input type="checkbox" name="ride_days" value="Tuesday" />
-                W <input type="checkbox" name="ride_days" value="Wednesday" />
-                R <input type="checkbox" name="ride_days" value="Thursday" />
+                U <input type="checkbox" name="ride_days" id="Sunday" value="Sunday"/>
+                M <input type="checkbox" name="ride_days" id="Monday" value="Monday" />
+                T <input type="checkbox" name="ride_days" id="Tuesday" value="Tuesday" />
+                W <input type="checkbox" name="ride_days" id="Wednesday" value="Wednesday" />
+                R <input type="checkbox" name="ride_days" id="Thursday" value="Thursday" />
 
+               
                 <br/>
             </div>
 
@@ -91,6 +92,23 @@
                     document.getElementById("ride_days_box").style.display = "block";
                 }
             }
+            
+                        
+            function checkCheckboxes() {
+                if(document.getElementById("weekly").checked)
+                {
+                    if (!document.getElementById("Sunday").checked && !document.getElementById("Monday").checked && !document.getElementById("Tuesday").checked && 
+                    !document.getElementById("Wednesday").checked && !document.getElementById("Thursday").checked) {
+                        alert("Select at least one day.");
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                return true;
+                }
             
             
         </script>
