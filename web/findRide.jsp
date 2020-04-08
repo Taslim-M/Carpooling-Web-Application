@@ -35,53 +35,59 @@
         </div>
 
         <form action="SearchRidesController" onsubmit ="return checkCheckboxes();" align = "center" name="search_rides_form"><font  style = "font-family: avenir">
-            Select Ride Frequency: <br/>
-            <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
-            <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
-
-            <br/>
-            <input type="radio" name="to_from_uni" value="to" required/> To University
-            <input type="radio" name="to_from_uni" value="from" required/> From University
-            <br/>
-
-            <div id="ride_date_box" style="display:box">
-                <label for="ride_date">Ride date:</label>
-                <input type="date" id="ride_date" name="ride_date" >
-                <br/>
+            <div class="form-group">
+                <h3> Select Ride Frequency </h3>
+                <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
+                <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
             </div>
-            <div id="ride_days_box" style="display:none">
-                Select Days <br/>
-                U <input type="checkbox" name="ride_days" id="Sunday" value="Sunday"/>
-                M <input type="checkbox" name="ride_days" id="Monday" value="Monday" />
-                T <input type="checkbox" name="ride_days" id="Tuesday" value="Tuesday" />
-                W <input type="checkbox" name="ride_days" id="Wednesday" value="Wednesday" />
-                R <input type="checkbox" name="ride_days" id="Thursday" value="Thursday" />
+            <div class="form-group">
+                <h3> Select Ride Mode </h3>
+                <input type="radio" name="to_from_uni" value="to" onclick="manageArrivalDeparture(this)" required/> To University
+                <input type="radio" name="to_from_uni" value="from" onclick="manageArrivalDeparture(this)" required/> From University
 
-               
-                <br/>
             </div>
+            <div class="form-group">
+                <div id="ride_date_box" style="display:box">
+                    <label for="ride_date">Ride date:</label>
+                    <input type="date" id="ride_date" name="ride_date" >
+                    <br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="ride_days_box" style="display:none">
+                    <h3> Select Days </h3>
+                    U <input type="checkbox" name="ride_days" id="Sunday" value="Sunday"/>
+                    M <input type="checkbox" name="ride_days" id="Monday" value="Monday" />
+                    T <input type="checkbox" name="ride_days" id="Tuesday" value="Tuesday" />
+                    W <input type="checkbox" name="ride_days" id="Wednesday" value="Wednesday" />
+                    R <input type="checkbox" name="ride_days" id="Thursday" value="Thursday" />
 
-            Home Area: <br/>
-            <label for="home_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="home_location_latitude" value="" required />
-            <label for="home_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="home_location_longitude" value="" required /><br/>
 
-            <br/>
-            University Area: <br/>
-            <label for="uni_location_latitude">Latitude:</label>
-            <input type="number" step="any" name="uni_location_latitude" value="25.311530" required />
-            <label for="uni_location_longitude">Longitude:</label>
-            <input type="number" step="any" name="uni_location_longitude" value="55.492179" required /><br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3>Home Area</h3>
+                <label for="home_location_latitude">Latitude:</label>
+                <input type="number" step="any" name="home_location_latitude" value="" required />
+                <label for="home_location_longitude">Longitude:</label>
+                <input type="number" step="any" name="home_location_longitude" value="" required /><br/>
+            </div>
+            <div class="form-group">
+                <h3>University Area: </h3>
+                <label for="uni_location_latitude">Latitude:</label>
+                <input type="number" step="any" name="uni_location_latitude" value="25.311530" required />
+                <label for="uni_location_longitude">Longitude:</label>
+                <input type="number" step="any" name="uni_location_longitude" value="55.492179" required /><br/>
 
-            <br/>
-            <label for="ride_time">Departure Time:</label>
-            <input type="time" id="ride_time" name="ride_time" required>
-            <br/>
-            <br/>
+            </div>
+            <div class="form-group">
+                <h3 id="deparrtime">Time </h3>
+                <input type="time" id="ride_time" name="ride_time" required>
+            </div>
+            <br>
             <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
             </font></form>
-        <script>
+        <script type="text/javascript">
             function manageSingleWeekly(button) {
                 if (button.value == "single") {
                     document.getElementById("ride_date_box").style.display = "block";
@@ -92,32 +98,35 @@
                     document.getElementById("ride_days_box").style.display = "block";
                 }
             }
-            
-                        
+            function manageArrivalDeparture(button){
+                if (button.value == "to") {
+                    deparrtime.innerText = "Arrival to University time";
+                }else{
+                    deparrtime.innerText = "Departure from University time";
+                }
+            }
             function checkCheckboxes() {
-                
-                if(document.getElementById("weekly").checked)
+
+                if (document.getElementById("weekly").checked)
                 {
-                    if (!document.getElementById("Sunday").checked && !document.getElementById("Monday").checked && !document.getElementById("Tuesday").checked && 
-                    !document.getElementById("Wednesday").checked && !document.getElementById("Thursday").checked) {
+                    if (!document.getElementById("Sunday").checked && !document.getElementById("Monday").checked && !document.getElementById("Tuesday").checked &&
+                            !document.getElementById("Wednesday").checked && !document.getElementById("Thursday").checked) {
                         alert("Select at least one day.");
                         return false;
-                    }
-                    else
+                    } else
                     {
                         return true;
                     }
-                }
-                else {
-                    if (!document.getElementById("ride_date").value){
+                } else {
+                    if (!document.getElementById("ride_date").value) {
                         alert("Please enter a date");
                         return false;
                     }
                 }
                 return true;
             }
-                
-            
+
+
         </script>
 
 
