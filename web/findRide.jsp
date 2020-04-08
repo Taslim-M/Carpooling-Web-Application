@@ -40,6 +40,7 @@
                 <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
                 <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
             </div>
+            
             <div class="form-group">
                 <h3> Select Ride Mode </h3>
                 <input type="radio" name="to_from_uni" value="to" onclick="manageArrivalDeparture(this)" required/> To University
@@ -61,10 +62,9 @@
                     T <input type="checkbox" name="ride_days" id="Tuesday" value="Tuesday" />
                     W <input type="checkbox" name="ride_days" id="Wednesday" value="Wednesday" />
                     R <input type="checkbox" name="ride_days" id="Thursday" value="Thursday" />
-
-
                 </div>
             </div>
+            
             <div class="form-group">
                 <h3>Home Area</h3>
                 <label for="home_location_latitude">Latitude:</label>
@@ -72,21 +72,24 @@
                 <label for="home_location_longitude">Longitude:</label>
                 <input type="number" step="any" name="home_location_longitude" value="" required /><br/>
             </div>
+            
             <div class="form-group">
-                <h3>University Area: </h3>
+                <h3>University Area</h3>
                 <label for="uni_location_latitude">Latitude:</label>
                 <input type="number" step="any" name="uni_location_latitude" value="25.311530" required />
                 <label for="uni_location_longitude">Longitude:</label>
                 <input type="number" step="any" name="uni_location_longitude" value="55.492179" required /><br/>
-
             </div>
+            
             <div class="form-group">
                 <h3 id="deparrtime">Time </h3>
                 <input type="time" id="ride_time" name="ride_time" required>
             </div>
+            
             <br>
             <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
             </font></form>
+        
         <script type="text/javascript">
             function manageSingleWeekly(button) {
                 if (button.value == "single") {
