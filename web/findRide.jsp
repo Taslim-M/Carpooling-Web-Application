@@ -34,7 +34,7 @@
             <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Hello ${sessionScope.passenger.firstName}! Find A Ride!</h1>
         </div>
 
-        <form action="SearchRidesController" onsubmit ="return checkCheckboxes()" align = "center"><font  style = "font-family: avenir">
+        <form action="SearchRidesController" onsubmit ="return checkCheckboxes();" align = "center" name="search_rides_form"><font  style = "font-family: avenir">
             Select Ride Frequency: <br/>
             <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
             <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
@@ -46,7 +46,7 @@
 
             <div id="ride_date_box" style="display:box">
                 <label for="ride_date">Ride date:</label>
-                <input type="date" id="ride_date" name="ride_date" required >
+                <input type="date" id="ride_date" name="ride_date" >
                 <br/>
             </div>
             <div id="ride_days_box" style="display:none">
@@ -95,6 +95,7 @@
             
                         
             function checkCheckboxes() {
+                
                 if(document.getElementById("weekly").checked)
                 {
                     if (!document.getElementById("Sunday").checked && !document.getElementById("Monday").checked && !document.getElementById("Tuesday").checked && 
@@ -107,9 +108,15 @@
                         return true;
                     }
                 }
-                return true;
+                else {
+                    if (!document.getElementById("ride_date").value){
+                        alert("Please enter a date");
+                        return false;
+                    }
                 }
-            
+                return true;
+            }
+                
             
         </script>
 
