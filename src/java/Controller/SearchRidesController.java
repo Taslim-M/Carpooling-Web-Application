@@ -63,9 +63,14 @@ public class SearchRidesController extends HttpServlet {
         ArrayList<Ride> foundRides;
         if (isToUni.equals("1")){
             foundRides = Passenger.searchRides(isSingle, isToUni, date, days, homeLocation, uniLocation, rideTime);
+            request.setAttribute("pickup_location", (request.getParameter("home_location_latitude") + ", " + request.getParameter("home_location_longitude")));
+            request.setAttribute("dropoff_location", (request.getParameter("uni_location_latitude") + ", " + request.getParameter("uni_location_longitude")));
+
         }
         else{
             foundRides = Passenger.searchRides(isSingle, isToUni, date, days, uniLocation, homeLocation, rideTime);
+            request.setAttribute("dropoff_location", (request.getParameter("home_location_latitude") + ", " + request.getParameter("home_location_longitude")));
+            request.setAttribute("pickup_location", (request.getParameter("uni_location_latitude") + ", " + request.getParameter("uni_location_longitude")));
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("MakeRideRequest.jsp");

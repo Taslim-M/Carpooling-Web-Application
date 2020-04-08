@@ -69,8 +69,8 @@
                                             <td align = "center"><font style = "font-family: avenir" >${ride.day}</font></b></td>
                                             </c:when>
                                         </c:choose>
-                                    <input type="hidden" name="pickup_location" value="${param.pickup_location_longitude}, ${param.pickup_location_latitude}" />
-                                    <input type="hidden" name="dropoff_location" value="${param.dropoff_location_longitude}, ${param.dropoff_location_latitude}" />
+                                    <input type="hidden" name="pickup_location" value="${pickup_location}" />
+                                    <input type="hidden" name="dropoff_location" value="${dropoff_location}" />
                                     <input type="hidden" name="selected_ride" value="${ride.rideId}" />
                                     <input type="hidden" name="driver_id" value="${ride.driver.emailID}" />
                                     <td align = "center"><input type="submit" value="Request Ride" class= "btn btn-primary"/></td>
