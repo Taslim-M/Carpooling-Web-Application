@@ -51,7 +51,16 @@
                         <td align = "center"><font style = "font-family: avenir" >${ride.endingLocation}</font></b></td>
                         <td align = "center"><font style = "font-family: avenir" >${ride.seatAvailability}</font></b></td>
                         <td align = "center"><font style = "font-family: avenir" >${ride.date}</font></b></td>
-                        <td align = "center"><form action=""><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="More Info" class="btn btn-info"></form></td>
+                        <td align = "center">
+                            <form action="ViewDriverAndRideInfoController" target="_blank">
+                                <input type = "hidden" name = "driver_id" value = "${ride.driver.emailID}" >
+                                <input type = "hidden" name = "seat_availability" value = "${ride.seatAvailability}" >
+                                <input type = "hidden" name = "starting_location" value = "${ride.startingLocation.toString()}" >
+                                <input type = "hidden" name = "ending_location" value = "${ride.endingLocation.toString()}" >
+                                <input type = "hidden" name = "arrival_dep_time" value = "${ride.arrivalDepartureTime}" >
+                                <input type="submit" value="More Info" class="btn btn-info">
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -93,7 +102,16 @@
                         <td align = "center"><font style = "font-family: avenir" >${ride.endingLocation}</font></td>
                         <td align = "center"><font style = "font-family: avenir" >${ride.seatAvailability}</font></td>
                         <td align = "center"><font style = "font-family: avenir" >${ride.day}</font></td>
-                        <td align = "center"><form action=""><input type = "hidden" name = "rideid" value = ${ride.rideId} ><input type="submit" value="More Info" class="btn btn-info"></form></td>
+                        <td align = "center">
+                            <form action="ViewDriverAndRideInfoController" target="_blank">
+                                <input type = "hidden" name = "driver_id" value = "${ride.driver.emailID}" >
+                                <input type = "hidden" name = "seat_availability" value = "${ride.seatAvailability}" >
+                                <input type = "hidden" name = "starting_location" value = "${ride.startingLocation.toString()}" >
+                                <input type = "hidden" name = "ending_location" value = "${ride.endingLocation.toString()}" >
+                                <input type = "hidden" name = "arrival_dep_time" value = "${ride.arrivalDepartureTime}" >
+                                <input type="submit" value="More Info" class="btn btn-info">
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
 

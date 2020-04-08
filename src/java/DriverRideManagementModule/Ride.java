@@ -118,14 +118,14 @@ public abstract class Ride {
         Driver retrievedDriver = null;
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
-            crs.setCommand("select u.email_id as email_id, u.FIRST_NAME as first_name, u.LAST_NAME as last_name, u.GENDER as gender, dra.CAR_MODEL as car_model from drivers dr, driver_applications dra, users u where dr.DRIVER_ID = u.EMAIL_ID AND u.EMAIL_ID = dra.EMAIL_ID AND dr.driver_id = ?");
+            crs.setCommand("select u.email_id as email_id, u.FIRST_NAME as first_name, u.LAST_NAME as last_name, u.GENDER as gender, u.mobile_no as mobile_no, dra.CAR_MODEL as car_model from drivers dr, driver_applications dra, users u where dr.DRIVER_ID = u.EMAIL_ID AND u.EMAIL_ID = dra.EMAIL_ID AND dr.driver_id = ?");
             crs.setString(1, driverId);
             crs.execute();
             if (crs.next()){
                 retrievedDriver = new Driver(null, null, null,
                         new Car(crs.getString("car_model"), 0),
                         crs.getString("first_name"), crs.getString("last_name"),
-                        crs.getString("gender"), null, driverId);
+                        crs.getString("gender"), crs.getString("mobile_no"), driverId);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);

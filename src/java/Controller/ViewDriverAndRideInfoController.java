@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author azada
  */
-@WebServlet(name = "ViewDriverInfoController", urlPatterns = {"/ViewDriverInfoController"})
-public class ViewDriverInfoController extends HttpServlet {
+@WebServlet(name = "ViewDriverAndRideInfoController", urlPatterns = {"/ViewDriverAndRideInfoController"})
+public class ViewDriverAndRideInfoController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +35,7 @@ public class ViewDriverInfoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Driver selectedDriver = Ride.retrieveDriverInfo(request.getParameter("driver_id"));
-        RequestDispatcher rd = request.getRequestDispatcher("ViewDriverInfo.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ViewDriverAndRideInfo.jsp");
         request.setAttribute("selected_driver", selectedDriver);
         rd.forward(request, response);
     }
