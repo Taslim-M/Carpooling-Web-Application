@@ -85,7 +85,7 @@
                 </div>
                 <div class="file-field">
                     <div class="btn btn-unique btn-sm float-left">
-                        <span>Choose License Image file</span>
+                        <span>Choose Registration Image file</span>
                         <input type="file" id="carReg" name="carReg" required>
                     </div>
                 </div>
