@@ -12,6 +12,7 @@
         <title>View Driver Applications</title>
     </head>
     <body>
+        <jsp:include page="navbaradmin.html"/>
         <h1>View Driver Applications</h1>
     </body>
 </html>
