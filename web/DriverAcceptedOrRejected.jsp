@@ -13,12 +13,8 @@
         <title>Redirected: Display Message</title>
     </head>
     <body>
-    <c:if test="${empty sessionScope.driver}" >
-        <jsp:include page="navbarPassenger.html"/>
-    </c:if> 
-    <c:if test="${! empty sessionScope.driver}" >
-        <jsp:include page="navbar.html"/>
-    </c:if> 
+    <jsp:include page="navbaradmin.html"/>
+
     <h1 style = "font-family: avenir; color : #9B1B1B "  align = "center" > ${Message} </h1>
     <form action="ViewDriverRequestsController" align = "center"><input type="submit" value="Go Back to List of Requests" class="btn btn-secondary"></form>
 
