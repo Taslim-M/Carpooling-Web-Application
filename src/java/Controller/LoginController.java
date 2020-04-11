@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -65,7 +66,11 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("username", userName);
                 //If admin, go to the view driver applications page
                 if (Admin.isAdmin(userName)) {
+   
+     
                     RequestDispatcher rd = request.getRequestDispatcher("ViewDriverApplications.jsp");
+                    
+                    
                     rd.forward(request, response);
                 }
                 //else passenger and/or driver login

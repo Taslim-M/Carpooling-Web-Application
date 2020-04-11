@@ -10,10 +10,12 @@ package DriverRideManagementModule;
  * @author Tasli
  */
 import PassengerRideManagementModule.Location;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.beans.binding.Bindings.and;
 import javax.sql.rowset.CachedRowSet;
 
 
@@ -112,6 +114,33 @@ public abstract class Ride {
             return false;
         }
 
+    }
+    
+    public boolean isValid(Date arrivalDeptime){
+        if (arrivalDeptime.getHours() > 3 and arrivalDeptime.getHours() < 22 ){
+        return true;
+    }
+        return false;
+    }
+    
+    public boolean updateRideInfo(int rideId, String driverId, int is_to_uni, String arrivalDeptime, String pickupLocation,String dropoffLocation, int carcapacity){
+          CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        try {
+            crs.setCommand("INSERT INTO OFFERED_RIDES VALUES (?,?,?,?,?,?,?)");
+            crs.setInt(1,rideId);
+            crs.setString(2,driverId);
+            crs.setInt(3,is_to_uni);
+            crs.setString(4,arrivalDeptime);
+            crs.setString(5,pickupLocation);
+            crs.setString(6,dropoffLocation);
+            crs.setInt(7,carcapacity);
+            
+            crs.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public static Driver retrieveDriverInfo(String driverId){

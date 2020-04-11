@@ -365,4 +365,9 @@ public class Driver extends Passenger {
         } 
         return true;
     }
+    
+    public boolean submitRideDetails (){
+        //check ride details
+        return false;
+    }
 }

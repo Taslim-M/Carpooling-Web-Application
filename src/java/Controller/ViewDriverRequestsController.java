@@ -1,10 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/**
+ *
+ * @author ayahal-harthy
+ */
+
 package Controller;
 
 import DriverRideManagementModule.Driver;
-import DriverRideManagementModule.Ride;
-import DriverRideManagementModule.SingleRide;
-import DriverRideManagementModule.WeeklyRide;
-import PassengerRideManagementModule.Passenger;
 import UserManagementModule.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,8 +33,8 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author azada
  */
-@WebServlet(name = "ViewDriverRequestDetails", urlPatterns = {"/ViewDriverRequestDetails"})
-public class ViewDriverRequestDetails extends HttpServlet {
+@WebServlet(name = "ViewDriverRequestsController", urlPatterns = {"/ViewDriverRequestsController"})
+public class ViewDriverRequestsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -101,3 +109,4 @@ public class ViewDriverRequestDetails extends HttpServlet {
     }// </editor-fold>
 
 }
+
