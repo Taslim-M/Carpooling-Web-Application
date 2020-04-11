@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 import static javafx.beans.binding.Bindings.and;
 import javax.sql.rowset.CachedRowSet;
 
-
 public abstract class Ride {
 
     public Ride(Integer rideId, boolean isToUni, String arrivalDepartureTime, Location startingLocation, Location endingLocation, Integer seatAvailability, Driver driver) {
@@ -34,9 +33,9 @@ public abstract class Ride {
         this.seatAvailability = seatAvailability;
         this.driver = driver;
     }
-    
-    public Ride(){
-        
+
+    public Ride() {
+
     }
 
     private Integer rideId;
@@ -102,15 +101,15 @@ public abstract class Ride {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-    
-    public static boolean createRequest(int rideId, String passengerId, String pickupLocation, String dropoffLocation){
+
+    public static boolean createRequest(int rideId, String passengerId, String pickupLocation, String dropoffLocation) {
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
             crs.setCommand("INSERT INTO RIDE_REQUESTS (RIDE_ID, PASSENGER_ID, PICKUP_LOCATION, DROPOFF_LOCATION) VALUES (?,?,?,?)");
-            crs.setInt(1,rideId);
-            crs.setString(2,passengerId);
-            crs.setString(3,pickupLocation);
-            crs.setString(4,dropoffLocation);
+            crs.setInt(1, rideId);
+            crs.setString(2, passengerId);
+            crs.setString(3, pickupLocation);
+            crs.setString(4, dropoffLocation);
             crs.execute();
             return true;
         } catch (SQLException ex) {
@@ -119,13 +118,6 @@ public abstract class Ride {
         }
 
     }
-    
-//    public boolean isValid(Date arrivalDeptime){
-//        if (arrivalDeptime.getHours() > 3 and arrivalDeptime.getHours() < 22 ){
-//        return true;
-//    }
-//        return false;
-//    }
     
     public boolean updateRideInfo(){
           CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
@@ -143,7 +135,7 @@ public abstract class Ride {
             crs.setString(6, endingLocation.toDbString());
             //TODO: Change to sql extracted
             crs.setInt(7,3);
-            
+
             crs.execute();
             return true;
         } catch (SQLException ex) {
@@ -152,14 +144,24 @@ public abstract class Ride {
         }
     }
     
-    public static Driver retrieveDriverInfo(String driverId){
+    public static boolean isValid(String rideTime) {
+        String[] time1 = rideTime.split(":");
+        Integer hours = Integer.parseInt(time1[0]);
+        if (hours > 22 || hours < 3) {
+            return false;
+        }
+        return true;
+    }
+
+
+    public static Driver retrieveDriverInfo(String driverId) {
         Driver retrievedDriver = null;
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
             crs.setCommand("select u.email_id as email_id, u.FIRST_NAME as first_name, u.LAST_NAME as last_name, u.GENDER as gender, u.mobile_no as mobile_no, dra.CAR_MODEL as car_model from drivers dr, driver_applications dra, users u where dr.DRIVER_ID = u.EMAIL_ID AND u.EMAIL_ID = dra.EMAIL_ID AND dr.driver_id = ?");
             crs.setString(1, driverId);
             crs.execute();
-            if (crs.next()){
+            if (crs.next()) {
                 retrievedDriver = new Driver(null, null, null,
                         new Car(crs.getString("car_model"), 0),
                         crs.getString("first_name"), crs.getString("last_name"),

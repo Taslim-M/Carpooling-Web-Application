@@ -5,7 +5,10 @@
  */
 package Controller;
 
+import DriverRideManagementModule.Driver;
 import DriverRideManagementModule.Ride;
+import DriverRideManagementModule.SingleRide;
+import DriverRideManagementModule.WeeklyRide;
 import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
 import java.io.IOException;
@@ -18,64 +21,82 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author azada
- */
+
 @WebServlet(name = "OfferARideController", urlPatterns = {"/OfferARideController"})
 public class OfferARideController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    public void setRideAttributes(Ride r, String isToUni, Location startingLocation, Location endingLocation,Driver d) {
+        if (isToUni.equals("1")) {
+            r.setIsToUni(true);
+        } else {
+            r.setIsToUni(false);
+        }
+        r.setStartingLocation(startingLocation);
+        r.setEndingLocation(endingLocation);
+        r.setDriver(d);
+
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Collect and parse all form inputs 
-        boolean isSingle = request.getParameter("single_or_weekly").equals("single");
-        String isToUni = (request.getParameter("to_from_uni").equals("to") ? "1" : "0");
-        LocalDate date = null;
-        ArrayList<String> days = null;
-        if (isSingle){
-            date = LocalDate.parse(request.getParameter("ride_date"));
-        }
-        else{
-            days = new ArrayList<>();
-            for (String day : request.getParameterValues("ride_days")){
-                days.add(day);
-            }    
-        }
-        
-        float homeLongitude = Float.parseFloat(request.getParameter("home_location_longitude"));
-        float homeLatitude = Float.parseFloat(request.getParameter("home_location_latitude"));
-        Location homeLocation = new Location(homeLatitude, homeLongitude);
-        float uniLongitude = Float.parseFloat(request.getParameter("uni_location_longitude"));
-        float uniLatitude = Float.parseFloat(request.getParameter("uni_location_latitude"));
-        Location uniLocation = new Location(uniLatitude, uniLongitude);
-        
-        String rideTime = request.getParameter("ride_time");
-        ArrayList<Ride> foundRides;
-        if (isToUni.equals("1")){
-            foundRides = Passenger.searchRides(isSingle, isToUni, date, days, homeLocation, uniLocation, rideTime);
-            request.setAttribute("pickup_location", (request.getParameter("home_location_latitude") + ", " + request.getParameter("home_location_longitude")));
-            request.setAttribute("dropoff_location", (request.getParameter("uni_location_latitude") + ", " + request.getParameter("uni_location_longitude")));
 
+        String rideTime = request.getParameter("ride_time");
+        if (Ride.isValid(rideTime)) {
+            HttpSession session = request.getSession();
+            Driver d = (Driver) session.getAttribute("driver"); //Get the Driver logged in Right now
+            Ride r = null;
+            String isToUni = (request.getParameter("to_from_uni").equals("to") ? "1" : "0");
+            float startingLocationLongitude = 0;
+            float startingLocationLatitude = 0;
+            float endingLocationLongitude = 0;
+            float endingLocationLatitude = 0;
+
+            if (isToUni.equals("1")) {
+                //Starting location is home,,, dropoff is uni
+                startingLocationLongitude = Float.parseFloat(request.getParameter("home_location_longitude"));
+                startingLocationLatitude = Float.parseFloat(request.getParameter("home_location_latitude"));
+                endingLocationLongitude = Float.parseFloat(request.getParameter("uni_location_longitude"));
+                endingLocationLatitude = Float.parseFloat(request.getParameter("uni_location_latitude"));
+            } else {
+
+                //Starting is Uni, dropoff is home
+                startingLocationLongitude = Float.parseFloat(request.getParameter("uni_location_longitude"));
+                startingLocationLatitude = Float.parseFloat(request.getParameter("uni_location_latitude"));
+                endingLocationLongitude = Float.parseFloat(request.getParameter("home_location_longitude"));
+                endingLocationLatitude = Float.parseFloat(request.getParameter("home_location_latitude"));
+            }
+            Location startingLocation = new Location(startingLocationLatitude, startingLocationLongitude);
+            Location endingLocation = new Location(endingLocationLatitude, endingLocationLongitude);
+
+            //Single or Weekly Rides
+            boolean isSingle = request.getParameter("single_or_weekly").equals("single");
+            LocalDate date = null;
+            if (isSingle) {
+                r = new SingleRide();
+                setRideAttributes(r,isToUni,startingLocation,endingLocation,d);
+                date = LocalDate.parse(request.getParameter("ride_date"));
+                ((SingleRide) r).setDate(date);
+                //((SingleRide) r).updateRideDetails();
+            } else {
+                r = new WeeklyRide();
+                setRideAttributes(r,isToUni,startingLocation,endingLocation,d);
+                for (String day : request.getParameterValues("ride_days")) {
+                    ((WeeklyRide)r).setDay(day);
+                    //((WeeklyRide)r).updateRideDetails();
+                }
+            }
+
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("OfferARide.jsp");
+            request.setAttribute("errmsg", "Invalid Ride Timing. Please offer a time before 10p.m and after 3a.m");
+            rd.forward(request, response);
         }
-        else{
-            foundRides = Passenger.searchRides(isSingle, isToUni, date, days, uniLocation, homeLocation, rideTime);
-            request.setAttribute("dropoff_location", (request.getParameter("home_location_latitude") + ", " + request.getParameter("home_location_longitude")));
-            request.setAttribute("pickup_location", (request.getParameter("uni_location_latitude") + ", " + request.getParameter("uni_location_longitude")));
-        }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher("OfferARide.jsp");
-        request.setAttribute("found_rides", foundRides);
-        rd.forward(request,response);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
