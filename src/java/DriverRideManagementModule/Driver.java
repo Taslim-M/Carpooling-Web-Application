@@ -78,6 +78,7 @@ public class Driver extends Passenger {
         ArrayList<SingleRide> rides = new ArrayList<SingleRide>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
             crs.setCommand("Select * from offered_rides where driver_id = ? AND ride_id NOT IN (select ride_id from offered_weekly_rides)");
             crs.setString(1, this.getEmailID());
             crs.execute();
@@ -93,16 +94,24 @@ public class Driver extends Passenger {
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
                 try {
-                    CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                    
                     crs2.setCommand("Select * from offered_single_rides where ride_id = " + crs.getInt("ride_id"));
                     crs2.execute();
                     while (crs2.next()) {
-                        r.setDate(LocalDate.parse(crs2.getDate("ride_date").toString()));
+                        
+                        LocalDate DateDB = LocalDate.parse(crs2.getDate("ride_date").toString());
+                        r.setDate(DateDB);
+                        if(DateDB.isEqual(LocalDate.now()) || DateDB.isAfter(LocalDate.now()))
+                        {
+                        rides.add(r);
+                        }
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                rides.add(r);
+                
+
+
 
             }
         } catch (SQLException ex) {
