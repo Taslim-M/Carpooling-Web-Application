@@ -51,7 +51,7 @@ public class Admin extends User {
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
 
         //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
-        crs.setCommand("SELECT da.EMAIL_ID as email_id,da.CAR_MODEL as car_model, da.CAR_CAPACITY as car_capacity FROM DRIVER_APPLICATIONS da");
+        crs.setCommand("SELECT email_id, car_model, car_capacity FROM DRIVER_APPLICATIONS where email_id NOT IN (select driver_id from drivers)");
 
         crs.execute();
         while (crs.next()) {

@@ -296,11 +296,11 @@ public class Driver extends Passenger {
 
     }
 
-    public static Driver getDriverInfo(String emailID) throws SQLException {
+    public static Driver getDriverApplicantInfo(String emailID) throws SQLException {
         Driver currDriver = new Driver();
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
-        crs.setCommand("SELECT da.EMAIL_ID as email_id,da.CAR_MODEL as car_model, da.CAR_CAPACITY as car_capacity FROM DRIVER_APPLICATIONS da WHERE email_id = ?");
+        crs.setCommand("SELECT email_id, car_model, car_capacity FROM DRIVER_APPLICATIONS WHERE email_id = ?");
         crs.setString(1, emailID);
         crs.execute();
         if(crs.next()) {
