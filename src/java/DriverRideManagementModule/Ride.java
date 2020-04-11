@@ -12,7 +12,11 @@ package DriverRideManagementModule;
 import PassengerRideManagementModule.Location;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.beans.binding.Bindings.and;
@@ -123,17 +127,22 @@ public abstract class Ride {
 //        return false;
 //    }
     
-    public boolean updateRideInfo(int rideId, String driverId, int is_to_uni, String arrivalDeptime, String pickupLocation,String dropoffLocation, int carcapacity){
+    public boolean updateRideInfo(){
           CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
-            crs.setCommand("INSERT INTO OFFERED_RIDES VALUES (?,?,?,?,?,?,?)");
-            crs.setInt(1,rideId);
-            crs.setString(2,driverId);
-            crs.setInt(3,is_to_uni);
-            crs.setString(4,arrivalDeptime);
-            crs.setString(5,pickupLocation);
-            crs.setString(6,dropoffLocation);
-            crs.setInt(7,carcapacity);
+            crs.setCommand("INSERT INTO OFFERED_RIDES (driver_id, is_to_uni, arrival_dep_time, start_location, end_location, current_seat_avail) VALUES (?,?,?,?,?,?)");
+            crs.setString(1,driver.getEmailID());
+            crs.setString(2,isToUni ? "1" : "0");
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalDateTime date = LocalDateTime.parse(arrivalDepartureTime, formatter);
+            Timestamp ts = Timestamp.valueOf(date);
+            crs.setTimestamp(3, ts);
+            
+            crs.setString(5, startingLocation.toDbString());
+            crs.setString(6, endingLocation.toDbString());
+            //TODO: Change to sql extracted
+            crs.setInt(7,3);
             
             crs.execute();
             return true;

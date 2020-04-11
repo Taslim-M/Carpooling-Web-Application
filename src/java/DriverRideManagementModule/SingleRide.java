@@ -6,7 +6,14 @@
 package DriverRideManagementModule;
 
 import PassengerRideManagementModule.Location;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.rowset.CachedRowSet;
 
 /**
  *
@@ -32,4 +39,6 @@ public class SingleRide extends Ride{
     public void setDate(LocalDate date) {
         this.date = date;
     }
+    
+
 }
