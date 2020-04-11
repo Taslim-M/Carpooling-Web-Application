@@ -4,17 +4,15 @@
     Author     : Ayah
 --%>
 
-<%---<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Driver Application Requests</title>
-      
     </head>
-<<<<<<< HEAD
-  <jsp:include page="navbar.html"/>
-
+    <body>
+        <jsp:include page="navbaradmin.html"/>
         <div class ="container h-100">
             <h1 style = "font-family: avenir; color : #9B1B1B " align = "center" > Driver Application Requests </h1>
             <div class="table-responsive">
@@ -22,29 +20,28 @@
                     <thead class="thead-dark">
 
                         <tr bgcolor="#E9E9E9">
-                            <th align = "center"><b><font style = "font-family: avenir" >Name</font></b></td>
+                            <th align = "center"><b><font style = "font-family: avenir" >Email</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >View Details</font></b></td>
-                            
-
                         </tr> 
                     </thead>
                     <tbody>
-                        <c:forEach items="${Name}" var = "p" >
+                        <c:forEach items="${DriverList}" var = "driver" >
                             <tr bgcolor="#FFFFFF">
-                                <td align = "center"><font style = "font-family: avenir" >${p.firstname}</font></b></td>
-                                <td align = "center"><form action="ViewDriverDetails" target="_blank"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type="submit" value= "View" class="btn btn-info"></form></td>
-   
-                             
-
+                                <td align = "center"><font style = "font-family: avenir" >${driver.emailID}</font></b></td>
+                                <td align = "center">
+                                    <form action="ViewDriverApplicationDetailsController" >
+                                        <input type="hidden" name = "driverID" value = ${driver.emailID} >
+                                        <input type="submit" value= "View" class="btn btn-info">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
 
                 </table>
-=======
-    <body>
-        <jsp:include page="navbaradmin.html"/>
-        <h1>View Driver Applications</h1>
+            </div>
+        </div>
+
     </body>
 
-</html>--%>
+</html>

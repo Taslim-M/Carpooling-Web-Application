@@ -10,7 +10,9 @@ package DriverRideManagementModule;
  * @author Tasli
  */
 public class Car {
-
+    public Car(){
+        
+    }
     public Car(String carModel, Integer carCapacity) {
         this.carModel = carModel;
         this.carCapacity = carCapacity;

@@ -68,7 +68,7 @@ public class LoginController extends HttpServlet {
                 if (Admin.isAdmin(userName)) {
    
      
-                    RequestDispatcher rd = request.getRequestDispatcher("ViewDriverApplications.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("ViewDriverRequestsController");
                     
                     
                     rd.forward(request, response);

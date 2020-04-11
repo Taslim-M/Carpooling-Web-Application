@@ -86,23 +86,22 @@ public class Driver extends Passenger {
                 SingleRide r = new SingleRide();
                 r.setRideId(crs.getInt("ride_id"));
                 r.setIsToUni((crs.getInt("is_to_uni") == 1) ? true : false);
-                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP)crs.getObject("arrival_dep_time");
+                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP) crs.getObject("arrival_dep_time");
                 String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
                 r.setArrivalDepartureTime(tsString);
                 r.setStartingLocation(new Location(crs.getString("start_location")));
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
-                try
-                {
+                try {
                     CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                        crs2.setCommand("Select * from offered_single_rides where ride_id = " + crs.getInt("ride_id"));
-                        crs2.execute();
-                        while (crs2.next()) {
+                    crs2.setCommand("Select * from offered_single_rides where ride_id = " + crs.getInt("ride_id"));
+                    crs2.execute();
+                    while (crs2.next()) {
                         r.setDate(LocalDate.parse(crs2.getDate("ride_date").toString()));
-                        }
-                        } catch (SQLException ex) {
-                        Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 rides.add(r);
 
             }
@@ -124,23 +123,22 @@ public class Driver extends Passenger {
                 WeeklyRide r = new WeeklyRide();
                 r.setRideId(crs.getInt("ride_id"));
                 r.setIsToUni((crs.getInt("is_to_uni") == 1) ? true : false);
-                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP)crs.getObject("arrival_dep_time");
+                oracle.sql.TIMESTAMP ts = (oracle.sql.TIMESTAMP) crs.getObject("arrival_dep_time");
                 String tsString = ts.timestampValue().toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"));
                 r.setArrivalDepartureTime(tsString);
                 r.setStartingLocation(new Location(crs.getString("start_location")));
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
-                try
-                {
+                try {
                     CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                        crs2.setCommand("Select * from offered_weekly_rides where ride_id = " + crs.getInt("ride_id"));
-                        crs2.execute();
-                        while (crs2.next()) {
+                    crs2.setCommand("Select * from offered_weekly_rides where ride_id = " + crs.getInt("ride_id"));
+                    crs2.execute();
+                    while (crs2.next()) {
                         r.setDay(crs2.getString("day"));
-                        }
-                        } catch (SQLException ex) {
-                        Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 rides.add(r);
 
             }
@@ -150,7 +148,7 @@ public class Driver extends Passenger {
         return rides;
     }
 
-     public ArrayList<Request> viewPassengerRequests(String Ride_ID) {
+    public ArrayList<Request> viewPassengerRequests(String Ride_ID) {
         ArrayList<Request> Requests = new ArrayList<Request>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
@@ -164,33 +162,30 @@ public class Driver extends Passenger {
                 r.setDropoffLocation(new Location(crs.getString("dropoff_location")));
 
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("passenger_id") + "' AND ride_id = "+ Ride_ID +" AND passenger_id in(select passenger_id from confirmed_rides where Ride_ID = " +Ride_ID+ ")");
+                crs2.setCommand("Select * from ride_requests where passenger_id = '" + crs.getString("passenger_id") + "' AND ride_id = " + Ride_ID + " AND passenger_id in(select passenger_id from confirmed_rides where Ride_ID = " + Ride_ID + ")");
                 crs2.execute();
-  
-                if (crs2.next() == false)
-                {
+
+                if (crs2.next() == false) {
                     r.setConfirmationbutton("Confirm/Remove");
-             
-                }  else
-                {
+
+                } else {
                     r.setConfirmationbutton("Remove");
                 }
-                
-                
+
                 Requests.add(r);
-                       
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Requests;
-    }       
-        
+    }
+
     public ArrayList<Passenger> viewPassengerInfo(String Passenger_ID) {
         ArrayList<Passenger> Passengers = new ArrayList<Passenger>();
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-            crs.setCommand("Select * from users where email_id = '" + Passenger_ID +"'");
+            crs.setCommand("Select * from users where email_id = '" + Passenger_ID + "'");
             crs.execute();
             while (crs.next()) {
                 Passenger p = new Passenger();
@@ -200,24 +195,22 @@ public class Driver extends Passenger {
                 p.setGender(crs.getString("Gender"));
                 p.setMobileNumber(crs.getString("mobile_no"));
 
-                
-                
                 Passengers.add(p);
-                       
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Passengers;
     }
-    
-  public void CancelRide(String Ride_ID) {
-   
+
+    public void CancelRide(String Ride_ID) {
+
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
             crs.setCommand("Select * from offered_single_rides where ride_id =" + Ride_ID);
             crs.execute();
-            if (crs.next() == false) {       
+            if (crs.next() == false) {
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
                 crs2.setCommand("Delete offered_weekly_rides where ride_id =" + Ride_ID);
                 crs2.execute();
@@ -228,9 +221,8 @@ public class Driver extends Passenger {
                 crs2.setCommand("Delete offered_rides where ride_id =" + Ride_ID);
                 crs2.execute();
 
-            }else
-                {
-                    
+            } else {
+
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
                 crs2.setCommand("Delete offered_single_rides where ride_id =" + Ride_ID);
                 crs2.execute();
@@ -240,88 +232,84 @@ public class Driver extends Passenger {
                 crs2.execute();
                 crs2.setCommand("Delete offered_rides where ride_id =" + Ride_ID);
                 crs2.execute();
-                
-                }
-                
-             
+
             }
-         catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-  
- 
-  
+
     public String ConfirmPassengerRequest(String Ride_ID, String Passenger_ID) {
-   
+
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
             crs.setCommand("select * from offered_rides where ride_id = " + Ride_ID);
             crs.execute();
             while (crs.next()) {
 
-            if(crs.getInt("current_seat_avail") == 0)
-            {
-                return "No Seats";
+                if (crs.getInt("current_seat_avail") == 0) {
+                    return "No Seats";
+
+                } else {
+                    CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+                    crs2.setCommand("insert into confirmed_rides values( " + Ride_ID + ",'" + Passenger_ID + "')");
+                    crs2.execute();
+                    crs2.setCommand("Update offered_rides set current_seat_avail = current_seat_avail - 1 where ride_id = " + Ride_ID);
+                    crs2.execute();
+                    return "Confirmed";
+                }
 
             }
-            else
-            {
-                CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs2.setCommand("insert into confirmed_rides values( " + Ride_ID + ",'" + Passenger_ID + "')");
-                crs2.execute();
-                crs2.setCommand("Update offered_rides set current_seat_avail = current_seat_avail - 1 where ride_id = " + Ride_ID);
-                crs2.execute();
-                return "Confirmed";
-            }
 
-        }
-            
-        }
-         catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
-    
-    
+
     public void RemovePassenger(String Ride_ID, String Passenger_ID) {
-   
-        
+
         try {
             CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
             crs.setCommand("Select * from confirmed_rides where ride_id =" + Ride_ID + "AND passenger_id = '" + Passenger_ID + "'");
             crs.execute();
-            if (crs.next() == false) { 
+            if (crs.next() == false) {
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
                 crs2.setCommand("Delete ride_requests where ride_id =" + Ride_ID + " AND passenger_id = '" + Passenger_ID + "'");
                 crs2.execute();
-            }
-            else
-            {
+            } else {
                 CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
-                crs2.setCommand("Delete confirmed_rides where ride_id = "+ Ride_ID+" AND passenger_id = '"+Passenger_ID +"'");
+                crs2.setCommand("Delete confirmed_rides where ride_id = " + Ride_ID + " AND passenger_id = '" + Passenger_ID + "'");
                 crs2.execute();
-                crs2.setCommand("Delete ride_requests where ride_id = "+ Ride_ID+" AND passenger_id = '"+Passenger_ID +"'");
+                crs2.setCommand("Delete ride_requests where ride_id = " + Ride_ID + " AND passenger_id = '" + Passenger_ID + "'");
                 crs2.execute();
                 crs2.setCommand("Update offered_rides set current_seat_avail = current_seat_avail + 1 where ride_id =" + Ride_ID);
                 crs2.execute();
 
-                
             }
-        }
-         catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-  
-  
-  
 
+    public static Driver getDriverInfo(String emailID) throws SQLException {
+        Driver currDriver = new Driver();
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
+        crs.setCommand("SELECT da.EMAIL_ID as email_id,da.CAR_MODEL as car_model, da.CAR_CAPACITY as car_capacity FROM DRIVER_APPLICATIONS da WHERE email_id = ?");
+        crs.setString(1, emailID);
+        crs.execute();
+        if(crs.next()) {
+            currDriver.setEmailID(crs.getString("email_id"));
+            Car c = new Car(crs.getString("car_model"), crs.getInt("car_capacity"));
+            currDriver.setMyCar(c);
+        }
+        return currDriver;
+    }
 
     private String getRideId() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -362,11 +350,11 @@ public class Driver extends Passenger {
             System.out.println(" SOMETHING IN DRIVER ER:" + ex);
             Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
+        }
         return true;
     }
-    
-    public boolean submitRideDetails (){
+
+    public boolean submitRideDetails() {
         //check ride details
         return false;
     }

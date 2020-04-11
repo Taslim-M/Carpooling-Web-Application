@@ -42,42 +42,26 @@ public class Admin extends User {
             return false;
         }
     }
+
     //retrieveDriverRequests (then to display to user)
     //select driver call passenger class
-        public ArrayList<Driver> retriveDriverRequests() throws SQLException{
+    public static ArrayList<Driver> retriveDriverRequests() throws SQLException {
 
-        ArrayList<Driver> names = new ArrayList<>();
+        ArrayList<Driver> drivers = new ArrayList<>();
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
-        try {
-            //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
-            crs.setCommand("select * from users  Inner JOIN driver_applications  ON users.email_id = ?");
-            crs.setString(1, this.getEmailID());
-            
-            crs.execute();
-            while (crs.next()) {
-                Driver currDriver = new Driver();
-                currDriver.setEmailID(crs.getString("email_id"));
-                currDriver.setFirstName(crs.getString("first_name"));
-                currDriver.setMobileNumber(crs.getString("mobile_no"));
-                Car c = new Car(crs.getString("car_model"),crs.getInt("car_capacity"));
-                
-                currDriver.setMyCar(c);
-                
 
-                names.add(currDriver);
-            }
+        //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
+        crs.setCommand("SELECT da.EMAIL_ID as email_id,da.CAR_MODEL as car_model, da.CAR_CAPACITY as car_capacity FROM DRIVER_APPLICATIONS da");
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        crs.execute();
+        while (crs.next()) {
+            Driver currDriver = new Driver();
+            currDriver.setEmailID(crs.getString("email_id"));
+            Car c = new Car(crs.getString("car_model"), crs.getInt("car_capacity"));
+            currDriver.setMyCar(c);
+            drivers.add(currDriver);
         }
-     
-    
-      
-       // rs = statement.executeQuery("select * from b00075270.users  Inner JOIN b00075270.driver_applications  ON b00075270.users.email_id = b00075270.driver_applications.email_id;");
-           
-           return names;
-    }
-         
-        
+        return drivers;
     }
 
+}
