@@ -4,7 +4,7 @@
     Author     : Ayah
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%---<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
@@ -12,6 +12,7 @@
         <title>Driver Application Requests</title>
       
     </head>
+<<<<<<< HEAD
   <jsp:include page="navbar.html"/>
 
         <div class ="container h-100">
@@ -40,4 +41,10 @@
                     </tbody>
 
                 </table>
-</html>
+=======
+    <body>
+        <jsp:include page="navbaradmin.html"/>
+        <h1>View Driver Applications</h1>
+    </body>
+
+</html>--%>

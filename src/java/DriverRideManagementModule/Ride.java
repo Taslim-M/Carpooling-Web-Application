@@ -116,12 +116,12 @@ public abstract class Ride {
 
     }
     
-    public boolean isValid(Date arrivalDeptime){
-        if (arrivalDeptime.getHours() > 3 and arrivalDeptime.getHours() < 22 ){
-        return true;
-    }
-        return false;
-    }
+//    public boolean isValid(Date arrivalDeptime){
+//        if (arrivalDeptime.getHours() > 3 and arrivalDeptime.getHours() < 22 ){
+//        return true;
+//    }
+//        return false;
+//    }
     
     public boolean updateRideInfo(int rideId, String driverId, int is_to_uni, String arrivalDeptime, String pickupLocation,String dropoffLocation, int carcapacity){
           CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
