@@ -5,18 +5,23 @@
  */
 package Controller;
 
+import DriverRideManagementModule.Driver;
+import PassengerRideManagementModule.Passenger;
+import UserManagementModule.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Tasli
+ * @author reem
  */
 @WebServlet(name = "AcceptRejectDriverApplicationController", urlPatterns = {"/AcceptRejectDriverApplicationController"})
 public class AcceptRejectDriverApplicationController extends HttpServlet {
@@ -32,17 +37,33 @@ public class AcceptRejectDriverApplicationController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        String driver_email = request.getParameter("driverID");
-        if(action.equals("accept")){
+        String Driver_ID = request.getParameter("driverID");
+        String Action = request.getParameter("action");
+        
+        HttpSession session = request.getSession();
             
-        }else{
-            
-        }
-        //Send back to view Requests
-        RequestDispatcher rd = request.getRequestDispatcher("ViewDriverRequestsController"); 
-        rd.forward(request, response);
+            if ("accept".equals(Action))
+            {
+                Admin.AcceptDriverApplicationRequest(Driver_ID);
+                String Message = "Driver Application Request Accepted Successfully!";
+                RequestDispatcher rd = request.getRequestDispatcher("DriverAcceptedOrRejected.jsp");
+                request.setAttribute("Message", Message);
+                rd.forward(request, response);
+     
 
+            }
+            else if("cancel".equals(Action))
+            {
+                Admin.RejectDriverApplicationRequest(Driver_ID);
+                String Message = "Driver Application Request Rejected Successfully!";
+                RequestDispatcher rd = request.getRequestDispatcher("DriverAcceptedOrRejected.jsp");
+                request.setAttribute("Message", Message);
+                rd.forward(request, response);
+            }
+
+            
+            
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -63,5 +63,32 @@ public class Admin extends User {
         }
         return drivers;
     }
+    
+   public static void AcceptDriverApplicationRequest(String Driver_ID) {
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("insert into drivers values('" + Driver_ID + "')");
+            crs.execute();
+            }
+         catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void RejectDriverApplicationRequest(String Driver_ID) {
+
+        try {
+            CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs.setCommand("delete driver_applications where email_id = '" + Driver_ID + "'");
+            crs.execute();
+            }
+         catch (SQLException ex) {
+            Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    
 
 }
