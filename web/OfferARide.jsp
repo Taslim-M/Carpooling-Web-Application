@@ -17,30 +17,30 @@
     </head>
     <body>
         <%-- 
- <c:if test="${empty sessionScope.username}" >
-     <jsp:forward page="index.jsp" />
+ <c:if test="${empty sessionScope.driver}" >
+     <jsp:forward page="findRide.jsp" />
  </c:if> 
         --%>
-        <c:choose>
-            <c:when test = "${empty sessionScope.driver}" > 
-                <jsp:include page="navbarPassenger.html"/>
-            </c:when>
-            <c:otherwise>
-                <jsp:include page="navbar.html"/>
-            </c:otherwise>
-        </c:choose>
+
+        <jsp:include page="navbar.html"/>
+
 
         <div class="container">
-            <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Hello ${sessionScope.passenger.firstName}! Find A Ride!</h1>
+            <h1 style = "font-family: avenir; color : #9B1B1B" align = "center">Yalla ${sessionScope.passenger.firstName}! Offer A Ride!</h1>
         </div>
 
-        <form action="SearchRidesController" onsubmit ="return checkCheckboxes();" align = "center" name="search_rides_form"><font  style = "font-family: avenir">
+        <form action="OfferARideController" onsubmit ="return checkCheckboxes();" align = "center" name="search_rides_form"><font  style = "font-family: avenir">
+            <c:if test="${!empty errmsg}" >
+                <div class="alert alert-danger">
+                    ${errmsg}
+                </div>
+            </c:if>
             <div class="form-group">
                 <h3> Select Ride Frequency </h3>
                 <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single
                 <input type="radio" name="single_or_weekly" id ="weekly" value="weekly" onclick="manageSingleWeekly(this)" required /> Weekly
             </div>
-            
+
             <div class="form-group">
                 <h3> Select Ride Mode </h3>
                 <input type="radio" name="to_from_uni" value="to" onclick="manageArrivalDeparture(this)" required/> To University
@@ -64,7 +64,7 @@
                     R <input type="checkbox" name="ride_days" id="Thursday" value="Thursday" />
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <h3>Home Area</h3>
                 <label for="home_location_latitude">Latitude:</label>
@@ -72,7 +72,7 @@
                 <label for="home_location_longitude">Longitude:</label>
                 <input type="number" step="any" name="home_location_longitude" value="" required /><br/>
             </div>
-            
+
             <div class="form-group">
                 <h3>University Area</h3>
                 <label for="uni_location_latitude">Latitude:</label>
@@ -80,16 +80,16 @@
                 <label for="uni_location_longitude">Longitude:</label>
                 <input type="number" step="any" name="uni_location_longitude" value="55.492179" required /><br/>
             </div>
-            
+
             <div class="form-group">
                 <h3 id="deparrtime">Time </h3>
                 <input type="time" id="ride_time" name="ride_time" step="900" required>
             </div>
-            
+
             <br>
             <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
             </font></form>
-        
+
         <script type="text/javascript">
             function manageSingleWeekly(button) {
                 if (button.value == "single") {
@@ -101,10 +101,10 @@
                     document.getElementById("ride_days_box").style.display = "block";
                 }
             }
-            function manageArrivalDeparture(button){
+            function manageArrivalDeparture(button) {
                 if (button.value == "to") {
                     deparrtime.innerText = "Arrival to University time";
-                }else{
+                } else {
                     deparrtime.innerText = "Departure from University time";
                 }
             }

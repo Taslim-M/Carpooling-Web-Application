@@ -13,11 +13,11 @@ import PassengerRideManagementModule.Location;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.beans.binding.Bindings.and;
 import javax.sql.rowset.CachedRowSet;
-
 
 public abstract class Ride {
 
@@ -30,9 +30,9 @@ public abstract class Ride {
         this.seatAvailability = seatAvailability;
         this.driver = driver;
     }
-    
-    public Ride(){
-        
+
+    public Ride() {
+
     }
 
     private Integer rideId;
@@ -98,15 +98,15 @@ public abstract class Ride {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-    
-    public static boolean createRequest(int rideId, String passengerId, String pickupLocation, String dropoffLocation){
+
+    public static boolean createRequest(int rideId, String passengerId, String pickupLocation, String dropoffLocation) {
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
             crs.setCommand("INSERT INTO RIDE_REQUESTS (RIDE_ID, PASSENGER_ID, PICKUP_LOCATION, DROPOFF_LOCATION) VALUES (?,?,?,?)");
-            crs.setInt(1,rideId);
-            crs.setString(2,passengerId);
-            crs.setString(3,pickupLocation);
-            crs.setString(4,dropoffLocation);
+            crs.setInt(1, rideId);
+            crs.setString(2, passengerId);
+            crs.setString(3, pickupLocation);
+            crs.setString(4, dropoffLocation);
             crs.execute();
             return true;
         } catch (SQLException ex) {
@@ -115,26 +115,28 @@ public abstract class Ride {
         }
 
     }
-    
-//    public boolean isValid(Date arrivalDeptime){
-//        if (arrivalDeptime.getHours() > 3 and arrivalDeptime.getHours() < 22 ){
-//        return true;
-//    }
-//        return false;
-//    }
-    
-    public boolean updateRideInfo(int rideId, String driverId, int is_to_uni, String arrivalDeptime, String pickupLocation,String dropoffLocation, int carcapacity){
-          CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+
+    public static boolean isValid(String rideTime) {
+        String[] time1 = rideTime.split(":");
+        Integer hours = Integer.parseInt(time1[0]);
+        if(hours>22 || hours <3){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateRideInfo(int rideId, String driverId, int is_to_uni, String arrivalDeptime, String pickupLocation, String dropoffLocation, int carcapacity) {
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
             crs.setCommand("INSERT INTO OFFERED_RIDES VALUES (?,?,?,?,?,?,?)");
-            crs.setInt(1,rideId);
-            crs.setString(2,driverId);
-            crs.setInt(3,is_to_uni);
-            crs.setString(4,arrivalDeptime);
-            crs.setString(5,pickupLocation);
-            crs.setString(6,dropoffLocation);
-            crs.setInt(7,carcapacity);
-            
+            crs.setInt(1, rideId);
+            crs.setString(2, driverId);
+            crs.setInt(3, is_to_uni);
+            crs.setString(4, arrivalDeptime);
+            crs.setString(5, pickupLocation);
+            crs.setString(6, dropoffLocation);
+            crs.setInt(7, carcapacity);
+
             crs.execute();
             return true;
         } catch (SQLException ex) {
@@ -142,15 +144,15 @@ public abstract class Ride {
             return false;
         }
     }
-    
-    public static Driver retrieveDriverInfo(String driverId){
+
+    public static Driver retrieveDriverInfo(String driverId) {
         Driver retrievedDriver = null;
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
             crs.setCommand("select u.email_id as email_id, u.FIRST_NAME as first_name, u.LAST_NAME as last_name, u.GENDER as gender, u.mobile_no as mobile_no, dra.CAR_MODEL as car_model from drivers dr, driver_applications dra, users u where dr.DRIVER_ID = u.EMAIL_ID AND u.EMAIL_ID = dra.EMAIL_ID AND dr.driver_id = ?");
             crs.setString(1, driverId);
             crs.execute();
-            if (crs.next()){
+            if (crs.next()) {
                 retrievedDriver = new Driver(null, null, null,
                         new Car(crs.getString("car_model"), 0),
                         crs.getString("first_name"), crs.getString("last_name"),
