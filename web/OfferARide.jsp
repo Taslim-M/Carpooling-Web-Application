@@ -87,7 +87,7 @@
             </div>
 
             <br>
-            <input type="submit" value="Search Rides" class="btn btn-success btn-lg" />
+            <input type="submit" value="Offer Ride" class="btn btn-success btn-lg" />
             </font></form>
 
         <script type="text/javascript">
