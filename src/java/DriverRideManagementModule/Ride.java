@@ -131,10 +131,10 @@ public abstract class Ride {
             Timestamp ts = Timestamp.valueOf(date);
             crs.setTimestamp(3, ts);
             
-            crs.setString(5, startingLocation.toDbString());
-            crs.setString(6, endingLocation.toDbString());
+            crs.setString(4, startingLocation.toDbString());
+            crs.setString(5, endingLocation.toDbString());
             //TODO: Change to sql extracted
-            crs.setInt(7,3);
+            crs.setInt(6,3);
 
             crs.execute();
             return true;
