@@ -94,24 +94,20 @@ public class Driver extends Passenger {
                 r.setEndingLocation(new Location(crs.getString("end_location")));
                 r.setSeatAvailability(crs.getInt("current_seat_avail"));
                 try {
-                    
+
                     crs2.setCommand("Select * from offered_single_rides where ride_id = " + crs.getInt("ride_id"));
                     crs2.execute();
                     while (crs2.next()) {
-                        
+
                         LocalDate DateDB = LocalDate.parse(crs2.getDate("ride_date").toString());
                         r.setDate(DateDB);
-                        if(DateDB.isEqual(LocalDate.now()) || DateDB.isAfter(LocalDate.now()))
-                        {
-                        rides.add(r);
+                        if (DateDB.isEqual(LocalDate.now()) || DateDB.isAfter(LocalDate.now())) {
+                            rides.add(r);
                         }
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Passenger.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-
-
 
             }
         } catch (SQLException ex) {
@@ -305,14 +301,14 @@ public class Driver extends Passenger {
 
     }
 
-    public static Driver getDriverApplicantInfo(String emailID) throws SQLException {
+    public static Driver getDriverInfo(String emailID) throws SQLException {
         Driver currDriver = new Driver();
         CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         //crs.setCommand("select first_name from b00075270.users where exists (select email_id from b00075270.driver_applications where b00075270.driver_applications.email_id = b00075270.users.email_id)");
         crs.setCommand("SELECT email_id, car_model, car_capacity FROM DRIVER_APPLICATIONS WHERE email_id = ?");
         crs.setString(1, emailID);
         crs.execute();
-        if(crs.next()) {
+        if (crs.next()) {
             currDriver.setEmailID(crs.getString("email_id"));
             Car c = new Car(crs.getString("car_model"), crs.getInt("car_capacity"));
             currDriver.setMyCar(c);
@@ -361,6 +357,18 @@ public class Driver extends Passenger {
             return false;
         }
         return true;
+    }
+
+    public void makeDriver() throws SQLException {
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        crs.setCommand("insert into drivers values('" + this.getEmailID() + "')");
+        crs.execute();
+    }
+
+    public void rejectDriverRequest() throws SQLException {
+        CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
+        crs.setCommand("delete driver_applications where email_id = '" + this.getEmailID() + "'");
+        crs.execute();
     }
 
     public boolean submitRideDetails() {

@@ -39,7 +39,7 @@ public class ViewDriverApplicationDetailsController extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            Driver selectedDriver = Driver.getDriverApplicantInfo(request.getParameter("driverID"));
+            Driver selectedDriver = Driver.getDriverInfo(request.getParameter("driverID"));
             RequestDispatcher rd = request.getRequestDispatcher("ViewDriverDetails.jsp");
             request.setAttribute("selected_driver", selectedDriver);
             rd.forward(request, response);

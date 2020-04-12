@@ -44,7 +44,7 @@ public class AcceptRejectDriverApplicationController extends HttpServlet {
             
             if ("accept".equals(Action))
             {
-                Admin.AcceptDriverApplicationRequest(Driver_ID);
+                Admin.acceptDriverRequest(Driver_ID);
                 String Message = "Driver Application Request Accepted Successfully!";
                 RequestDispatcher rd = request.getRequestDispatcher("DriverAcceptedOrRejected.jsp");
                 request.setAttribute("Message", Message);
@@ -54,7 +54,7 @@ public class AcceptRejectDriverApplicationController extends HttpServlet {
             }
             else if("cancel".equals(Action))
             {
-                Admin.RejectDriverApplicationRequest(Driver_ID);
+                Admin.rejectDriverRequest(Driver_ID);
                 String Message = "Driver Application Request Rejected Successfully!";
                 RequestDispatcher rd = request.getRequestDispatcher("DriverAcceptedOrRejected.jsp");
                 request.setAttribute("Message", Message);
