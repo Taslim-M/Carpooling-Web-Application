@@ -24,6 +24,11 @@ import javax.sql.rowset.CachedRowSet;
 
 public abstract class Ride {
 
+    @Override
+    public String toString() {
+        return "Ride{" + "rideId=" + rideId + ", isToUni=" + isToUni + ", arrivalDepartureTime=" + arrivalDepartureTime + ", startingLocation=" + startingLocation + ", endingLocation=" + endingLocation + ", seatAvailability=" + seatAvailability + ", driver=" + driver + '}';
+    }
+
     public Ride(Integer rideId, boolean isToUni, String arrivalDepartureTime, Location startingLocation, Location endingLocation, Integer seatAvailability, Driver driver) {
         this.rideId = rideId;
         this.isToUni = isToUni;
@@ -120,23 +125,29 @@ public abstract class Ride {
     }
     
     public boolean updateRideInfo(){
-          CachedRowSet crs = CarpoolDatabase.DbRepo.getConfiguredConnection();
         try {
-            crs.setCommand("INSERT INTO OFFERED_RIDES (driver_id, is_to_uni, arrival_dep_time, start_location, end_location, current_seat_avail) VALUES (?,?,?,?,?,?)");
-            crs.setString(1,driver.getEmailID());
-            crs.setString(2,isToUni ? "1" : "0");
+            CachedRowSet crs1 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs1.setCommand("select * from driver_applications where email_id = ?");
+            crs1.setString(1,driver.getEmailID());
+            crs1.execute();
+            crs1.next();
+
+            CachedRowSet crs2 = CarpoolDatabase.DbRepo.getConfiguredConnection();
+            crs2.setCommand("INSERT INTO OFFERED_RIDES (driver_id, is_to_uni, arrival_dep_time, start_location, end_location, current_seat_avail) VALUES (?,?,?,?,?,?)");
+            crs2.setString(1,driver.getEmailID());
+            crs2.setString(2,isToUni ? "1" : "0");
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            LocalDateTime date = LocalDateTime.parse(arrivalDepartureTime, formatter);
+            LocalTime t = LocalTime.parse(arrivalDepartureTime, formatter);
+            LocalDateTime date = LocalDateTime.of(LocalDate.now(), t);
             Timestamp ts = Timestamp.valueOf(date);
-            crs.setTimestamp(3, ts);
+            crs2.setTimestamp(3, ts);
             
-            crs.setString(4, startingLocation.toDbString());
-            crs.setString(5, endingLocation.toDbString());
-            //TODO: Change to sql extracted
-            crs.setInt(6,3);
+            crs2.setString(4, startingLocation.toDbString());
+            crs2.setString(5, endingLocation.toDbString());
+            crs2.setInt(6,crs1.getInt("car_capacity"));
 
-            crs.execute();
+            crs2.execute();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(Ride.class.getName()).log(Level.SEVERE, null, ex);

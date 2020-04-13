@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "OfferARideController", urlPatterns = {"/OfferARideController"})
 public class OfferARideController extends HttpServlet {
 
-    public void setRideAttributes(Ride r, String isToUni, Location startingLocation, Location endingLocation,Driver d) {
+    public void setRideAttributes(Ride r, String isToUni, Location startingLocation, Location endingLocation,Driver d, String arrivalDepTime) {
         if (isToUni.equals("1")) {
             r.setIsToUni(true);
         } else {
@@ -36,7 +36,7 @@ public class OfferARideController extends HttpServlet {
         r.setStartingLocation(startingLocation);
         r.setEndingLocation(endingLocation);
         r.setDriver(d);
-
+        r.setArrivalDepartureTime(arrivalDepTime);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -73,19 +73,18 @@ public class OfferARideController extends HttpServlet {
 
             //Single or Weekly Rides
             boolean isSingle = request.getParameter("single_or_weekly").equals("single");
-            LocalDate date = null;
             if (isSingle) {
                 r = new SingleRide();
-                setRideAttributes(r,isToUni,startingLocation,endingLocation,d);
-                date = LocalDate.parse(request.getParameter("ride_date"));
+                setRideAttributes(r,isToUni,startingLocation,endingLocation,d, rideTime);
+                LocalDate date = LocalDate.parse(request.getParameter("ride_date"));
                 ((SingleRide) r).setDate(date);
-                //((SingleRide) r).updateRideDetails();
+                ((SingleRide) r).updateRideInfo();
             } else {
                 r = new WeeklyRide();
-                setRideAttributes(r,isToUni,startingLocation,endingLocation,d);
+                setRideAttributes(r,isToUni,startingLocation,endingLocation,d, rideTime);
                 for (String day : request.getParameterValues("ride_days")) {
                     ((WeeklyRide)r).setDay(day);
-                    //((WeeklyRide)r).updateRideDetails();
+                    ((WeeklyRide)r).updateRideInfo();
                 }
             }
 
