@@ -30,11 +30,19 @@
         </div>
 
         <form action="OfferARideController" onsubmit ="return checkCheckboxes();" align = "center" name="search_rides_form"><font  style = "font-family: avenir">
-            <c:if test="${!empty errmsg}" >
-                <div class="alert alert-danger">
-                    ${errmsg}
-                </div>
-            </c:if>
+            <c:choose>
+                <c:when test="${!empty errmsg}">
+                    <div class="alert alert-danger">
+                        ${errmsg}
+                    </div>
+                </c:when>
+                <c:when test="${!empty successmsg}">
+                    <div class="alert alert-info">
+                        ${successmsg}
+                    </div>
+                </c:when>
+            </c:choose>
+
             <div class="form-group">
                 <h3> Select Ride Frequency </h3>
                 <input type="radio" name="single_or_weekly" id = "single" value="single" onclick="manageSingleWeekly(this)" checked required/> Single

@@ -94,6 +94,7 @@ public class OfferARideController extends HttpServlet {
             rd.forward(request, response);
         }
 
+        request.setAttribute("successmsg", "Successfully Offered Ride!");
         RequestDispatcher rd = request.getRequestDispatcher("OfferARide.jsp");
         rd.forward(request, response);
     }
