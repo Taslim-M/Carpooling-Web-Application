@@ -33,23 +33,24 @@
                     zoom: 11.5,
                     streetViewControl: false
                 });
-                var arrayList = ${singleRides};
-                for (var x = 0; x < arrayList.length; x++) {
-                    let username = arrayList[x].something;
-                    let latitude = arrayList[x].something;
-                    let longitude = arrayList[x].something;
-                    dropMarker(latitude, longtude, username);
-                }
+                dropMarker(25.2777035,55.4090725,"Taslim");
+//                var arrayList = ${singleRides};
+//                for (var x = 0; x < arrayList.length; x++) {
+//                    let username = arrayList[x].something;
+//                    let latitude = arrayList[x].something;
+//                    let longitude = arrayList[x].something;
+//                    dropMarker(latitude, longtude, username);
+//                }
             }
 
-            function dropMarker(lat, long, stationName) {
+            function dropMarker(lat, long, username) {
                 var location = {lat: lat, lng: long};
-                var contentString = "<h4>" + stationName + "<h4>";
+                var contentString = "<h4>" + username + "<h4>";
                 //this is what pops up on click
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString
                 });
-                var marker = new google.maps.Marker({position: location, map: map, title: User});
+                var marker = new google.maps.Marker({position: location, map: map, title: username});
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
                 });
