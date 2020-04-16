@@ -33,7 +33,7 @@
                     zoom: 11.5,
                     streetViewControl: false
                 });
-                dropMarker(25.2777035,55.4090725,"Taslim");
+                dropMarker(25.2777035, 55.4090725, "Taslim");
 //                var arrayList = ${singleRides};
 //                for (var x = 0; x < arrayList.length; x++) {
 //                    let username = arrayList[x].something;
@@ -64,7 +64,15 @@
     <body>
         <jsp:include page="navbar.html"/>
         <h2>This is a test jsp file</h2>
+
+        <div class="container">
+
+        </div>
         <div id="map"></div>
+
+
+
+
 
     </body>
 </html>

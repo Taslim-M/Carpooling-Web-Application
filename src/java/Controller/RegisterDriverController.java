@@ -70,7 +70,7 @@ public class RegisterDriverController extends HttpServlet {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(RegisterDriverController.class.getName()).log(Level.SEVERE, null, ex);
-                request.setAttribute("errmsg", "Connection Issues. Try again Later");
+                request.setAttribute("errmsg", "Something went wrong. If you already submitted a request earlier, please have patience.");
             }
         }else{
             System.out.println("Passenger said false");
