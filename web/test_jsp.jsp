@@ -11,26 +11,60 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <meta name="viewport" content="initial-scale=1.0">
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 100%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
         <script>
             var map;
-            function initialize() {
-                var mapOptions = {
-                    zoom: 8,
-                    center: new google.maps.LatLng(25.2826466,55.4076209)
-                };
-                map = new google.maps.Map(document.getElementById('map-canvas'),
-                        mapOptions);
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 25.233, lng: 55.39},
+                    zoom: 11.5,
+                    streetViewControl: false
+                });
+                var arrayList = ${singleRides};
+                for (var x = 0; x < arrayList.length; x++) {
+                    let username = arrayList[x].something;
+                    let latitude = arrayList[x].something;
+                    let longitude = arrayList[x].something;
+                    dropMarker(latitude, longtude, username);
+                }
             }
 
-            google.maps.event.addDomListener(window, 'load', initialize);
+            function dropMarker(lat, long, stationName) {
+                var location = {lat: lat, lng: long};
+                var contentString = "<h4>" + stationName + "<h4>";
+                //this is what pops up on click
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                var marker = new google.maps.Marker({position: location, map: map, title: User});
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            }
         </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBecfmKbsd_B0ZuJNoR665hgZ5-lZb0baA&callback=initMap"
+        async defer></script>
     </head>
+
+
     <body>
         <jsp:include page="navbar.html"/>
         <h2>This is a test jsp file</h2>
-        <div id="map-canvas" style="height:300px; width:500px"></div>
+        <div id="map"></div>
+
     </body>
 </html>
 
