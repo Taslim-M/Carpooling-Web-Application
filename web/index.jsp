@@ -23,6 +23,55 @@
                 return true;
             }
         </script>
+        <style>
+            body {
+                background: url('https://free4kwallpapers.com/uploads/originals/2019/06/08/dubai-burj-khalifa-wallpaper.jpg') no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;
+            }
+            .login-dark form {
+                max-width:320px;
+                width:90%;
+                background-color:#1e2833;
+                padding:40px;
+                border-radius:4px;
+                transform:translate(-50%, -50%);
+                position:absolute;
+                top:50%;
+                left:50%;
+                color:#fff;
+                box-shadow:3px 3px 4px rgba(0,0,0,0.2);
+            }
+            .login-dark form .btn-primary {
+                background:#214a80;
+                border:none;
+                border-radius:4px;
+                padding:11px;
+                box-shadow:none;
+                margin-top:26px;
+                text-shadow:none;
+                outline:none;
+            }
+            .login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
+                background:#214a80;
+                outline:none;
+            }
+            .login-dark form .form-control {
+                background:none;
+                border:none;
+                border-bottom:1px solid #434a52;
+                border-radius:0;
+                box-shadow:none;
+                outline:none;
+                color:inherit;
+            }
+            .login-dark form .btn-primary:active {
+                transform:translateY(1px);
+            }
+        </style>
+
     </head>
     <body class="h-100">
         <div class ="container h-100">
@@ -30,29 +79,32 @@
                 <div class ="col-10 col-md-8 col-lg-6">
 
                     <div class="px-2">
-                        <form name = "loginform" action="LoginController" method="post" class="justify-content-center">
-                            <h1>USCP</h1>
-                            <c:if test="${!empty errmsg}" >
-                                <div class="alert alert-danger">
-                                    ${errmsg}
-                                </div>
-                            </c:if>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required/>
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd">Password:</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required/>
-                            </div>
+                        <div class="login-dark">
+                            <form name = "loginform" action="LoginController" method="post" class="form justify-content-center">
+                                <h1 class="card-title text-center">USCP</h1>
+                                <c:if test="${!empty errmsg}" >
+                                    <div class="alert alert-danger">
+                                        ${errmsg}
+                                    </div>
+                                </c:if>
+                                <div class="form-group">
 
-                            <button type="submit" onClick="return validate();" class="btn btn-success btn-lg">Submit</button>
-                            <div class ="container">
-                                <p class="copyright">&copy; University Student Carpooling Platform by Team-E.</p>
-                                <a href="NewUserRegistration.jsp" class="btn btn-primary btn-block" role="button">Register Here</a>
-                            </div>
-                        </form>
-                        <!-- Form end -->
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required/>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required/>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" onClick="return validate();" class="btn btn-block btn-success">Login</button>
+                                </div>
+                                <div class ="container">
+                                    <p class="copyright">&copy; USCP by Team-E.</p>
+                                    <a href="NewUserRegistration.jsp" class="btn btn-primary btn-block" role="button">Register Here</a>
+                                </div>
+                            </form>
+                            <!-- Form end -->
+                        </div>
                     </div>
                 </div>
             </div>
