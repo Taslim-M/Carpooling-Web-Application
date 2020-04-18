@@ -5,6 +5,7 @@
  */
 package DriverRideManagementModule;
 
+import EmailInterface.EmailSender;
 import PassengerRideManagementModule.Location;
 import PassengerRideManagementModule.Passenger;
 import PassengerRideManagementModule.Request;
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.http.Part;
 import javax.sql.rowset.CachedRowSet;
 
@@ -347,7 +349,7 @@ public class Driver extends Passenger {
                 crs.setString(2, carModel);
                 crs.setInt(3, capacity);
                 crs.execute();
-
+                EmailSender.notifyAdminNewApplicant("b00075270@aus.edu", email); //The actual admin email address is invalid, hence we use this as a trial
             } else {
                 return false;
             }
@@ -355,6 +357,8 @@ public class Driver extends Passenger {
             System.out.println(" SOMETHING IN DRIVER ER:" + ex);
             Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } catch (MessagingException ex) {
+            Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
