@@ -158,7 +158,7 @@ public abstract class Ride {
     public static boolean isValid(String rideTime) {
         String[] time1 = rideTime.split(":");
         Integer hours = Integer.parseInt(time1[0]);
-        if (hours > 22 || hours < 3) {
+        if (hours >= 22 || hours < 3) {
             return false;
         }
         return true;

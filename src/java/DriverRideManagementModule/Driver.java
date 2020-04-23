@@ -318,9 +318,7 @@ public class Driver extends Passenger {
         return currDriver;
     }
 
-    private String getRideId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     public boolean updateDriverProfile(String email, String carModel, Integer capacity, Part eid, Part license, Part carReg) throws SQLException {
         try {
@@ -375,8 +373,5 @@ public class Driver extends Passenger {
         crs.execute();
     }
 
-    public boolean submitRideDetails() {
-        //check ride details
-        return false;
-    }
+
 }
