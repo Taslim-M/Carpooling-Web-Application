@@ -35,9 +35,10 @@ Author     : reem
                     zoom: 11.5,
                     streetViewControl: false
                 });
+                var i = 1;
                 var markers = [
             <c:forEach items="${Requests}" var = "request">
-                        [<c:out value="${request.pickupLocation.latitude}"/>,<c:out value="${request.pickupLocation.longitude}"/>,<c:out value= "${request.requested_ride_id}"/>],
+                        [<c:out value="${request.pickupLocation.latitude}"/>,<c:out value="${request.pickupLocation.longitude}"/>,<c:out value= "i++" />],
             </c:forEach>];
                 //dropMarker(25.2777035, 55.4090725, "Taslim");
 
@@ -76,6 +77,7 @@ Author     : reem
                     <thead class="thead-dark">
 
                         <tr bgcolor="#E9E9E9">
+                            <th align = "center"><b><font style = "font-family: avenir" >Passenger No.</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >Ride_ID</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >Passenger_ID</font></b></td>
                             <th align = "center"><b><font style = "font-family: avenir" >Pickup Location</font></b></td>
@@ -86,8 +88,11 @@ Author     : reem
                         </tr> 
                     </thead>
                     <tbody>
+                        <% int i=1;%>
                         <c:forEach items="${Requests}" var = "request" >
                             <tr bgcolor="#FFFFFF">
+                                
+                                <td align = "center"><font style = "font-family: avenir" ><%out.println(i);%></font></td>
                                 <td align = "center"><font style = "font-family: avenir" >${request.requested_ride_id}</font></td>
                                 <td align = "center"><font style = "font-family: avenir" >${request.passengerid}</font></td>
                                 <td align = "center"><font style = "font-family: avenir" >${request.pickupLocation}</font></td>
@@ -95,7 +100,7 @@ Author     : reem
                                 <td align = "center"><form action="ViewPassengerInfoController" target="_blank"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type="submit" value= "View" class="btn btn-info"></form></td>
                                 <td align = "center"><form action="PassengerActionController"><input type = "hidden" name = "passengerid" value = ${request.passengerid} ><input type = "hidden" name = "passengerstatus" value = ${request.confirmationbutton} ><input type = "hidden" name = "rideid" value = ${request.requested_ride_id} ><input type="submit" class= "btn btn-primary" value= ${request.confirmationbutton} ></form></td>
 
-
+                        <% i++;%>
                             </tr>
                         </c:forEach>
                     </tbody>
