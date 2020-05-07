@@ -352,7 +352,6 @@ public class Driver extends Passenger {
                 return false;
             }
         } catch (IOException ex) {
-            System.out.println(" SOMETHING IN DRIVER ER:" + ex);
             Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } catch (MessagingException ex) {
